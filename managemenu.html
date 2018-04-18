@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="mm.css" />
+    <script src="menu.js"></script>
+</head>
+<body>
+    <table>
+        <caption>The Menu</caption>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>dropdown category</th>
+                <th>price</th>
+                <th>delete button</th>
+            </tr>
+        </thead>
+        <tfoot>
+
+        </tfoot>
+        <tbody>
+            <tr onclick="onSelect(event)">
+                <td><img src=""></td>
+                <td>Rice</td>
+                <td>dropdown category</td>
+                <td>&#x20A6;400</td>
+                <td><button>-</button></td>
+            </tr> 
+            <tr>
+                <td><img src=""></td>
+                <td>Rice</td>
+                <td>dropdown category</td>
+                <td>&#x20A6;400</td>
+                <td><button>-</button></td>
+            </tr>           
+        </tbody>
+    </table>
+    <div id="modal-container" class="modal">
+        <span id="close" class="close" onclick="onClose()">&times;</span>
+        <form id="modal-form" class="modal-form" action="" method="POST">
+            <div>
+                <img src="">
+            </div>
+            <div class="form-details">
+                <div class="foodInfo">
+                    <label for="filename" style="color: rgb(45, 117, 146);">Select Image</label>
+                    <input id="filename" name="filename" type="file" placeholder="Select Image">
+                    <input id="foodname" name="foodname" type="text" placeholder="Food Name">
+                    <textarea rows="4"  name="comment" form="modal-form" placeholder="Enter Description..."></textarea>
+                </div>
+                <hr>
+                <div id="mealwith" class="mealwith">
+                    <h4>Goes With</h4>
+                    <div class="item row">
+                        <div class="col-5"><input type="checkbox" name="" value=""><span >Garri</span></div>
+                        <div class="col-2"><input type="number"></div>
+                        <div class="col-1"><input type="button" value="-"></div>
+                    </div>
+                    <div class="item row">
+                        <div class="col-5"><input type="checkbox" name="" value=""><span >Amala</span></div>
+                        <div class="col-2"><input type="number"></div>
+                        <div class="col-1"><input type="button" value="-"></div>
+                    </div>
+                    <div class="item row">
+                        <div class="col-5"><input type="checkbox" name="" value=""><span >Akpu</span></div>
+                        <div class="col-2"><input type="number"></div>
+                        <div class="col-1"><input type="button" value="-"></div>
+                    </div>
+                    <div class="item row">
+                        <div class="col-5"><input type="checkbox" name="" value=""><span >Pounded Yam</span></div>
+                        <div class="col-2"><input type="number"></div>
+                        <div class="col-1"><input type="button" value="-"></div>
+                    </div>
+                    <input type="button" value="+" style="margin-left: 18px">
+                </div>
+                <hr>
+                <div id="mealextra" class="mealextra">
+                    <h4>Extras</h4>
+                    <div class="item row">
+                        <div class="col-5"><input type="checkbox" name="" value=""><span >Beef</span></div>
+                        <div class="col-2"><input type="number"></div>
+                        <div class="col-1"><input type="button" value="-"></div>
+                    </div>
+                    <div class="item row">
+                        <div class="col-5"><input type="checkbox" name="" value=""><span >Chicken</span></div>
+                        <div class="col-2"><input type="number"></div>
+                        <div class="col-1"><input type="button" value="-"></div>
+                    </div>
+                    <div class="item row">
+                        <div class="col-5"><input type="checkbox" name="" value=""><span >Mutton</span></div>
+                        <div class="col-2"><input type="number"></div>
+                        <div class="col-1"><input type="button" value="-"></div>
+                    </div>
+                    <div class="item row">
+                        <div class="col-5"><input type="checkbox" name="" value=""><span >Turkey</span></div>
+                        <div class="col-2"><input type="number"></div>
+                        <div class="col-1"><input type="button" value="-"></div>
+                    </div>
+                    <input type="button" value="+" style="margin-left: 18px">
+                </div>
+                <div>
+                    <input type="submit"  class="save" value="Save">
+                </div>
+            </div>       
+        </form>
+    </div>
+</body>
+</html>
