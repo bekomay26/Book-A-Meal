@@ -1,23 +1,9 @@
 * {
     box-sizing: border-box;
+    font-family: 'Jua', sans-serif;
 }
-body{
+.row:nth-child(even){
     background-color: #ddd;
-}
-
-.admin{
-    width: 100%;
-    height: 100px;
-    position: fixed;
-    background-color: rgb(36, 35, 35);
-    color: white;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-.row:nth-child(odd){
-    background-color: white;
 }
 .row::after {
     content: "";
@@ -42,16 +28,83 @@ body{
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
 
+body{
+    background-color: white;
+}
+img{
+    width: 60px;
+    height: 70px;
+    border-radius: 50%;
+    align-self: center;
+    margin: auto;
+}
+.admin{
+    width: 100%;
+    position: fixed;
+    background-color: rgb(48, 47, 47);
+    color: white;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    padding:0;
+}
+.admin [class*="col-"] {
+    float: left;
+    padding: 0px;
+    /* border: 1px solid red; */
+}
+
+.logo{
+    width: 100px;
+    height: 100px;
+}
+h2{
+    text-align: center;
+    margin-top:25px;
+    font-size: 2em;
+}
+.fa-long-arrow-alt-left{
+    font-size: 1em;
+    padding: 4px 15px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+.fa-long-arrow-alt-left:hover{
+    color: red;
+}
+a{
+    text-decoration: none;
+    /* padding: 10px 20px; */
+    color: white;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.out{
+    margin-top: 15px;
+    padding-bottom: 20px;
+}
+a:hover{
+    /* background-color: white; */
+    color: red;
+}
+
+
+
 .order{
     width:100%;
     margin-top: 105px;
+    border: 1px solid black;
+    border-top: none;
 }
 h1,h2{
     text-align: center;
 }
 .total-prc{
     color: Green;
-    font-size: 40px;
+    font-size: 30px;
+    margin-top: 20px;
 }
 h3{
     margin-bottom: 10px;
@@ -98,19 +151,17 @@ h3, p{
     overflow-y: unset;
     height: 55px;
 }
-img{
-    width: 60px;
-    height: 70px;
-    border-radius: 50%;
-    align-self: center;
-    margin: auto;
-}
+
 @media(min-width: 800px){
     .order{
         width: 80%;
         margin-left: auto;
         margin-right: auto;
         /* margin: 0 auto; */
+    }
+    .total-prc{
+        color: Green;
+        font-size: 40px;
     }
 }
 

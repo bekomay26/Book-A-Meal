@@ -28,7 +28,7 @@
 
 
 body{
-    background-color: #f5f5f5;
+    background-color: white;
 }
 img{
     height: 120px;
@@ -104,9 +104,7 @@ img{
         margin: 0;
         padding: 0;
     }
-    body{
-        background-color: #dddddd;
-    }
+    
     .admin{
         width: 20%;
         position:fixed;

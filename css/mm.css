@@ -1,25 +1,53 @@
 * {
     box-sizing: border-box;
+    font-family: 'Jua', sans-serif;
 }
 
-h2{
-    text-align: center;
-}
-img{
-    width: 100px;
-}
+
 .admin{
     width: 100%;
-    height: 100px;
-    /* opacity: 0.5; */
     position: fixed;
-    background-color: rgb(36, 35, 35);
+    background-color: rgb(48, 47, 47);
     color: white;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: -1;
 }
 
+.logo{
+    width: 100px;
+}
+h2{
+    text-align: center;
+    margin-top:25px;
+    font-size: 2em;
+}
+.fa-long-arrow-alt-left{
+    font-size: 1em;
+    padding: 4px 15px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+.fa-long-arrow-alt-left:hover{
+    color: red;
+}
+a{
+    text-decoration: none;
+    /* padding: 10px 20px; */
+    color: white;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.out{
+    margin-top: 15px;
+    padding-bottom: 20px;
+}
+a:hover{
+    /* background-color: white; */
+    color: red;
+}
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;

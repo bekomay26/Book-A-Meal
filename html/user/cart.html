@@ -3,22 +3,25 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Today's Menu</title>
+    <title>My Order</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="">
     <link rel="stylesheet" type="text/css" media="screen" href="../../css/cart.css" />
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     <script src="../../js/menu.js"></script>
 </head>
 <body>
     <header class="row bigpic">
-        <div class="back-image"></div>
+        <!-- <div class="back-image"></div> -->
         <div class="back-image2"></div>
         <div class="navigate">
             <nav>
-                <li><a href="#"><img src="../../images/pl2.png"><h2>Today's Menu</h2></a></li>
-                <li><a href="#"><img src="../../images/pl2.png"><h2>Today's Menu</h2></a></li>
-                <li><a href="#"><img src="../../images/pl2.png"><h2>Today's Menu</h2></a></li>
-                <li><a href="#"><img src="../../images/pl2.png"><h2>Today's Menu</h2></a></li>
+                <li><a href="menu.html"><img src="../../images/pl2.png"><h2>Today's Menu</h2></a></li>
+                <li><a href="#"><img src="../../images/pl3.png" class="logo"><h2>Book-A-Meal</h2></a></li>
+                <li><a href="index.html"><img src="../../images/pl2.png"><h2>My Order</h2></a></li>
+                <!-- <li><a href="#"><img src="../../images/pl2.png"><h2>Today's Menu</h2></a></li>
+                <li><a href="#"><img src="../../images/pl2.png"><h2>Today's Menu</h2></a></li> -->
             </nav>
         </div>
         <div id="container" class="container">
@@ -43,8 +46,8 @@
                         <td>11:09</td>
                         <td>11:34</td>
                         <td>5400</td>
-                        <td  onclick="onSelect(event)" class="edit">f</td>
-                        <td><button>-</button></td>
+                        <td onclick="onSelect(event)" class="edit"><i class="far fa-edit"></i></td>
+                        <td><i class="far fa-trash-alt"></i></td>
                     </tr>
                     <tr>
                         <td>102301</td>
@@ -53,8 +56,8 @@
                         <td>11:09</td>
                         <td>11:34</td>
                         <td>5400</td>
-                        <td class="edit" onclick="onSelect(event)">f</td>
-                        <td><button>-</button></td>
+                        <td class="edit" onclick="onSelect(event)"><i class="far fa-edit"></i></td>
+                        <td><i class="far fa-trash-alt"></i></td>
                     </tr>
                     <tr>
                         <td>102301</td>
@@ -63,8 +66,8 @@
                         <td>11:09</td>
                         <td>11:34</td>
                         <td>5400</td>
-                        <td class="edit" onclick="onSelect(event)">f</td>
-                        <td><button>-</button></td>
+                        <td class="edit" onclick="onSelect(event)"><i class="far fa-edit"></i></td>
+                        <td><i class="far fa-trash-alt"></i></td>
                     </tr>
                 </tbody>
             </table>

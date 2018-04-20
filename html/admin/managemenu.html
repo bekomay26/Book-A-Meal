@@ -6,27 +6,29 @@
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../../css/mm.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Jua" rel="stylesheet">
     <script src="../../js/menu.js"></script>
 </head>
 <body>
     <div class="col-12 admin">
-        <div class="col-3"><img src="../../images/pl3.png"></div>
+        <div class="col-3"><img src="../../images/pl3.png" alt="Logo" class="logo"></div>
         <div class="info col-6">
             <h2>Manage Menu</h2>
             
         </div>
         <div class="col-3">
-            <a href="admin.html">Back</a>
+            <a href="admin.html" class="col-12 back"><i class="fas fa-long-arrow-alt-left"></i></a>
             <!-- <button>Back</button> -->
-            <a href="#">signout</a> 
+            <a href="#" class="col-12 out">signout</a> 
         </div>
     </div>
     <table>
         <thead>
             <tr>
-                <th>Image</th>
+                <th>Id</th>
                 <th>Name</th>
-                <th>dropdown category</th>
+                <th>category</th>
                 <th>price</th>
                 <th>delete button</th>
             </tr>
@@ -36,30 +38,30 @@
         </tfoot>
         <tbody>
             <tr onclick="onSelect(event)">
-                <td><img src=""></td>
+                <td>110134</td>
+                <td>Rice</td>
+                <td>category</td>
+                <td>&#x20A6;400</td>
+                <td><button>-</button></td>
+            </tr> 
+            <tr onclick="onSelect(event)">
+                <td>110134</td>
                 <td>Rice</td>
                 <td>dropdown category</td>
                 <td>&#x20A6;400</td>
                 <td><button>-</button></td>
             </tr> 
             <tr onclick="onSelect(event)">
-                <td><img src=""></td>
+                <td>110134</td>
                 <td>Rice</td>
-                <td>dropdown category</td>
-                <td>&#x20A6;400</td>
-                <td><button>-</button></td>
-            </tr> 
-            <tr onclick="onSelect(event)">
-                <td><img src=""></td>
-                <td>Rice</td>
-                <td>dropdown category</td>
+                <td>category</td>
                 <td>&#x20A6;400</td>
                 <td><button>-</button></td>
             </tr>
             <tr onclick="onSelect(event)">
-                <td><img src=""></td>
+                <td>110134</td>
                 <td>Rice</td>
-                <td>dropdown category</td>
+                <td>category</td>
                 <td>&#x20A6;400</td>
                 <td><button>-</button></td>
             </tr>          

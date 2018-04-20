@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: 'Jua', sans-serif;
 }
 
 .row::after {
@@ -9,7 +10,7 @@
 }
 [class*="col-"] {
     float: left;
-    padding: 15px;
+    /* padding: 15px; */
     /* border: 1px solid red; */
 }
 .col-1 {width: 8.33%;}
@@ -28,32 +29,57 @@
 /* form */
 .admin{
     width: 100%;
-    /* opacity: 0.5; */
     position: fixed;
-    background-color: rgb(36, 35, 35);
+    background-color: rgb(48, 47, 47);
     color: white;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: -1;
+}
+
+.logo{
+    width: 100px;
 }
 h2{
     text-align: center;
+    margin-top:25px;
+    font-size: 2em;
 }
-
-a{
-    text-decoration: none;
-    padding: 10px 20px;
-    color: white;
-}
-a:hover{
+.fa-long-arrow-alt-left{
+    font-size: 1em;
+    padding: 4px 15px;
     background-color: white;
     color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+.fa-long-arrow-alt-left:hover{
+    color: red;
+}
+a{
+    text-decoration: none;
+    /* padding: 10px 20px; */
+    color: white;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.out{
+    margin-top: 15px;
+    padding-bottom: 20px;
+}
+a:hover{
+    /* background-color: white; */
+    color: red;
 }
 form{
     
     width:100%;
     margin: 140px 0 130px 0;
     
+}
+.menu-items{
+    border: 1px solid #888;
+    border-bottom: none;
 }
 .other-checks{
     width: 100%;
@@ -62,15 +88,54 @@ form{
     bottom: 0;
     left: n;
     z-index: 1;
-    border-top: 2px solid black;
-    background-color: #bdbaba;
+    border: 1px solid black;
+    border-top: none;
+    background-color: #4CAF50;
+    /* #5F9EA0; */
     max-height: 180px;
-    /* opacity: 0.7; */
+    color: white;
+}
+.add-date{
+    margin: 30px 0;
+}
+.remove{
+    margin: 16px 0;
+    color: white;
+    background-color: red;
+    /* display: block; */
+}
+.remove:hover{
+    
+    color: red;
+    /* border: 1px solid red; */
+    background-color: white;
 }
 
+input[type=submit]{
+    margin: 30px;
+    padding: 10px 20px;
+    background-color: white;
+    color: blue;
+    border: none;
+    border-radius: 5px;
+}
+input[type=submit]:hover{
+    
+    background-color: blue;
+    color: white;
+    /* border: 1px solid #888; */
+}
 
 @media(min-width: 800px){
 
+    /* .fa-long-arrow-alt-left{
+        font-size: 2em;
+        padding: 7px 30px;
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        border-radius: 4px;
+    } */
     .admin{
         height: 100px;
     }
@@ -113,10 +178,12 @@ ul li:nth-child(odd) {
 
 ul li:nth-child(even) {
     background-color: #dddddd;
+    
 }
 
 ul li:hover {
-    background-color: rgb(128, 185, 207);
+    background-color: #888;
+    color: white;
 }
 
 ul li.checked {
