@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Today's Menu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="">
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/cart.css" />
+    <script src="../../js/menu.js"></script>
+</head>
+<body>
+    <header class="row bigpic">
+        <div class="back-image"></div>
+        <div class="back-image2"></div>
+        <div class="navigate">
+            <nav>
+                <li><a href="#"><img src="../../images/pl2.png"><h2>Today's Menu</h2></a></li>
+                <li><a href="#"><img src="../../images/pl2.png"><h2>Today's Menu</h2></a></li>
+                <li><a href="#"><img src="../../images/pl2.png"><h2>Today's Menu</h2></a></li>
+                <li><a href="#"><img src="../../images/pl2.png"><h2>Today's Menu</h2></a></li>
+            </nav>
+        </div>
+        <div id="container" class="container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Caterer</th>
+                        <th>Time Ordered</th>
+                        <th>Est. Delivery Time</th>
+                        <th>Price</th>
+                        <th>edit</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>102301</td>
+                        <td>Thomas Selin</td>
+                        <td>Fola</td>
+                        <td>11:09</td>
+                        <td>11:34</td>
+                        <td>5400</td>
+                        <td  onclick="onSelect(event)" class="edit">f</td>
+                        <td><button>-</button></td>
+                    </tr>
+                    <tr>
+                        <td>102301</td>
+                        <td>Thomas Selin</td>
+                        <td>Fola</td>
+                        <td>11:09</td>
+                        <td>11:34</td>
+                        <td>5400</td>
+                        <td class="edit" onclick="onSelect(event)">f</td>
+                        <td><button>-</button></td>
+                    </tr>
+                    <tr>
+                        <td>102301</td>
+                        <td>Thomas Selin</td>
+                        <td>Fola</td>
+                        <td>11:09</td>
+                        <td>11:34</td>
+                        <td>5400</td>
+                        <td class="edit" onclick="onSelect(event)">f</td>
+                        <td><button>-</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </header>
+    
+    <div id="modal-container" class="modal">
+        <span id="close" class="close" onclick="onClose()">&times;</span>
+        <form class="modal-form" action="" method="POST">
+            
+            <div class="form-details">
+                <div class="foodDesc">
+                    <p>Food Name</p>
+                    <p> Food Description</p>
+                </div>
+                <div id="mealwith" class="mealwith">
+                    <h4>Goes With</h4>
+                    <div>
+                        <input type="checkbox" name="" value=""><span>Garri</span>
+                        <input type="number">
+                        <span class="foodprice">price</span>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="" value=""><span>Garri</span>
+                        <input type="number">
+                        <span class="foodprice">price</span>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="" value=""><span>Garri</span>
+                        <input type="number">
+                        <span class="foodprice">price</span>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="" value=""><span>Garri</span>
+                        <input type="number">
+                        <span class="foodprice">price</span>
+                    </div>
+                </div>
+                <div id="mealextras" class="mealextra row">
+                    <h4>On Top</h4>
+                    <div>
+                        <input type="checkbox" name="" value="">Beef
+                        <input type="number">
+                        <span class="foodprice">price</span>
+                    </div>
+                    
+                    <div>
+                        <input type="checkbox" name="" value="">Beef
+                        <input type="number">
+                        <span class="foodprice">price</span>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="" value="">Beef
+                        <input type="number">
+                        <span class="foodprice">price</span>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="" value="">Beef
+                        <input type="number">
+                        <span class="foodprice">price</span>
+                    </div>
+                <div class ="pricetotal">
+                    <h4>Total<span>Price</span></h4>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    <ul>
+        <li><a>Atama Soup</a> &#x20A6;400</li>
+        <li>Banga Rice</li>
+        <li>Tuwo Sinkafa</li>
+        <li>Ewa Aganyin</li>
+        
+    </ul>
+</body>
+</html>

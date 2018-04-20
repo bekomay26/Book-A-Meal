@@ -1,0 +1,229 @@
+* {
+    box-sizing: border-box;
+}
+
+h2{
+    text-align: center;
+}
+img{
+    width: 100px;
+}
+.admin{
+    width: 100%;
+    height: 100px;
+    /* opacity: 0.5; */
+    position: fixed;
+    background-color: rgb(36, 35, 35);
+    color: white;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 105px;
+}
+
+td, th {
+    border: 1.4px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+th{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+tr:nth-child(odd) {
+    background-color: #dddddd;
+ }
+
+tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+th {
+    background-color: white;
+    color: black;
+}
+
+tr:hover {
+    background-color: #888;
+    cursor: pointer;
+}
+
+
+@media(min-width: 800px){
+
+    img{
+        width: 100px;
+    }
+    .admin{
+        height: 100px;
+    }
+    table{
+        max-width: 700px;
+        margin-left:  auto;
+        margin-right: auto;
+    }
+}
+
+/* Modal Form */
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 15;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0);
+    background-color: rgba(0,0,0, 0.4);
+    padding-top: 60px;
+}
+
+.modal-form{
+    border: 5px solid #888;
+    background-color: #f5f5f5;
+    margin: 5px auto;
+    width: 80%;
+}
+
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0; 
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+
+form {
+    margin:0 auto;
+    width: 300px;
+    max-width: 400px;
+    /* border: 3px solid #f1f1f1; */
+    
+}
+
+
+.form-details{
+    align-items: center;
+    padding-left: 5%;
+    height: 500px;
+    overflow: auto;
+}
+
+
+textarea{
+    width: 80%;
+    max-width: 100%;
+}
+
+hr{
+    margin: 30px 40px 30px 15px;
+    padding: 0 20px;
+    color: 2px solid #888;
+}
+.mealwith h4, .mealextra h4{
+    padding-left: 15px;
+    color: rgba(0,0,0);
+    /* color: rgb(45, 117, 146); */
+}
+
+.item{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    /* padding: 15px 0; */
+}
+
+.item div{
+    display: inline;
+}
+
+.item div span{
+    /* color: rgb(128, 185, 207); */
+    color: rgba(0,0,0);
+}
+
+.pricetotal{
+    background-color: whitesmoke;
+    padding: 20px 0;
+}
+input[type=file], input[type=text], textarea{
+    margin: 15px 0;
+}
+
+input[type=text], textarea{
+    border: 1px solid #888;
+}
+
+input[type=number]{
+    width: 50%;
+    /* padding: 5px 0px; */
+    /* margin: 8px 0; */
+    display: inline-block;
+    border: 1px solid #888;
+    box-sizing: border-box;
+    float: none;
+    /* float: right; */
+    
+}
+
+input[type=button]{
+    color: white;
+    background-color: #888;
+    border:none;
+    border-style: solid;
+    border-width: 1px;
+    color: rgba(0,0,0);
+    /* border-color: rgb(45, 117, 146); */
+    border-radius: 0.5px;
+    
+}
+
+input[type=submit] {
+    background-color: #888;
+    color: rgba(0,0,0);
+    padding: 14px 20px;
+    margin: 25px 15px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 90%;
+}
+
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+[class*="col-"] {
+    float: left;
+    /* padding: 15px; */
+    /* border: 1px solid red; */
+}
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}

@@ -1,0 +1,11 @@
+[33mcommit 1332cd34d527a494d227caf660eea8ed1c28ef34[m
+Author: Folajimi Ogunbadejo <bekomay26@gmail.com>
+Date:   Wed Apr 18 13:58:21 2018 +0100
+
+    updated menu page design
+
+[33mcommit e7a90c5edb3a6668c73af566964335fc5fe3c21a[m
+Author: Folajimi Ogunbadejo <bekomay26@gmail.com>
+Date:   Wed Apr 18 12:08:09 2018 +0100
+
+    initial design for menu page and addToOrder modal feature
