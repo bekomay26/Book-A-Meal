@@ -3,7 +3,7 @@
 An application that allows customers to make food orders, helps the food vendor decide on what to eat and aids the caterer in managing the business.
 
 ## Demo
-[Book-A-Meal](https://bekomay26.github.io/Book-A-Meal/UI/html/)
+[Book-A-Meal](https://bekomay26.github.io/Book-A-Meal/UI/html/).
 
 ##Features
 
