@@ -100,15 +100,11 @@ form{
 }
 .remove{
     margin: 16px 0;
-    color: white;
-    background-color: red;
-    /* display: block; */
+    
 }
 .remove:hover{
-    
+    cursor: pointer;
     color: red;
-    /* border: 1px solid red; */
-    background-color: white;
 }
 
 input[type=submit]{

@@ -83,6 +83,14 @@ tr:hover {
     cursor: pointer;
 }
 
+.remove{
+    margin: 16px 0;
+    
+}
+.remove:hover{
+    color: red;
+    cursor: pointer;
+}
 
 @media(min-width: 800px){
 
