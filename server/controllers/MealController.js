@@ -1,5 +1,6 @@
 import Controller from './Controller';
-import { Meal, mealsObject } from '../models/Meal';
+import Meal from '../models/Meal';
+import meals from '../tests/dummyData/fakeData';
 
 class MealController extends Controller {
   static createMeal(req, res) {
@@ -17,17 +18,14 @@ class MealController extends Controller {
         message: 'Failure: Input missing field',
       });
     }
-    const meal = new Meal(title, description, image, price);
-    const lenOfId = mealsObject.meals.length;
+
+    const lenOfId = meals.length;
+    const id = meals[lenOfId - 1].id + 1;
+    const meal = new Meal(id, title, description, image, price);
 
     // if meal array is not empty set the id to the last element + 1 else, set it to zero
-    if (lenOfId !== 0) {
-      meal.setId(mealsObject.meals[lenOfId - 1].id + 1);
-    } else {
-      meal.setId(0);
-    }
-    mealsObject.meals.push(meal);
-    console.log(mealsObject.meals);
+    meals.push(meal);
+    console.log(meals);
     return res.status(201).json({
       message: 'Success: Meal created',
     });

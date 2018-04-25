@@ -1,6 +1,6 @@
-export class Meal {
-  constructor(title, desription, image, price) {
-    // this.id = 0;
+class Meal {
+  constructor(id, title, desription, image, price) {
+    this.id = id;
     this.title = title;
     this.desription = desription;
     this.image = image;
@@ -10,5 +10,6 @@ export class Meal {
     this.id = value;
   }
 }
+export default Meal;
 
-export const mealsObject = { meals: [] }; // can't just export the meals array. it is immutable
+// export const mealsObject = { meals: [] }; // can't just export the meals array. it is immutable
