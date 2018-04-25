@@ -5,6 +5,7 @@ const mealRouter = express.Router();
 
 mealRouter.route('/')
   .post(MealController.createMeal);
+mealRouter.put('/:id', MealController.update);
 // mealRouter.post('/', () => {
 //   MealController.createMeal;
 // })

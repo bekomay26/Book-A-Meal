@@ -7,7 +7,7 @@ import app from '../../app';
 // const { expect } = chai.expect;
 // chai.use(chaiHttp);
 
-describe('/POST book', () => {
+describe('/POST meal', () => {
   it('it should not POST a meal without the price field', (done) => {
     const meal = {
       title: 'Bread',
@@ -15,7 +15,7 @@ describe('/POST book', () => {
       image: 'fgffh',
     };
     request(app)
-      .post('/meals')
+      .post('/api/v1/meals')
       .send(meal)
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
@@ -32,10 +32,45 @@ describe('/POST book', () => {
       price: 999,
     };
     request(app)
-      .post('/meals')
+      .post('/api/v1/meals')
       .send(meal)
       .end((err, res) => {
         expect(res.statusCode).to.equal(201);
+        done();
+      });
+  });
+
+});
+
+describe('/PUT meal', () => {
+  it('it should not POST a meal that is not found', (done) => {
+    const meal = {
+      title: 'Bread',
+      description: 'Bread Bread',
+      image: 'fgffh',
+    };
+    request(app)
+      .put('/api/v1//meals/1114')
+      .send(meal)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        // expect(res).to.have.status(400);
+        // if (err) return done(err);
+        done();
+      });
+  });
+  it('it should PUT a meal ', (done) => {
+    const meal = {
+      title: 'Bread',
+      description: 'Bread Bread',
+      image: 'fgffh',
+      price: 999,
+    };
+    request(app)
+      .put('/api/v1/meals/1111')
+      .send(meal)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
         done();
       });
   });
