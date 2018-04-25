@@ -55,6 +55,31 @@ class MealController extends Controller {
       message: `Cannot find meal with id ${id}`,
     });
   }
+  static destroy(req, res) {
+    const id = parseInt(req.params.id, 10);
+    for (let i = 0; i < meals.length; i += 1) {
+      if (parseInt(meals[i].id, 10) === id) {
+        meals.splice(i, 1);
+        return res.status(200)
+          .json({
+            success: true,
+            message: 'Meal deleted',
+            meals,
+          });
+      }
+    }
+    return res.status(404).json({
+      success: false,
+      message: `Cannot find meal with id ${id}`,
+    });
+  }
+  static retrieveAll(req, res) {
+    res.status(200).json({
+      success: true,
+      message: 'Meals retrieved',
+      meals,
+    });
+  }
 }
 
 export default MealController;

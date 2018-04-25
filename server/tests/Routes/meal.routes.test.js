@@ -74,5 +74,36 @@ describe('/PUT meal', () => {
         done();
       });
   });
+});
 
+describe('/DELETE meal', () => {
+  it('it should not DELETE a meal that is not found', (done) => {
+    request(app)
+      .delete('/api/v1//meals/1114')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        // expect(res).to.have.status(400);
+        // if (err) return done(err);
+        done();
+      });
+  });
+  it('it should DELETE a meal ', (done) => {
+    request(app)
+      .delete('/api/v1/meals/1111')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+  });
+});
+
+describe('/RETRIEVE meals', () => {
+  it('it should RETRIEVE all meals ', (done) => {
+    request(app)
+      .get('/api/v1/meals/')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+  });
 });
