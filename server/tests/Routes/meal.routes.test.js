@@ -1,12 +1,13 @@
-import { chai, expect } from 'chai';
+import { expect } from 'chai';
 import request from 'supertest';
-import chaiHttp from 'chai-http';
 import app from '../../app';
 
+// import chaiHttp from 'chai-http';
 // chai.expect();
 // const { expect } = chai.expect;
 // chai.use(chaiHttp);
 
+/* global it, describe */
 describe('/POST meal', () => {
   it('it should not POST a meal without the price field', (done) => {
     const meal = {
@@ -39,7 +40,6 @@ describe('/POST meal', () => {
         done();
       });
   });
-
 });
 
 describe('/PUT meal', () => {
