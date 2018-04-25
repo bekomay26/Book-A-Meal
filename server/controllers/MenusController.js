@@ -1,9 +1,9 @@
 import Controller from './Controller';
 import Menu from '../models/Menu';
-import menus from '../tests/dummyData/fakeMenu';
+import menus from '../tests/dummyData/fakeMenus';
 
-class MenuController extends Controller {
-  static createMenu(req, res) {
+class MenusController extends Controller {
+  static addMenu(req, res) {
     const {
       date,
       meals,
@@ -42,4 +42,4 @@ class MenuController extends Controller {
   }
 }
 
-export default MenuController;
+export default MenusController;
