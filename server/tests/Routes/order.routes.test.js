@@ -112,3 +112,33 @@ describe('/GET orders', () => {
       });
   });
 });
+
+describe('/GET order for certain day', () => {
+  it('it should return a 400 status', (done) => {
+    request(app)
+      .get('/api/v1/orders/21-er')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body.message).to.equal('Input valid date parameter in format yyyy-mm-dd');
+        done();
+      });
+  });
+  it('it should return a 200 status', (done) => {
+    request(app)
+      .get('/api/v1/orders/2221-1-23')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('Orders for 2221/1/23 retrieved');
+        done();
+      });
+  });
+  it('it should return a 404 status', (done) => {
+    request(app)
+      .get('/api/v1/orders/2221-4-26')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body.message).to.equal('No order for 2221/4/26 was found');
+        done();
+      });
+  });
+});

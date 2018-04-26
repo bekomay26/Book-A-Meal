@@ -23,7 +23,7 @@ const orders = [{
 },
 {
   id: 3121,
-  date: '22221/1/23', // use yyyy-mm-dd format
+  date: '2221/1/23', // use yyyy-mm-dd format
   orderedBy: faker.name.firstName(),
   createdBy: faker.name.firstName(),
   dateTimeOrdered: faker.date.recent(),
