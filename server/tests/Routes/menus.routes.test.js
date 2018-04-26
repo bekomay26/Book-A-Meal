@@ -80,3 +80,47 @@ describe('/GET menus', () => {
       });
   });
 });
+
+
+describe('/PUT meal', () => {
+  it('it should not PUT a menu for a previous or current date', (done) => {
+    const menu = {
+      meals: ['meal1', 'meal2'],
+    };
+    request(app)
+      .put('/api/v1/menus/2018-01-24')
+      .send(menu)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body.message).to.equal('You cannot edit previous or today\'s menu');
+        done();
+      });
+  });
+  it('it should PUT a menu for an existing menu', (done) => {
+    const menu = {
+      meals: ['meal1', 'meal2'],
+    };
+    request(app)
+      .put('/api/v1/menus/2019-02-14')
+      .send(menu)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('Menu Updated');
+        done();
+      });
+  });
+
+  it('it should not PUT a menu for a non-existing menu', (done) => {
+    const menu = {
+      meals: ['meal1', 'meal2'],
+    };
+    request(app)
+      .put('/api/v1/menus/2020-02-14')
+      .send(menu)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body.message).to.equal('Cannot find menu for date 2020/02/14');
+        done();
+      });
+  });
+});
