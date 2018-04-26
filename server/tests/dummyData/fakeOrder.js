@@ -18,7 +18,7 @@ const orders = [{
     image_url: faker.image.imageUrl(),
     extras: ['Garri', 'Amala', 'Akpu'],
   },
-  status: 'pendingAdmin', // 4 variables - complete, cancelled, pendingUser, pendingAdmin
+  status: 'complete', // 4 variables - complete, cancelled, pendingUser, pendingAdmin
 },
 ];
 
