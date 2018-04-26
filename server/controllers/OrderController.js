@@ -69,6 +69,13 @@ class OrderController extends Controller {
       message: `Cannot find order with id ${id}`,
     });
   }
+  static retrieveOrders(req, res) {
+    res.status(200).json({
+      success: true,
+      message: 'Orders retrieved',
+      orders,
+    });
+  }
 }
 
 export default OrderController;

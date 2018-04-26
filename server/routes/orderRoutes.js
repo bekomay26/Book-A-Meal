@@ -7,6 +7,8 @@ orderRouter.route('/')
   .post(OrderController.createOrder);
 orderRouter.route('/:id')
   .put(OrderController.updateOrder);
+orderRouter.route('/')
+  .get(OrderController.retrieveOrders);
 
 // mealRouter.post('/', () => {
 //   MealController.createMeal;
