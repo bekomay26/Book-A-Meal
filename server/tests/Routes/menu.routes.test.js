@@ -70,7 +70,7 @@ describe('/GET menu', () => {
       .get('/api/v1/menu')
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
-        expect(res.body.message).to.equal('Meals retrieved');
+        expect(res.body.message).to.equal('Menu retrieved');
         done();
       });
   });

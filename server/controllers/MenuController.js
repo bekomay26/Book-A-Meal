@@ -50,7 +50,7 @@ class MenuController extends Controller {
   static retrieveDayMenu(req, res) {
     res.status(200).json({
       success: true,
-      message: 'Meals retrieved',
+      message: 'Menu retrieved',
       menu,
     });
   }
