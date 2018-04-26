@@ -5,6 +5,8 @@ const menuRouter = express.Router();
 
 menuRouter.route('/')
   .post(MenuController.createMenu);
+menuRouter.route('/')
+  .get(MenuController.retrieveDayMenu);
 // menuRouter.put('/:id', MenuController.update);
 // menuRouter.delete('/:id', MenuController.destroy);
 // menuRouter.route('/')
