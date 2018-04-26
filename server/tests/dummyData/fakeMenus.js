@@ -2,7 +2,7 @@ import faker from 'faker';
 
 const menus = [{
   id: 2111,
-  date: '22/11/2121',
+  date: '26/4/2018',
   meals: [ // would be mealsId in database
     {
       id: 1222,
