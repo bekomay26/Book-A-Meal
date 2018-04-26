@@ -100,3 +100,15 @@ describe('/PUT order', () => {
       });
   });
 });
+
+describe('/GET orders', () => {
+  it('it should return a 200 status', (done) => {
+    request(app)
+      .get('/api/v1/orders')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('Orders retrieved');
+        done();
+      });
+  });
+});
