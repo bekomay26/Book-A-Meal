@@ -76,6 +76,37 @@ class OrderController extends Controller {
       orders,
     });
   }
+
+  static retrieveDayOrders(req, res) {
+    const { dateString } = req.params;
+    const dDate = dateString.replace(/-/g, '/'); // regex to replace all occurence
+    const dayOrders = [];
+    if (Number.isNaN(Date.parse(dateString))) {
+      return res.status(400)
+        .json({
+          success: false,
+          message: 'Input valid date parameter in format yyyy-mm-dd',
+        });
+    }
+    for (let i = 0; i < orders.length; i += 1) {
+      if (orders[i].date === dDate) {
+        dayOrders.push(orders[i]);
+      }
+    }
+    if (dayOrders.length <= 0) {
+      return res.status(404)
+        .json({
+          success: false,
+          message: `No order for ${dDate} was found`,
+        });
+    }
+    return res.status(200)
+      .json({
+        success: true,
+        message: `Orders for ${dDate} retrieved`,
+        dayOrders,
+      });
+  }
 }
 
 export default OrderController;
