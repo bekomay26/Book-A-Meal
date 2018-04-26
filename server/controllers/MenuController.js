@@ -46,6 +46,14 @@ class MenuController extends Controller {
       message: `Menu for today, the ${todaysDate} already exists`,
     });
   }
+  // should be retrieved by date when working with the database
+  static retrieveDayMenu(req, res) {
+    res.status(200).json({
+      success: true,
+      message: 'Meals retrieved',
+      menu,
+    });
+  }
 }
 
 export default MenuController;
