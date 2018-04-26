@@ -8,6 +8,7 @@ menusRouter.route('/')
 menusRouter.route('/')
   .get(MenusController.retrieveMenus);
 menusRouter.route('/:dateString').put(MenusController.updateMenu);
+menusRouter.route('/:id').delete(MenusController.destroy);
 // menuRouter.put('/:id', MenuController.update);
 // menuRouter.delete('/:id', MenuController.destroy);
 // menuRouter.route('/')

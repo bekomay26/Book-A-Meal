@@ -84,6 +84,27 @@ class MenusController extends Controller {
       message: `Cannot find menu for date ${dDate}`,
     });
   }
+
+  /** delete a meal, cannot select meals of previous days on the UI.
+   * same should be done for the edit above */
+  static destroy(req, res) {
+    const id = parseInt(req.params.id, 10);
+    for (let i = 0; i < menus.length; i += 1) {
+      if (parseInt(menus[i].id, 10) === id) {
+        menus.splice(i, 1);
+        return res.status(200)
+          .json({
+            success: true,
+            message: 'Menu deleted',
+            menus,
+          });
+      }
+    }
+    return res.status(404).json({
+      success: false,
+      message: `Cannot find menu with id ${id}`,
+    });
+  }
 }
 
 export default MenusController;
