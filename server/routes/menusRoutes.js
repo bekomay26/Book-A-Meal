@@ -5,6 +5,8 @@ const menusRouter = express.Router();
 
 menusRouter.route('/')
   .post(MenusController.addMenu);
+menusRouter.route('/')
+  .get(MenusController.retrieveMenus);
 // menuRouter.put('/:id', MenuController.update);
 // menuRouter.delete('/:id', MenuController.destroy);
 // menuRouter.route('/')
