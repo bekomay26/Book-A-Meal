@@ -12,7 +12,7 @@ class MenusController extends Controller {
     } = req.body;
 
     // if date is not inputted or meals array is empty
-    if (!date || meals.length <= 0) {
+    if (!date || !meals || meals.length <= 1) {
       return res.status(400).json({
         success: false,
         message: 'Input required missing field',

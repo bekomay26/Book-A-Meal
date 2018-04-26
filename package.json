@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "prestart": "babel-node ./server/startMessage.js",
-    "start": "npm-run-all --parallel security-check dev",
+    "start": "npm-run-all --parallel dev",
     "dev": "nodemon --exec babel-node ./server/app.js",
     "generate-mock-data": "babel-node ./server/dummyBuildScripts/generateMockData",
     "test": "nyc mocha --reporter progress --require babel-core/register \"server/tests/**/*.test.js\" --exit",

@@ -8,8 +8,8 @@ class MenuController extends Controller {
   static createMenu(req, res) {
     const { meals } = req.body;
 
-    // if date is not inputted or meals array is empty
-    if (!Array.isArray(meals) && meals.length <= 1) {
+    // if meal is not an array the array is empty
+    if (!Array.isArray(meals) || meals.length <= 1) {
       let message;
       if (!Array.isArray(meals)) {
         message = 'Input must be a list of meals i.e an array';
