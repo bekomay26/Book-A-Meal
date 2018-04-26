@@ -47,6 +47,43 @@ class MenusController extends Controller {
       menus,
     });
   }
+  // input date if future date and not a past nor present date, edit away.
+  static updateMenu(req, res) {
+    // yyyy-mm-dd format
+    const { dateString } = req.params;
+    const dateInput = Date.parse(dateString); // or = new Date(todaysDateString) for date format
+    // today's date
+    const d = new Date();
+    const todaysDateString = `${d.getFullYear().toString()}-${(d.getMonth() + 1).toString()}-${d.getDate().toString()}`;
+    const todaysDate = Date.parse(todaysDateString);
+    const dDate = dateString.replace(/-/g, '/'); // regex to replace all occurence
+    if (dateInput <= todaysDate) { // compares in utc not local time bcos of how it was parsed
+      return res.status(400)
+        .json({
+          success: false,
+          message: 'You cannot edit previous or today\'s menu',
+        });
+    }
+    const { meals } = req.body;
+
+    let updatedMenu;
+    for (let i = 0; i < menus.length; i += 1) {
+      if (menus[i].date === dDate) {
+        menus[i].meals = meals || menus[i].meals;
+        updatedMenu = menus[i];
+        return res.status(200)
+          .json({
+            success: true,
+            message: 'Menu Updated',
+            menu: updatedMenu,
+          });
+      }
+    }
+    return res.status(404).json({
+      success: false,
+      message: `Cannot find menu for date ${dDate}`,
+    });
+  }
 }
 
 export default MenusController;
