@@ -35,7 +35,7 @@ class MenusController extends Controller {
         menus,
       });
     }
-    return res.status(404).json({
+    return res.status(409).json({
       success: false,
       message: `Menu for the date ${req.body.date} already exists`,
     });
