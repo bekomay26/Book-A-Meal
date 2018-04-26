@@ -63,3 +63,15 @@ describe('/POST menu', () => {
       });
   });
 });
+
+describe('/GET menu', () => {
+  it('it should return a 200 status', (done) => {
+    request(app)
+      .get('/api/v1/menu')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('Meals retrieved');
+        done();
+      });
+  });
+});
