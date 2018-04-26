@@ -29,7 +29,7 @@ const menus = [{
 {
   id: 2112,
   date: '2019/02/14', // use these format
-  meals: [ // would be mealsId in database
+  meals: [ // would be mealsId in the database
     {
       id: 1222,
       name: 'Black Soup',
