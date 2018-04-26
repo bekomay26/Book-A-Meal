@@ -1,13 +1,16 @@
 class Order {
-  constructor(id, orderedBy, cateredBy, timeOrdered, delTimeEst, tPrice, mealId, date, status) {
+  constructor(
+    id, orderedBy, cateredBy, dateTimeOrdered, delMinutesEst,
+    delTime, tPrice, meal, status,
+  ) {
     this.id = id;
     this.orderedBy = orderedBy;
     this.cateredBy = cateredBy;
-    this.timeOrdered = timeOrdered;
-    this.delTimeEst = delTimeEst;
+    this.dateTimeOrdered = dateTimeOrdered;
+    this.delMinutesEst = delMinutesEst;
+    this.delTime = delTime;
     this.tPrice = tPrice;
-    this.mealId = mealId;
-    this.date = date;
+    this.meal = meal;
     this.status = status;
   }
 }
