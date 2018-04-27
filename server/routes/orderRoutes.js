@@ -9,6 +9,8 @@ orderRouter.route('/:id')
   .put(OrderController.updateOrder);
 orderRouter.route('/')
   .get(OrderController.retrieveOrders);
+orderRouter.route('/:dateString')
+  .get(OrderController.retrieveDayOrders);
 
 // mealRouter.post('/', () => {
 //   MealController.createMeal;
