@@ -1,0 +1,66 @@
+
+body{
+    font-family: 'Nunito', sans-serif;
+}
+form {
+    /* margin:50px auto; */
+    width: 300px;
+    max-width: 500px;
+    border: 3px solid #f1f1f1;
+    z-index: 10;
+}
+
+.form-details{
+    align-items: center;
+    padding-left: 5%;
+}
+
+input[type=text], input[type=password] {
+    width: 90%;
+    padding: 12px 20px;
+    margin: 28px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font: normal 18px 'Nunito', sans-serif;
+    border-radius: 6px;
+    
+}
+
+input[type=submit] {
+    background-color: chocolate;
+    color: white;
+    padding: 14px 20px;
+    margin: 25px 0;
+    border: none;
+    cursor: pointer;
+    width: 90%;
+    margin-top: 70px;
+    font: normal 18px 'Nunito', sans-serif;
+    border-radius: 6px;
+}
+
+input[type=submit]:hover {
+    opacity: 0.8;
+}
+
+img{
+    max-width: 100px;
+}
+
+.form{
+    background-color: rgba(255, 255, 255, 0.9);
+    margin-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    
+    border: 1px solid #888888;
+    width: 70%;
+    border-radius: 6px;
+}
+
+.form p{
+    color: black;
+    font-size: 18px;
+    margin-bottom: 40px;
+}

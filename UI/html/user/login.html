@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/login.css" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+</head>
+<body>
+    <header id="bigpic" class="bigpic">
+        <div class="back-image"></div>
+        <div class="top">
+            <a href="index.html"><h2>Book-A-Meal</h2></a>
+            <nav class="menu">
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="cart.html">Order</a></li>
+                <li><a id="signin-trigger" href="#modal" onclick="onSign()">SignIn</a></li>
+            </nav>
+        </div>
+        <form class="form" action="" method="POST">
+            <div class="form-details">
+                <input id="uname" type="text" placeholder="Enter Username">
+                <input id="pwd" type="password" placeholder="Enter Password">
+                <!-- <button type="submit">Sign In</button> -->
+                <input type="submit" value="Sign In">
+            </div>
+            <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+        </form>
+    </header>
+    
+</body>
+</html>
