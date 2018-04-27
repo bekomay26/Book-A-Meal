@@ -7,6 +7,7 @@ menusRouter.route('/')
   .post(MenusController.addMenu);
 menusRouter.route('/')
   .get(MenusController.retrieveMenus);
+menusRouter.route('/:dateString').put(MenusController.updateMenu);
 // menuRouter.put('/:id', MenuController.update);
 // menuRouter.delete('/:id', MenuController.destroy);
 // menuRouter.route('/')
