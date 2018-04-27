@@ -124,3 +124,24 @@ describe('/PUT meal', () => {
       });
   });
 });
+
+describe('/DELETE menu', () => {
+  it('it should not DELETE a menu that is not found', (done) => {
+    request(app)
+      .delete('/api/v1/menus/2119')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body.message).to.equal('Cannot find menu with id 2119');
+        done();
+      });
+  });
+  it('it should DELETE a menu ', (done) => {
+    request(app)
+      .delete('/api/v1/menus/2111')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('Menu deleted');
+        done();
+      });
+  });
+});

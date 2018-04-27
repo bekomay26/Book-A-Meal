@@ -79,7 +79,7 @@ describe('/PUT meal', () => {
 describe('/DELETE meal', () => {
   it('it should not DELETE a meal that is not found', (done) => {
     request(app)
-      .delete('/api/v1//meals/1114')
+      .delete('/api/v1/meals/1114')
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
         // expect(res).to.have.status(400);
