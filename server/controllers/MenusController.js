@@ -40,6 +40,13 @@ class MenusController extends Controller {
       message: `Menu for the date ${req.body.date} already exists`,
     });
   }
+  static retrieveMenus(req, res) {
+    res.status(200).json({
+      success: true,
+      message: 'Menus retrieved',
+      menus,
+    });
+  }
 }
 
 export default MenusController;
