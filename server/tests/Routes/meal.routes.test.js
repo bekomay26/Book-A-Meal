@@ -74,6 +74,16 @@ describe('/PUT meal', () => {
         done();
       });
   });
+  it('it should PUT a meal without any field inputed', (done) => {
+    const meal = {};
+    request(app)
+      .put('/api/v1/meals/1111')
+      .send(meal)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+  });
 });
 
 describe('/DELETE meal', () => {
