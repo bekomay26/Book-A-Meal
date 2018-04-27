@@ -30,7 +30,7 @@ An application that allows customers to make food orders, helps the food vendor 
 
 - Retrieve all Meal Options - GET http://localhost:4000/api/v1/meals
 - Add a Meal Option - POST http://localhost:4000/api/v1/meals
-- Modify weisting Meal Option - PUT http://localhost:4000/api/v1/meals/:mealId
+- Modify Meal Option - PUT http://localhost:4000/api/v1/meals/:mealId
 - Delete - DELETE http://localhost:4000/api/v1/meals/:mealId
 - Add Meals to Menu - POST http://localhost:4000/api/v1/menu
 - Retrieve Meal From Menu - GET http://localhost:4000/api/v1/menu
