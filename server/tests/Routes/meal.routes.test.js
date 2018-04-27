@@ -50,7 +50,7 @@ describe('/PUT meal', () => {
       image: 'fgffh',
     };
     request(app)
-      .put('/api/v1//meals/1114')
+      .put('/api/v1/meals/1114')
       .send(meal)
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
