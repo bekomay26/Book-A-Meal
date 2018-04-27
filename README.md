@@ -4,9 +4,9 @@
 An application that allows customers to make food orders, helps the food vendor decide on what to eat and aids the caterer in managing the business.
 
 ## Demo
-[Book-A-Meal Customer](https://bekomay26.github.io/Book-A-Meal/UI/html/user/).
-[Book-A-Meal Admin](https://bekomay26.github.io/Book-A-Meal/UI/html/admin/admin.html).
-[Book-A-Meal API Endpoints on heroku](https://buuk-a-meal.herokuapp.com/api/v1/).
+- [Book-A-Meal Customer](https://bekomay26.github.io/Book-A-Meal/UI/html/user/).
+- [Book-A-Meal Admin](https://bekomay26.github.io/Book-A-Meal/UI/html/admin/admin.html).
+- [Book-A-Meal API Endpoints on heroku](https://buuk-a-meal.herokuapp.com/api/v1/).
 
 
 ## Features
