@@ -1,8 +1,8 @@
 class Meal {
-  constructor(id, title, desription, image, price) {
+  constructor(id, title, description, image, price) {
     this.id = id;
     this.title = title;
-    this.desription = desription;
+    this.description = description;
     this.image = image;
     this.price = price;
   }

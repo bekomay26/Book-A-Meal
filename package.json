@@ -8,7 +8,7 @@
     "start": "npm-run-all --parallel security-check dev",
     "dev": "nodemon --exec babel-node ./server/app.js",
     "generate-mock-data": "babel-node ./server/dummyBuildScripts/generateMockData",
-    "test": "mocha --reporter progress --require babel-core/register \"server/tests/**/*.test.js\"",
+    "test": "mocha --reporter progress --require babel-core/register \"server/tests/**/*.test.js\" --exit",
     "security-check": "nsp check",
     "lint": "eslint \"server/**/*.js\" app.js --fix"
   },

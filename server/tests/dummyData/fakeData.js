@@ -4,7 +4,7 @@ const meals = [{
   id: 1111,
   title: faker.lorem.word(),
   description: faker.lorem.sentence(),
-  image: 'gfgf',
+  image: 'kjlj',
   price: 99,
 }];
 

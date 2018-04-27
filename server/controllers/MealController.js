@@ -14,8 +14,8 @@ class MealController extends Controller {
     // if title or price field are empty output error message
     if (!title || !price) {
       return res.status(400).json({
-        status: 'error',
-        message: 'Failure: Input missing field',
+        success: false,
+        message: 'Input missing field',
       });
     }
 
@@ -25,9 +25,34 @@ class MealController extends Controller {
 
     // if meal array is not empty set the id to the last element + 1 else, set it to zero
     meals.push(meal);
-    console.log(meals);
     return res.status(201).json({
-      message: 'Success: Meal created',
+      success: true,
+      message: 'Meal created',
+      meals,
+    });
+  }
+  static update(req, res) {
+    const id = parseInt(req.params.id, 10);
+    let updatedMeal;
+    meals.forEach((meal) => {
+      if (meal.id === id) {
+        meal.title = req.body.title || meal.title;
+        meal.description = req.body.description || meal.description;
+        meal.price = req.body.price || meal.price;
+        meal.image = req.body.image || meal.image;
+        updatedMeal = meal;
+      }
+    });
+    if (updatedMeal) {
+      return res.status(200).json({
+        success: true,
+        message: 'meal updated',
+        meal: updatedMeal,
+      });
+    }
+    return res.status(404).json({
+      success: false,
+      message: `Cannot find meal with id ${id}`,
     });
   }
 }
