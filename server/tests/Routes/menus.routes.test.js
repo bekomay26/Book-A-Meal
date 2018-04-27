@@ -40,9 +40,6 @@ describe('/POST menu', () => {
         done();
       });
   });
-});
-
-describe('/PUT meal', () => {
   it('it should not POST for a menu for a day that already has a menu', (done) => {
     const oldMenu = {
       id: 1111,
@@ -100,6 +97,17 @@ describe('/PUT meal', () => {
     const menu = {
       meals: ['meal1', 'meal2'],
     };
+    request(app)
+      .put('/api/v1/menus/2019-02-14')
+      .send(menu)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('Menu Updated');
+        done();
+      });
+  });
+  it('it should PUT a menu with no updates entered', (done) => {
+    const menu = {};
     request(app)
       .put('/api/v1/menus/2019-02-14')
       .send(menu)
