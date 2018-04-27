@@ -1,12 +1,13 @@
-import { chai, expect } from 'chai';
+import { expect } from 'chai';
 import request from 'supertest';
-import chaiHttp from 'chai-http';
 import app from '../../app';
 
+// import chaiHttp from 'chai-http';
 // chai.expect();
 // const { expect } = chai.expect;
 // chai.use(chaiHttp);
 
+/* global it, describe */
 describe('/POST meal', () => {
   it('it should not POST a meal without the price field', (done) => {
     const meal = {
@@ -39,7 +40,6 @@ describe('/POST meal', () => {
         done();
       });
   });
-
 });
 
 describe('/PUT meal', () => {
@@ -74,5 +74,36 @@ describe('/PUT meal', () => {
         done();
       });
   });
+});
 
+describe('/DELETE meal', () => {
+  it('it should not DELETE a meal that is not found', (done) => {
+    request(app)
+      .delete('/api/v1//meals/1114')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        // expect(res).to.have.status(400);
+        // if (err) return done(err);
+        done();
+      });
+  });
+  it('it should DELETE a meal ', (done) => {
+    request(app)
+      .delete('/api/v1/meals/1111')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+  });
+});
+
+describe('/RETRIEVE meals', () => {
+  it('it should RETRIEVE all meals ', (done) => {
+    request(app)
+      .get('/api/v1/meals/')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+  });
 });
