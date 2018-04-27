@@ -9,6 +9,7 @@ const menu = [
     price: 870,
     image_url: faker.image.imageUrl(),
     extras: ['Garri', 'Amala', 'Akpu'],
+    qty: 1,
   },
   {
     id: 1223,
@@ -18,6 +19,7 @@ const menu = [
     price: 970,
     image_url: faker.image.imageUrl(),
     extras: ['Garri', 'Amala', 'Akpu'],
+    qty: 1,
   },
 ];
 

@@ -37,6 +37,45 @@ class OrderController extends Controller {
       message: 'Meal not found',
     });
   }
+  static updateOrder(req, res) {
+    const id = parseInt(req.params.id, 10);
+    const {
+      extras,
+      qty,
+    } = req.body;
+    if (!Number.isInteger(parseInt(qty, 10))) {
+      return res.status(400)
+        .json({
+          success: false,
+          message: 'Input a valid quantity',
+        });
+    }
+    let updatedOrder;
+    for (let i = 0; i < orders.length; i += 1) {
+      if (orders[i].id === id) {
+        orders[i].meal.extras = extras || orders[i].meal.extras;
+        orders[i].meal.qty = qty;
+        updatedOrder = orders[i];
+        return res.status(200)
+          .json({
+            success: true,
+            message: 'Order Updated',
+            Order: updatedOrder,
+          });
+      }
+    }
+    return res.status(404).json({
+      success: false,
+      message: `Cannot find order with id ${id}`,
+    });
+  }
+  static retrieveOrders(req, res) {
+    res.status(200).json({
+      success: true,
+      message: 'Orders retrieved',
+      orders,
+    });
+  }
 }
 
 export default OrderController;
