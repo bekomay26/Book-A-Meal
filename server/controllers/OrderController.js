@@ -20,6 +20,7 @@ class OrderController extends Controller {
     for (let i = 0; i < menu.length; i += 1) {
       if (parseInt(menu[i].id, 10) === mealIdInt) {
         newOrder.meal = menu[i];
+        newOrder.startTimer = Date.now();
         // notification.meal = menu[i]; // Create a new notification when a meal is ordered
         // notification.status = 'pendingAdmin';
         orders.push(newOrder); // After adding the other properties
@@ -106,6 +107,34 @@ class OrderController extends Controller {
         message: `Orders for ${dDate} retrieved`,
         dayOrders,
       });
+  }
+
+  static destroy(req, res) {
+    const id = parseInt(req.params.id, 10);
+    for (let i = 0; i < orders.length; i += 1) {
+      if (parseInt(orders[i].id, 10) === id) {
+        const endTimer = Date.now();
+        const timeElapsed = endTimer - orders[i].startTimer;
+        if (timeElapsed < 10000) { // if less than 10secons has passed
+          orders.splice(i, 1);
+          return res.status(200)
+            .json({
+              success: true,
+              message: 'Order deleted',
+              orders,
+            });
+        }
+        return res.status(400)
+          .json({
+            success: false,
+            message: 'You cannot delete an order after 10 seconds',
+          });
+      }
+    }
+    return res.status(404).json({
+      success: false,
+      message: `Cannot find order with id ${id}`,
+    });
   }
 }
 
