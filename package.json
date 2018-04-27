@@ -11,7 +11,9 @@
     "test": "nyc mocha --reporter progress --require babel-core/register \"server/tests/**/*.test.js\" --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "security-check": "nsp check",
-    "lint": "eslint \"server/**/*.js\" app.js --fix"
+    "lint": "eslint \"server/**/*.js\" app.js --fix",
+    "build": "babel server/ -d build --copy-files -s",
+    "start-prod": "npm run build && node ./build/app.js"
   },
   "repository": {
     "type": "git",
@@ -57,5 +59,9 @@
       "NODE_ENV": "development",
       "PORT": 4000
     }
+  },
+  "engines": {
+    "node": "8.11.1",
+    "npm": "5.6.0"
   }
 }
