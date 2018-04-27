@@ -9,6 +9,7 @@ class MealController extends Controller {
       description,
       image,
       price,
+      extras,
     } = req.body;
 
     // if title or price field are empty output error message
@@ -21,7 +22,7 @@ class MealController extends Controller {
 
     const lenOfId = meals.length;
     const id = meals[lenOfId - 1].id + 1;
-    const meal = new Meal(id, title, description, image, price);
+    const meal = new Meal(id, title, description, image, price, extras, 1); // initialize qty to 1
 
     // if meal array is not empty set the id to the last element + 1 else, set it to zero
     meals.push(meal);
@@ -40,6 +41,7 @@ class MealController extends Controller {
         meal.description = req.body.description || meal.description;
         meal.price = req.body.price || meal.price;
         meal.image = req.body.image || meal.image;
+        meal.extras = req.body.extras || meal.extras;
         updatedMeal = meal;
       }
     });

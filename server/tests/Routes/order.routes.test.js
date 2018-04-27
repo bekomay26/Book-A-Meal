@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import app from '../../app';
-// import orders from '../dummyData/fakeOrder';
 
 /* global it, describe */
 describe('/POST order', () => {
@@ -138,6 +137,36 @@ describe('/GET order for certain day', () => {
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
         expect(res.body.message).to.equal('No order for 2221/4/26 was found');
+        done();
+      });
+  });
+});
+
+describe('/DELETE order', () => {
+  it('it should return a 400 status', (done) => {
+    request(app)
+      .delete('/api/v1/orders/3121')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body.message).to.equal('You cannot delete an order after 10 seconds');
+        done();
+      });
+  });
+  it('it should return a 404 status', (done) => {
+    request(app)
+      .delete('/api/v1/orders/32')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body.message).to.equal('Cannot find order with id 32');
+        done();
+      });
+  });
+  it('it should return a 200 status', (done) => { // Dont keep on top would have deleted the item
+    request(app)
+      .delete('/api/v1/orders/3111')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('Order deleted');
         done();
       });
   });

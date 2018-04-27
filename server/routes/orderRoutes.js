@@ -11,6 +11,8 @@ orderRouter.route('/')
   .get(OrderController.retrieveOrders);
 orderRouter.route('/:dateString')
   .get(OrderController.retrieveDayOrders);
+orderRouter.route('/:id')
+  .delete(OrderController.destroy);
 
 // mealRouter.post('/', () => {
 //   MealController.createMeal;

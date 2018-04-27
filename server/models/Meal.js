@@ -1,13 +1,12 @@
 class Meal {
-  constructor(id, title, description, image, price) {
+  constructor(id, title, description, image, price, extras, qty) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.image = image;
     this.price = price;
-  }
-  setId(value) {
-    this.id = value;
+    this.extras = extras;
+    this.qty = qty;
   }
 }
 export default Meal;
