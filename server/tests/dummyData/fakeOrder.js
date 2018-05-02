@@ -20,7 +20,7 @@ const orders = [{
     qty: 1,
   },
   status: 'complete', // 4 variables - complete, cancelled, pendingUser, pendingAdmin
-  startTimer: Date.now() - 5000, // simulate 15 secons ago
+  startTimer: Date.now() - 5000, // simulate 5 secons ago
 },
 {
   id: 3121,

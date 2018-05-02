@@ -16,20 +16,16 @@ class OrderController extends Controller {
       });
     }
     const newOrder = new Order();
-    // const notification = new Order();
     for (let i = 0; i < menu.length; i += 1) {
       if (parseInt(menu[i].id, 10) === mealIdInt) {
         newOrder.meal = menu[i];
         newOrder.startTimer = Date.now();
-        // notification.meal = menu[i]; // Create a new notification when a meal is ordered
-        // notification.status = 'pendingAdmin';
         orders.push(newOrder); // After adding the other properties
-        // notifications.push(notification);
         return res.status(201)
           .json({
             success: true,
             message: 'Meal added to order',
-            newOrder,
+            orders,
           });
       }
     }
@@ -78,38 +74,7 @@ class OrderController extends Controller {
     });
   }
 
-  static retrieveDayOrders(req, res) {
-    const { dateString } = req.params;
-    const dDate = dateString.replace(/-/g, '/'); // regex to replace all occurence
-    const dayOrders = [];
-    if (Number.isNaN(Date.parse(dateString))) {
-      return res.status(400)
-        .json({
-          success: false,
-          message: 'Input valid date parameter in format yyyy-mm-dd',
-        });
-    }
-    for (let i = 0; i < orders.length; i += 1) {
-      if (orders[i].date === dDate) {
-        dayOrders.push(orders[i]);
-      }
-    }
-    if (dayOrders.length <= 0) {
-      return res.status(404)
-        .json({
-          success: false,
-          message: `No order for ${dDate} was found`,
-        });
-    }
-    return res.status(200)
-      .json({
-        success: true,
-        message: `Orders for ${dDate} retrieved`,
-        dayOrders,
-      });
-  }
-
-  static destroy(req, res) {
+  static deleteOrder(req, res) {
     const id = parseInt(req.params.id, 10);
     for (let i = 0; i < orders.length; i += 1) {
       if (parseInt(orders[i].id, 10) === id) {
