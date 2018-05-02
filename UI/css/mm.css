@@ -3,7 +3,9 @@
     font-family: 'Jua', sans-serif;
 }
 
-
+body {
+    margin: 0;
+}
 .admin{
     width: 100%;
     position: fixed;
@@ -45,7 +47,6 @@ a{
     padding-bottom: 20px;
 }
 a:hover{
-    /* background-color: white; */
     color: red;
 }
 table {
@@ -61,6 +62,7 @@ td, th {
     padding: 8px;
 }
 th{
+    
     border-top: none;
     border-right: none;
     border-left: none;
@@ -70,16 +72,16 @@ tr:nth-child(odd) {
  }
 
 tr:nth-child(even) {
-    background-color: #f5f5f5;
+    background-color: rgba(255, 162, 0, 0.5);
 }
 
 th {
-    background-color: white;
+    background-color: #ffa200;
     color: black;
 }
 
 tr:hover {
-    background-color: #888;
+    background-color: rgba(255, 162, 0, 0.7);
     cursor: pointer;
 }
 
@@ -90,6 +92,9 @@ tr:hover {
 .remove:hover{
     color: red;
     cursor: pointer;
+}
+.button{
+    margin: 0 150px;
 }
 
 @media(min-width: 800px){
@@ -105,6 +110,88 @@ tr:hover {
         margin-left:  auto;
         margin-right: auto;
     }
+
+    /* Header */
+     .logo{
+        float: left;
+        text-align: left;
+    }
+
+    .top h2{
+        margin: 0;
+    }
+    a{
+        text-decoration: none;
+    }
+
+    ul, nav{
+        list-style: none;
+    }
+    .menu{
+        float: right;
+    }
+    .menu li{
+        text-align: center;
+    }
+    ul.grid{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .menu a{
+        color: inherit;
+        cursor: pointer;
+        opacity: 0.9;
+        font-family: 'Nunito', sans-serif;
+    }
+    h1{
+        color: #ffa200;
+        text-align: center;
+    }
+    h2{
+        margin-bottom: 15px;
+        font-family: 'Nunito', sans-serif;
+    }
+
+    .menu a:hover{
+        opacity: 1;
+        color: black;
+        border-bottom: 2px solid black; 
+    }
+
+    .top{
+        background-color: #ffa200;
+        width: 100%;
+        z-index: 10;
+        align-items: center;
+        color: white;
+        padding: 35px 70px 20px;
+        display: flex;
+        justify-content: space-around; 
+    }
+    .top::after{
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+    header nav{
+        display: flex;
+    }
+
+    header nav li{
+        margin: 0 15px;
+    }
+
+    header nav li:first-child{
+        margin-left: 0;
+    }
+
+    header nav li:last-child{
+        margin-right: 0;
+    }
+
 }
 
 /* Modal Form */
