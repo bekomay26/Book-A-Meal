@@ -1,6 +1,6 @@
 import Controller from './Controller';
 import Meal from '../models/Meal';
-import meals from '../tests/dummyData/fakeData';
+import meals from '../tests/dummyData/fakeMeal';
 
 class MealController extends Controller {
   static createMeal(req, res) {
@@ -57,7 +57,7 @@ class MealController extends Controller {
       message: `Cannot find meal with id ${id}`,
     });
   }
-  static destroy(req, res) {
+  static deleteMeal(req, res) {
     const id = parseInt(req.params.id, 10);
     for (let i = 0; i < meals.length; i += 1) {
       if (parseInt(meals[i].id, 10) === id) {

@@ -6,7 +6,7 @@ const mealRouter = express.Router();
 mealRouter.route('/')
   .post(MealController.createMeal);
 mealRouter.put('/:id', MealController.update);
-mealRouter.delete('/:id', MealController.destroy);
+mealRouter.delete('/:id', MealController.deleteMeal);
 mealRouter.route('/')
   .get(MealController.retrieveAll);
 

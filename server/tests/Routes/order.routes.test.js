@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import app from '../../app';
+import orders from '../dummyData/fakeOrder';
 
 /* global it, describe */
 describe('/POST order', () => {
@@ -16,13 +17,16 @@ describe('/POST order', () => {
       });
   });
   it('it should POST an order', (done) => {
-    const id = { mealId: 1222 };
+    const id = { mealId: 1222, address: '6, gbagada street' };
+    const initialLength = orders.length;
     request(app)
       .post('/api/v1/orders')
       .send(id)
       .end((err, res) => {
         expect(res.statusCode).to.equal(201);
         expect(res.body.message).to.equal('Meal added to order');
+        expect(res.body.orders.length).to.equal(initialLength + 1);
+        expect(res.body.orders[initialLength].address).to.equal('6, gbagada street');
         done();
       });
   });
@@ -112,35 +116,6 @@ describe('/GET orders', () => {
   });
 });
 
-describe('/GET order for certain day', () => {
-  it('it should return a 400 status', (done) => {
-    request(app)
-      .get('/api/v1/orders/21-er')
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
-        expect(res.body.message).to.equal('Input valid date parameter in format yyyy-mm-dd');
-        done();
-      });
-  });
-  it('it should return a 200 status', (done) => {
-    request(app)
-      .get('/api/v1/orders/2221-1-23')
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(200);
-        expect(res.body.message).to.equal('Orders for 2221/1/23 retrieved');
-        done();
-      });
-  });
-  it('it should return a 404 status', (done) => {
-    request(app)
-      .get('/api/v1/orders/2221-4-26')
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(404);
-        expect(res.body.message).to.equal('No order for 2221/4/26 was found');
-        done();
-      });
-  });
-});
 
 describe('/DELETE order', () => {
   it('it should return a 400 status', (done) => {
@@ -148,7 +123,7 @@ describe('/DELETE order', () => {
       .delete('/api/v1/orders/3121')
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
-        expect(res.body.message).to.equal('You cannot delete an order after 10 seconds');
+        expect(res.body.message).to.equal('You cannot delete an order after 50 seconds');
         done();
       });
   });
@@ -165,8 +140,10 @@ describe('/DELETE order', () => {
     request(app)
       .delete('/api/v1/orders/3111')
       .end((err, res) => {
+        const initialLength = orders.length;
         expect(res.statusCode).to.equal(200);
         expect(res.body.message).to.equal('Order deleted');
+        expect(res.body.newOrders.length).to.equal(initialLength - 1);
         done();
       });
   });

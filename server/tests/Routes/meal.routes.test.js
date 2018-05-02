@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import app from '../../app';
+import meals from '../dummyData/fakeMeal';
 
 // import chaiHttp from 'chai-http';
 // chai.expect();
@@ -20,8 +21,7 @@ describe('/POST meal', () => {
       .send(meal)
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
-        // expect(res).to.have.status(400);
-        // if (err) return done(err);
+        expect(res.body.message).to.equal('Input missing field');
         done();
       });
   });
@@ -32,11 +32,15 @@ describe('/POST meal', () => {
       image: 'fgffh',
       price: 999,
     };
+    const initialLength = meals.length;
     request(app)
       .post('/api/v1/meals')
       .send(meal)
       .end((err, res) => {
         expect(res.statusCode).to.equal(201);
+        expect(res.body.message).to.equal('Meal created');
+        expect(res.body.meals.length).to.equal(initialLength + 1);
+        expect(res.body.meals[initialLength].description).to.equal('Bread Bread');
         done();
       });
   });
@@ -54,8 +58,7 @@ describe('/PUT meal', () => {
       .send(meal)
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
-        // expect(res).to.have.status(400);
-        // if (err) return done(err);
+        expect(res.body.message).to.equal('Cannot find meal with id 1114');
         done();
       });
   });
@@ -71,6 +74,9 @@ describe('/PUT meal', () => {
       .send(meal)
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('meal updated');
+        expect(res.body.meal.description).to.equal('Bread Bread');
+        expect(res.body.meal.id).to.equal(1111);
         done();
       });
   });
@@ -92,16 +98,18 @@ describe('/DELETE meal', () => {
       .delete('/api/v1/meals/1114')
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
-        // expect(res).to.have.status(400);
-        // if (err) return done(err);
+        expect(res.body.message).to.equal(`Cannot find meal with id ${1114}`);
         done();
       });
   });
   it('it should DELETE a meal ', (done) => {
+    const initialLength = meals.length;
     request(app)
       .delete('/api/v1/meals/1111')
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('Meal deleted');
+        expect(res.body.meals.length).to.equal(initialLength - 1);
         done();
       });
   });
@@ -113,6 +121,7 @@ describe('/RETRIEVE meals', () => {
       .get('/api/v1/meals/')
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('Meals retrieved');
         done();
       });
   });

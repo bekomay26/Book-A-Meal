@@ -9,17 +9,7 @@ orderRouter.route('/:id')
   .put(OrderController.updateOrder);
 orderRouter.route('/')
   .get(OrderController.retrieveOrders);
-orderRouter.route('/:dateString')
-  .get(OrderController.retrieveDayOrders);
 orderRouter.route('/:id')
-  .delete(OrderController.destroy);
-
-// mealRouter.post('/', () => {
-//   MealController.createMeal;
-// })
-
-// .get('/:mealId', MealController)
-// .put()
-// .delete();
+  .delete(OrderController.deleteOrder);
 
 export default orderRouter;
