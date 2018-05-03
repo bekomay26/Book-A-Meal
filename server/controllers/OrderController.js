@@ -4,6 +4,14 @@ import orders from '../tests/dummyData/fakeOrder';
 import menu from '../tests/dummyData/fakeMenu';
 
 class OrderController extends Controller {
+  /**
+   * Creates a new Order
+   * @memberof OrderController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
   static createOrder(req, res) {
     const { mealId, address } = req.body;
 
@@ -35,6 +43,15 @@ class OrderController extends Controller {
       message: 'Meal not found',
     });
   }
+
+  /**
+   * Modifies an existing Order
+   * @memberof OrderController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
   static updateOrder(req, res) {
     const id = parseInt(req.params.id, 10);
     const {
@@ -67,6 +84,15 @@ class OrderController extends Controller {
       message: `Cannot find order with id ${id}`,
     });
   }
+
+  /**
+   * Retrieves all Orders
+   * @memberof OrderController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
   static retrieveOrders(req, res) {
     res.status(200).json({
       success: true,
@@ -75,6 +101,14 @@ class OrderController extends Controller {
     });
   }
 
+  /**
+   * Deletes an existing Order
+   * @memberof OrderController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
   static deleteOrder(req, res) {
     const id = parseInt(req.params.id, 10);
     for (let i = 0; i < orders.length; i += 1) {

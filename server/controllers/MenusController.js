@@ -3,6 +3,14 @@ import Menu from '../models/Menu';
 import menus from '../tests/dummyData/fakeMenus';
 
 class MenusController extends Controller {
+  /**
+   * Creates a new Menu
+   * @memberof MenuController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
   static addMenu(req, res) {
     const {
       date,
@@ -42,9 +50,17 @@ class MenusController extends Controller {
     });
   }
 
-  /** delete a meal, cannot select meals of previous days on the UI.
-   * same should be done for the edit above */
+  /**
+   * Deletes an existing menu
+   * @memberof MenuController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
   static deleteMenu(req, res) {
+    /** delete a meal, cannot select meals of previous days on the UI.
+   * same should be done for the edit above */
     const id = parseInt(req.params.id, 10);
     for (let i = 0; i < menus.length; i += 1) {
       if (parseInt(menus[i].id, 10) === id) {
@@ -63,6 +79,14 @@ class MenusController extends Controller {
     });
   }
 
+  /**
+   * Retrieves current day's Menu
+   * @memberof MenuController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
   static retrieveTodaysMenu(req, res) {
     // added the en-GB cos it was giving yyyy-mm-dd by default
     const todaysDate = (new Date()).toLocaleDateString('en-GB');
