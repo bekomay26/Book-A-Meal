@@ -1,13 +1,22 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var User = sequelize.define('User', {
+  const User = sequelize.define('User', {
     fullname: DataTypes.STRING,
     password: DataTypes.STRING,
     address: DataTypes.STRING,
-    role: DataTypes.ENUM
+    role: {
+      type: DataTypes.ENUM,
+      values: ['Caterer', 'Customer'],
+    }
   }, {});
-  User.associate = function(models) {
-    // associations can be defined here
+  User.associate = (models) => {
+    User.hasMany(models.Order, {
+      foreignKey: 'createdById',
+      as: 'orders',
+    });
+    User.hasMany(models.Order, {
+      foreignKey: 'cateredById',
+      as: 'orders',
+    });
   };
   return User;
 };

@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "Crimson26",
-    "database": "bookmeal-dev",
+    "database": "bookmeal-test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

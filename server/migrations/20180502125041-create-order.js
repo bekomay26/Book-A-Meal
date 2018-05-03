@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Orders', {
@@ -21,7 +20,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       status: {
-        type: Sequelize.ENUM
+        type: Sequelize.ENUM,
+        values: ['Cancelled', 'Completed', 'Pending'],
       },
       address: {
         type: Sequelize.STRING
@@ -33,7 +33,15 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
+      mealId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Meals',
+          key: 'id',
+          as: 'mealId',
+        },
     });
   },
   down: (queryInterface, Sequelize) => {

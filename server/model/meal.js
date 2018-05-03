@@ -18,14 +18,15 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Meal.associate = (models) => {
     Meal.belongsToMany(models.Menu, {
-      foreignKey: 'menuId',
+      foreignKey: 'mealId',
+      otherKey: 'menuId',
+      onDelete: 'CASCADE',
       as: 'menus',
-      through: 'menumeal',
+      through: 'MenuMeal',
     });
-    Meal.belongsToMany(models.Order, {
-      foreignKey: 'orderId',
+    Meal.hasMany(models.Order, {
+      foreignKey: 'mealId',
       as: 'orders',
-      through: 'ordermeal',
     });
   };
   return Meal;

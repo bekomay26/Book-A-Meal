@@ -9,14 +9,18 @@ module.exports = {
       },
       menuId: {
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
         references: {
+          model: 'Menus',
           key: 'id',
           as: 'menuId',
         },
       },
       mealId: {
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
         references: {
+          model: 'Meals',
           key: 'id',
           as: 'mealId',
         },

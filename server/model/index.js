@@ -28,7 +28,9 @@ fs
   });
 
 Object.keys(db).forEach((modelName) => {
-  db[modelName].associate(db);
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
 });
 
 db.sequelize = sequelize;
