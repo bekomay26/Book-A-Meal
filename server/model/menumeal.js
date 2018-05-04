@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: 'Menus',
         key: 'id',
-      }
+      },
     },
     mealId: {
       type: DataTypes.INTEGER,
@@ -15,13 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Meals',
         key: 'id',
       }
-    }
+    },
   });
-  //   menuId: DataTypes.INTEGER,
-  //   mealId: DataTypes.INTEGER,
-  // }, {});
-  // MenuMeal.associate = function(models) {
-  //   // associations can be defined here
-  // };
   return MenuMeal;
 };

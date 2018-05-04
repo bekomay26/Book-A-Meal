@@ -1,11 +1,10 @@
 import Controller from './Controller';
 import Order from '../models/Order';
-import orders from '../tests/dummyData/fakeOrder';
-import menu from '../tests/dummyData/fakeMenu';
+import db from '../model/index';
 
 class OrderController extends Controller {
   static createOrder(req, res) {
-    const { mealId, address } = req.body;
+    const { mealId, address, createdById, cateredById } = req.body;
 
     const mealIdInt = parseInt(mealId, 10);
     // if mealId is empty or not an integer output error message
@@ -15,25 +14,26 @@ class OrderController extends Controller {
         message: 'Input a valid mealId',
       });
     }
-    const newOrder = new Order();
-    newOrder.address = address;
-    for (let i = 0; i < menu.length; i += 1) {
-      if (parseInt(menu[i].id, 10) === mealIdInt) {
-        newOrder.meal = menu[i];
-        newOrder.startTimer = Date.now();
-        orders.push(newOrder); // After adding the other properties
-        return res.status(201)
-          .json({
-            success: true,
-            message: 'Meal added to order',
-            orders,
+    db.Meal
+      .findOne({ where: { id: mealId } })
+      .then((exists) => {
+        if (exists) {
+          db.Order.create({
+            mealId,
+            address,
+            createdById,
+            cateredById,
+          })
+            .then((ord) => {
+              res.status(201).send(ord);
+            });
+        } else {
+          res.status(404).json({
+            success: false,
+            message: 'Meal not found',
           });
-      }
-    }
-    return res.status(404).json({
-      success: false,
-      message: 'Meal not found',
-    });
+        }
+      });
   }
   static updateOrder(req, res) {
     const id = parseInt(req.params.id, 10);

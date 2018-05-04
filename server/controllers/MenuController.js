@@ -1,8 +1,5 @@
 import moment from 'moment';
 import Controller from './Controller';
-// import Menu from '../models/Menu';
-// import menus from '../tests/dummyData/fakeMenus';
-// import menu from '../tests/dummyData/fakeMenu';
 import db from '../model/index';
 
 class MenuController extends Controller {

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     role: {
       type: DataTypes.ENUM,
       values: ['Caterer', 'Customer'],
-    }
+    },
   }, {});
   User.associate = (models) => {
     User.hasMany(models.Order, {
@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     User.hasMany(models.Order, {
       foreignKey: 'cateredById',
-      as: 'orders',
+      as: 'orders1',
     });
   };
   return User;

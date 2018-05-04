@@ -1,32 +1,32 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Menus', {
+    queryInterface.createTable('Menus', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       date: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.DATEONLY,
       },
       createdBy: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       last_editedBy: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Menus');
-  }
+  down: (queryInterface) => {
+    queryInterface.dropTable('Menus');
+  },
 };
