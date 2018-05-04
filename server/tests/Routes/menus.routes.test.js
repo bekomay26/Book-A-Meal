@@ -40,14 +40,14 @@ describe('/POST menu', () => {
   it('it should not POST for a menu for a day that already has a menu', (done) => {
     const oldMenu = {
       id: 1111,
-      date: '22/10/2019',
+      date: '2018-3-4',
       meals: ['fff', 'fddd'],
       createdBy: 'ffffff',
       editedBy: ['eee', 'ddd'],
     };
     menus.push(oldMenu);
     const menu = {
-      date: '5/2/2018',
+      date: '2018-3-4',
       meals: ['meal1', 'meal2'],
       createdBy: 'fola',
       editedBy: 'ayomide',

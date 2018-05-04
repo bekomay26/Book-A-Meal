@@ -89,8 +89,10 @@ class MenusController extends Controller {
    */
   static retrieveTodaysMenu(req, res) {
     // added the en-GB cos it was giving yyyy-mm-dd by default
-    const todaysDate = (new Date()).toLocaleDateString('en-GB');
+    const todaysDate = new Date().toLocaleDateString();
     function findByDate(item) {
+      // console.log(`item ${item.date}`);
+      // console.log(`Today ${todaysDate}`);
       if (item.date === todaysDate) {
         return true;
       }
