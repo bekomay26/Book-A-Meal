@@ -1,17 +1,14 @@
 import express from 'express';
 import MenusController from '../controllers/MenusController';
+import menuValidate from '../validation/menuValidation';
+import validateHelper from '../validation/validationHelper';
 
 const menusRouter = express.Router();
 
 menusRouter.route('/')
-  .post(MenusController.addMenu);
+  .post(menuValidate.create, validateHelper.validate, MenusController.addMenu);
 menusRouter.route('/')
-  .get(MenusController.retrieveMenus);
-menusRouter.route('/:dateString').put(MenusController.updateMenu);
-menusRouter.route('/:id').delete(MenusController.destroy);
-// menuRouter.put('/:id', MenuController.update);
-// menuRouter.delete('/:id', MenuController.destroy);
-// menuRouter.route('/')
-//   .get(MenuController.retrieveAll);
+  .get(MenusController.retrieveTodaysMenu);
+menusRouter.route('/:id').delete(MenusController.deleteMenu);
 
 export default menusRouter;

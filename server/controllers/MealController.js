@@ -1,8 +1,20 @@
 import Controller from './Controller';
 import Meal from '../models/Meal';
-import meals from '../tests/dummyData/fakeData';
+import meals from '../tests/dummyData/fakeMeal';
 
+/**
+ * Class representing a Meal Controller.
+ * @extends Point
+ */
 class MealController extends Controller {
+  /**
+   * Creates a new Meal
+   * @memberof MealController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
   static createMeal(req, res) {
     const {
       title,
@@ -11,14 +23,6 @@ class MealController extends Controller {
       price,
       extras,
     } = req.body;
-
-    // if title or price field are empty output error message
-    if (!title || !price) {
-      return res.status(400).json({
-        success: false,
-        message: 'Input missing field',
-      });
-    }
 
     const lenOfId = meals.length;
     const id = meals[lenOfId - 1].id + 1;
@@ -32,6 +36,14 @@ class MealController extends Controller {
       meals,
     });
   }
+  /**
+   * Modifies an existing meal
+   * @memberof MealController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
   static update(req, res) {
     const id = parseInt(req.params.id, 10);
     let updatedMeal;
@@ -57,7 +69,15 @@ class MealController extends Controller {
       message: `Cannot find meal with id ${id}`,
     });
   }
-  static destroy(req, res) {
+  /**
+   * Deletes an existing meal
+   * @memberof MealController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
+  static deleteMeal(req, res) {
     const id = parseInt(req.params.id, 10);
     for (let i = 0; i < meals.length; i += 1) {
       if (parseInt(meals[i].id, 10) === id) {
@@ -75,6 +95,14 @@ class MealController extends Controller {
       message: `Cannot find meal with id ${id}`,
     });
   }
+  /**
+   * Retrieves all Meals
+   * @memberof MealController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
   static retrieveAll(req, res) {
     res.status(200).json({
       success: true,

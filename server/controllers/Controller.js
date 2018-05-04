@@ -1,3 +1,4 @@
+/** Base controller class. */
 class Controller {
 
 }

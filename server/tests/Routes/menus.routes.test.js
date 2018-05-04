@@ -3,11 +3,6 @@ import request from 'supertest';
 import app from '../../app';
 import menus from '../dummyData/fakeMenus';
 
-// import chaiHttp from 'chai-http';
-// chai.expect();
-// const { expect } = chai.expect;
-// chai.use(chaiHttp);
-
 /* global it, describe */
 describe('/POST menu', () => {
   it('it should not POST a menu without a required field', (done) => {
@@ -17,7 +12,7 @@ describe('/POST menu', () => {
       editedBy: 'ayomide',
     };
     request(app)
-      .post('/api/v1/menus')
+      .post('/api/v1/menu')
       .send(menu)
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
@@ -32,11 +27,13 @@ describe('/POST menu', () => {
       createdBy: 'fola',
       editedBy: 'ayomide',
     };
+    const initialLength = menus.length;
     request(app)
-      .post('/api/v1/menus')
+      .post('/api/v1/menu')
       .send(menu)
       .end((err, res) => {
         expect(res.statusCode).to.equal(201);
+        expect(res.body.menus.length).to.equal(initialLength + 1);
         done();
       });
   });
@@ -50,13 +47,13 @@ describe('/POST menu', () => {
     };
     menus.push(oldMenu);
     const menu = {
-      date: '22/10/2019',
+      date: '5/2/2018',
       meals: ['meal1', 'meal2'],
       createdBy: 'fola',
       editedBy: 'ayomide',
     };
     request(app)
-      .post('/api/v1/menus')
+      .post('/api/v1/menu')
       .send(menu)
       .end((err, res) => {
         expect(res.statusCode).to.equal(409);
@@ -66,77 +63,33 @@ describe('/POST menu', () => {
   });
 });
 
-describe('/GET menus', () => {
+describe('/GET menu', () => {
   it('it should return a 200 status', (done) => {
     request(app)
-      .get('/api/v1/menus')
+      .get('/api/v1/menu')
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
-        expect(res.body.message).to.equal('Menus retrieved');
+        expect(res.body.message).to.equal('Menu retrieved');
         done();
       });
   });
-});
-
-
-describe('/PUT meal', () => {
-  it('it should not PUT a menu for a previous or current date', (done) => {
-    const menu = {
-      meals: ['meal1', 'meal2'],
-    };
+  it('it should return a 404 status', (done) => {
+    menus.splice(0, 1);
     request(app)
-      .put('/api/v1/menus/2018-01-24')
-      .send(menu)
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
-        expect(res.body.message).to.equal('You cannot edit previous or today\'s menu');
-        done();
-      });
-  });
-  it('it should PUT a menu for an existing menu', (done) => {
-    const menu = {
-      meals: ['meal1', 'meal2'],
-    };
-    request(app)
-      .put('/api/v1/menus/2019-02-14')
-      .send(menu)
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(200);
-        expect(res.body.message).to.equal('Menu Updated');
-        done();
-      });
-  });
-  it('it should PUT a menu with no updates entered', (done) => {
-    const menu = {};
-    request(app)
-      .put('/api/v1/menus/2019-02-14')
-      .send(menu)
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(200);
-        expect(res.body.message).to.equal('Menu Updated');
-        done();
-      });
-  });
-
-  it('it should not PUT a menu for a non-existing menu', (done) => {
-    const menu = {
-      meals: ['meal1', 'meal2'],
-    };
-    request(app)
-      .put('/api/v1/menus/2020-02-14')
-      .send(menu)
+      .get('/api/v1/menu')
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
-        expect(res.body.message).to.equal('Cannot find menu for date 2020/02/14');
+        expect(res.body.message).to.equal('There is no menu for today');
         done();
       });
   });
 });
+
 
 describe('/DELETE menu', () => {
   it('it should not DELETE a menu that is not found', (done) => {
     request(app)
-      .delete('/api/v1/menus/2119')
+      .delete('/api/v1/menu/2119')
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
         expect(res.body.message).to.equal('Cannot find menu with id 2119');
@@ -144,11 +97,13 @@ describe('/DELETE menu', () => {
       });
   });
   it('it should DELETE a menu ', (done) => {
+    const initialLength = menus.length;
     request(app)
-      .delete('/api/v1/menus/2111')
+      .delete('/api/v1/menu/2112')
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
         expect(res.body.message).to.equal('Menu deleted');
+        expect(res.body.menus.length).to.equal(initialLength - 1);
         done();
       });
   });
