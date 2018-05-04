@@ -1,6 +1,8 @@
+import uniqid from 'uniqid';
 import Controller from './Controller';
 import Meal from '../models/Meal';
 import meals from '../tests/dummyData/fakeMeal';
+
 
 /**
  * Class representing a Meal Controller.
@@ -21,12 +23,11 @@ class MealController extends Controller {
       description,
       image,
       price,
-      extras,
+      extrasId,
     } = req.body;
 
-    const lenOfId = meals.length;
-    const id = meals[lenOfId - 1].id + 1;
-    const meal = new Meal(id, title, description, image, price, extras, 1); // initialize qty to 1
+    const id = uniqid();
+    const meal = new Meal(id, title, description, image, price, extrasId, 1); // initialize qty to 1
 
     // if meal array is not empty set the id to the last element + 1 else, set it to zero
     meals.push(meal);
