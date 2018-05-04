@@ -24,14 +24,6 @@ class MealController extends Controller {
       extras,
     } = req.body;
 
-    // if title or price field are empty output error message
-    if (!title || !price) {
-      return res.status(400).json({
-        success: false,
-        message: 'Input missing field',
-      });
-    }
-
     const lenOfId = meals.length;
     const id = meals[lenOfId - 1].id + 1;
     const meal = new Meal(id, title, description, image, price, extras, 1); // initialize qty to 1

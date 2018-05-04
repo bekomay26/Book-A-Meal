@@ -47,7 +47,7 @@ describe('/POST menu', () => {
     };
     menus.push(oldMenu);
     const menu = {
-      date: '22/10/2019',
+      date: '5/2/2018',
       meals: ['meal1', 'meal2'],
       createdBy: 'fola',
       editedBy: 'ayomide',

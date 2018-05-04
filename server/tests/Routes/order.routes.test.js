@@ -11,8 +11,9 @@ describe('/POST order', () => {
       .post('/api/v1/orders')
       .send(id)
       .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
-        expect(res.body.message).to.equal('Input a valid mealId');
+        expect(res.statusCode).to.equal(422);
+        expect(res.body.errors.mealId.msg).to.equal('Parameter must be an integer');
+        expect(res.body.errors.address.msg).to.equal('Address cannot be empty.');
         done();
       });
   });
@@ -31,7 +32,10 @@ describe('/POST order', () => {
       });
   });
   it('it should return a 404 error', (done) => {
-    const id = { mealId: 4 };
+    const id = {
+      mealId: 4,
+      address: 'sffsfsfgncnggggcgcfcfbjhhvh',
+    };
     request(app)
       .post('/api/v1/orders')
       .send(id)
@@ -53,8 +57,8 @@ describe('/PUT order', () => {
       .put('/api/v1/orders/3111')
       .send(meal)
       .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
-        expect(res.body.message).to.equal('Input a valid quantity');
+        expect(res.statusCode).to.equal(422);
+        expect(res.body.errors.qty.msg).to.equal('Parameter must be an integer');
         done();
       });
   });

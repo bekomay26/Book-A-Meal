@@ -20,8 +20,26 @@ describe('/POST meal', () => {
       .post('/api/v1/meals')
       .send(meal)
       .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
-        expect(res.body.message).to.equal('Input missing field');
+        expect(res.statusCode).to.equal(422);
+        expect(res.body.errors.price.msg).to.equal('Price cannot be empty.');
+        done();
+      });
+  });
+  it('it should return a 422 error for invalid fields', (done) => {
+    const meal = {
+      title: '  ',
+      description: 'sffdfd,l;lg',
+      image: 'fgffh',
+      price: 'fd'
+    };
+    request(app)
+      .post('/api/v1/meals')
+      .send(meal)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(422);
+        expect(res.body).to.be.an('object');
+        expect(res.body.errors.title.msg).to.equal('Title cannot be empty.');
+        expect(res.body.errors.price.msg).to.equal('Price must be an integer decimals not allowed');
         done();
       });
   });
