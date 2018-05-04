@@ -20,11 +20,6 @@ app.get('/', (req, res) => {
 
 app.use('/*', errorRouter);
 
-// app.get('/*', (req, res) => {
-//   res.status(404).send('Page not found');
-// });
-
-
 app.listen(port, () => {
   console.log(`listening on port: ${port}`);
 });
