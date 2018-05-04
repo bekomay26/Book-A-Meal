@@ -1,6 +1,8 @@
+import uniqid from 'uniqid';
 import Controller from './Controller';
 import Menu from '../models/Menu';
 import menus from '../tests/dummyData/fakeMenus';
+import mealss from '../tests/dummyData/fakeMeal';
 
 class MenusController extends Controller {
   /**
@@ -34,8 +36,7 @@ class MenusController extends Controller {
       }
     });
     if (!exists) {
-      const lenOfId = menus.length;
-      const id = menus[lenOfId - 1].id + 1;
+      const id = uniqid();
       const menu = new Menu(id, date, [], createdBy, editedBy);
       for (let i = 0; i < meals.length; i += 1) {
         function findById(item) {
@@ -44,26 +45,14 @@ class MenusController extends Controller {
           }
           return false;
         }
-        const todayMenu = meals.find(findById);
+        const todayMenu = mealss.find(findById);
         menu.meals.push(todayMenu);
-      }
-      for (let i = 0; i < menu.length; i += 1) {
-        if (parseInt(menu[i].id, 10) === mealIdInt) {
-          newOrder.meal = menu[i];
-          newOrder.startTimer = Date.now();
-          orders.push(newOrder); // After adding the other properties
-          return res.status(201)
-            .json({
-              success: true,
-              message: 'Meal added to order',
-              orders,
-            });
-        }
       }
       menus.push(menu);
       return res.status(201).json({
         success: true,
         message: 'menu created',
+        menus,
       });
     }
     return res.status(409).json({

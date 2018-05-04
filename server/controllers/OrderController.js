@@ -1,3 +1,4 @@
+import uniqid from 'uniqid';
 import Controller from './Controller';
 import Order from '../models/Order';
 import orders from '../tests/dummyData/fakeOrder';
@@ -25,6 +26,7 @@ class OrderController extends Controller {
     }
     const newOrder = new Order();
     newOrder.address = address;
+    newOrder.id = uniqid();
     for (let i = 0; i < menu.length; i += 1) {
       if (parseInt(menu[i].id, 10) === mealIdInt) {
         newOrder.meal = menu[i];
@@ -34,6 +36,7 @@ class OrderController extends Controller {
           .json({
             success: true,
             message: 'Meal added to order',
+            orders,
           });
       }
     }

@@ -50,7 +50,8 @@
     "express-validator": "^5.1.2",
     "faker": "^4.1.0",
     "json-schema-faker": "^0.5.0-rc15",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "uniqid": "^4.1.1"
   },
   "nodemonConfig": {
     "restartable": "rs",
