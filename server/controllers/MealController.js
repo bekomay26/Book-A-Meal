@@ -33,7 +33,6 @@ class MealController extends Controller {
     return res.status(201).json({
       success: true,
       message: 'Meal created',
-      meals,
     });
   }
   /**
