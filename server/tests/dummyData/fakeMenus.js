@@ -2,7 +2,7 @@ import faker from 'faker';
 
 const menus = [{
   id: 2111,
-  date: '5/2/2018', // use yyyy-mm-dd format
+  date: '2018-5-4', // use yyyy-mm-dd format
   meals: [ // would be mealsId in database
     {
       id: 1222,
@@ -54,7 +54,7 @@ const menus = [{
 },
 {
   id: 2117,
-  date: '4/5/2018', // use yyyy-mm-dd format
+  date: '2018-9-4', // use yyyy-mm-dd format
   meals: [ // would be mealsId in database
     {
       id: 1222,

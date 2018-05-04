@@ -34,7 +34,6 @@ class OrderController extends Controller {
           .json({
             success: true,
             message: 'Meal added to order',
-            orders,
           });
       }
     }

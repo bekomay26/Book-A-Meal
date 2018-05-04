@@ -36,12 +36,34 @@ class MenusController extends Controller {
     if (!exists) {
       const lenOfId = menus.length;
       const id = menus[lenOfId - 1].id + 1;
-      const menu = new Menu(id, date, meals, createdBy, editedBy);
+      const menu = new Menu(id, date, [], createdBy, editedBy);
+      for (let i = 0; i < meals.length; i += 1) {
+        function findById(item) {
+          if (item.id === meals[i]) {
+            return true;
+          }
+          return false;
+        }
+        const todayMenu = meals.find(findById);
+        menu.meals.push(todayMenu);
+      }
+      for (let i = 0; i < menu.length; i += 1) {
+        if (parseInt(menu[i].id, 10) === mealIdInt) {
+          newOrder.meal = menu[i];
+          newOrder.startTimer = Date.now();
+          orders.push(newOrder); // After adding the other properties
+          return res.status(201)
+            .json({
+              success: true,
+              message: 'Meal added to order',
+              orders,
+            });
+        }
+      }
       menus.push(menu);
       return res.status(201).json({
         success: true,
         message: 'menu created',
-        menus,
       });
     }
     return res.status(409).json({
@@ -89,7 +111,7 @@ class MenusController extends Controller {
    */
   static retrieveTodaysMenu(req, res) {
     // added the en-GB cos it was giving yyyy-mm-dd by default
-    const todaysDate = (new Date()).toLocaleDateString('en-GB');
+    const todaysDate = new Date().toLocaleDateString();
     function findByDate(item) {
       if (item.date === todaysDate) {
         return true;

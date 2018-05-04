@@ -14,16 +14,11 @@ app.use(bodyParser.json());
 app.use('/api/v1/meals', mealRouter);
 app.use('/api/v1/menu', menusRouter);
 app.use('/api/v1/orders', orderRouter);
-app.use('/*', errorRouter);
-
 app.get('/', (req, res) => {
   res.send('Hello, world');
 });
 
-// app.get('/*', (req, res) => {
-//   res.status(404).send('Page not found');
-// });
-
+app.use('/*', errorRouter);
 
 app.listen(port, () => {
   console.log(`listening on port: ${port}`);
