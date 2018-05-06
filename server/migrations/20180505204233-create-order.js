@@ -26,13 +26,10 @@ module.exports = {
       address: {
         type: Sequelize.STRING,
       },
-      createdAt: {
+      quantity: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
+        defaultValue: 1,
       },
       mealId: {
         type: Sequelize.INTEGER,
@@ -60,6 +57,14 @@ module.exports = {
           key: 'id',
           as: 'cateredById',
         },
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
       },
     });
   },

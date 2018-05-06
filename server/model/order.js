@@ -8,9 +8,25 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM,
       values: ['Cancelled', 'Completed', 'Pending'],
     },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
+    },
     address: DataTypes.STRING,
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+    },
   }, {});
   Order.associate = (models) => {
+    Order.belongsToMany(models.Extra, {
+      foreignKey: 'orderId',
+      otherKey: 'extraId',
+      onDelete: 'CASCADE',
+      as: 'extras',
+      through: 'OrderExtra',
+    });
     Order.belongsTo(models.Meal, {
       foreignKey: 'mealId',
       onDelete: 'CASCADE',

@@ -17,6 +17,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Meal.associate = (models) => {
+    Meal.belongsToMany(models.Extra, {
+      foreignKey: 'mealId',
+      otherKey: 'extraId',
+      onDelete: 'CASCADE',
+      as: 'extras',
+      through: 'MealExtra',
+    });
     Meal.belongsToMany(models.Menu, {
       foreignKey: 'mealId',
       otherKey: 'menuId',
