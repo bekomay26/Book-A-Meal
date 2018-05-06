@@ -23,6 +23,7 @@ h2{
     text-align: center;
     margin-top:25px;
     font-size: 2em;
+    margin-bottom: 50px;
 }
 .fa-long-arrow-alt-left{
     font-size: 1em;
@@ -49,11 +50,41 @@ a{
 a:hover{
     color: red;
 }
+
+/* Add Menu */
+.add{
+    background-color: #ffa200;
+    color: rgba(0,0,0);
+    padding: 14px 20px;
+    margin: 25px 15px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 90%;
+}
+.fa-plus-square:hover{
+    color: blue;
+}
+.fa-minus-square:hover{
+    color: red;
+}
+.addContainer{
+    border-bottom: 2px solid #ffa200;
+}
+
+
+
+.container {
+    width: 100%;
+    margin: 50px auto;
+    margin-bottom: 0;
+}
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
-    margin-top: 105px;
+    margin-top: 45px;
 }
 
 td, th {
@@ -68,7 +99,7 @@ th{
     border-left: none;
 }
 tr:nth-child(odd) {
-    background-color: #dddddd;
+    background-color: white;
  }
 
 tr:nth-child(even) {
@@ -82,9 +113,20 @@ th {
 
 tr:hover {
     background-color: rgba(255, 162, 0, 0.7);
+}
+
+.fa-trash-alt{
     cursor: pointer;
 }
 
+.fa-trash-alt:hover {
+    color: red;
+    background-color: white;
+    cursor: pointer;
+}
+.edit:hover{
+    cursor: pointer;
+}
 .remove{
     margin: 16px 0;
     
@@ -304,7 +346,7 @@ input[type=number]{
     
 }
 
-input[type=button]{
+.modal input[type=button]{
     color: white;
     background-color: #888;
     border:none;
@@ -316,7 +358,7 @@ input[type=button]{
     
 }
 
-input[type=submit] {
+.modal input[type=submit] {
     background-color: #888;
     color: rgba(0,0,0);
     padding: 14px 20px;
