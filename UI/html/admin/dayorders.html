@@ -10,18 +10,18 @@
     <link href="https://fonts.googleapis.com/css?family=Jua" rel="stylesheet">
 </head>
 <body>
-    <div class="col-12 admin">
-        <div class="col-3"><img src="../../images/pl3.png" alt="Logo" class="logo"></div>
-        <div class="info col-6">
-            <h2>Today's Orders</h2>
-            
+    <header>
+        <div class="top row">
+            <a href="../user/index.html" class="col-9 logo"><h2>Book-A-Meal</h2></a>
+            <nav class="menu col-3">
+                <li class="col-4"><a href="managemenu.html">Manange meal</a></li>
+                <li class="col-4"><a href="dayorders.html">Day Orders</a></li>
+                <li class="col-4"><a href="selectmenu.html">Select Menu</a></li>
+            </nav>
         </div>
-        <div class="col-3">
-            <a href="admin.html" class="col-12 back"><i class="fas fa-long-arrow-alt-left"></i></a>
-            <!-- <button>Back</button> -->
-            <a href="#" class="col-12 out">signout</a> 
-        </div>
-    </div>
+    </header>
+
+    <h2>Today's Orders</h2>
     <div class="order">
         
         <div class="day-summ row">
@@ -31,16 +31,15 @@
             <div class="col-4">
                 <p class="total-prc">65,000:00</p>
             </div>
-            <div class="col-4">
-                <p class="pend">Pending<span>3</span></p>
-                <p class="canc">Cancelled<span>9</span></p>
-                <p class="comp">Completed<span>98</span></p>
+            <div class="col-4 stat">
+                <p><span><i class="fas fa-circle pend"></i></span> Pending 3</p>
+                <p><span><i class="fas fa-circle canc"></i></span> Cancelled 9</p>
+                <p><span><i class="fas fa-circle comp"></i></span> Completed 98</p>
             </div>
         </div>
         <div class=" row">
             <div class="col-1 complete"></div>
             <div class="col-3">
-                <img src="../../images/male1.jpeg">
                 <p>Folajimi Ogunbadejo</p>
             </div>
             <div class="col-4">
@@ -64,7 +63,6 @@
         <div class=" row">
             <div class="col-1 complete"></div>
             <div class="col-3">
-                <img src="../../images/male1.jpeg">
                 <p>Folajimi Ogunbadejo</p>
             </div>
             <div class="col-4">
@@ -88,7 +86,6 @@
         <div class="row">
             <div class="col-1 cancelled"></div>
             <div class="col-3">
-                <img src="../../images/male1.jpeg">
                 <p>Folajimi Ogunbadejo</p>
             </div>
             <div class="col-4">
@@ -108,7 +105,6 @@
         <div class=" row">
             <div class="col-1 complete"></div>
             <div class="col-3">
-                <img src="../../images/male1.jpeg">
                 <p>Folajimi Ogunbadejo</p>
             </div>
             <div class="col-4">
@@ -132,7 +128,6 @@
         <div class="row">
             <div class="col-1 pending"></div>
             <div class="col-3">
-                <img src="../../images/male1.jpeg">
                 <p>Folajimi Ogunbadejo</p>
             </div>
             <div class="col-4">

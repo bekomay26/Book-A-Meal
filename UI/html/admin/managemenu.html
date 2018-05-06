@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Manage Meal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../../css/mm.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
@@ -11,63 +11,134 @@
     <script src="../../js/menu.js"></script>
 </head>
 <body>
-    <div class="col-12 admin">
-        <div class="col-3"><img src="../../images/pl3.png" alt="Logo" class="logo"></div>
-        <div class="info col-6">
-            <h2>Manage Menu</h2>
-            
+    <header class="row">
+        <div class="top row">
+            <a href="../user/index.html" class="col-9 logo"><h2>Book-A-Meal</h2></a>
+            <nav class="menu col-3">
+                <li class="col-4"><a href="managemenu.html">Manange meal</a></li>
+                <li class="col-4"><a href="dayorders.html">Day Orders</a></li>
+                <li class="col-4"><a href="selectmenu.html">Select Menu</a></li>
+            </nav>
         </div>
-        <div class="col-3">
-            <a href="admin.html" class="col-12 back"><i class="fas fa-long-arrow-alt-left"></i></a>
-            <!-- <button>Back</button> -->
-            <a href="#" class="col-12 out">signout</a> 
-        </div>
+    </header>
+    <h2>Manage Meal</h2>
+    <div id="addContainer" class="addContainer">
+        <form id="addForm" class="addForm" action="" method="POST">
+            <div class="add-details">
+                <div class="addImg row">
+                    <label for="filename" style="color: rgba(0,0,0);">Select Image</label>
+                    <input id="filename" name="filename" type="file" accept="image/*" placeholder="Select Image">
+                </div>
+                <div class="addName row">
+                    <input id="addFood" name="addFood" type="text" placeholder="Food Name">
+                </div>
+                <div id="addMealwith" class="addMealwith">
+                    <h4>Goes With</h4>
+                    <div class="item row">
+                        <div class="col-7">Garri</div>
+                        <div class="col-4"><input type="number"></div>
+                        <div class="col-1"><i class="far fa-minus-square"></i></div>
+                    </div>
+                    <div class="item row">
+                        <div class="col-7">Amala</div>
+                        <div class="col-4"><input type="number"></div>
+                        <div class="col-1"><i class="far fa-minus-square"></i></div>
+                    </div>
+                    <div class="item row">
+                        <div class="col-7">Akpu</div>
+                        <div class="col-4"><input type="number"></div>
+                        <div class="col-1"><i class="far fa-minus-square"></i></div>
+                    </div>
+                    <div class="item row">
+                        <div class="col-7">Pounded Yam</div>
+                        <div class="col-4"><input type="number"></div>
+                        <div class="col-1"><i class="far fa-minus-square"></i></div>
+                    </div>
+                    <i class="far fa-plus-square" style="margin-left: 18px"></i>
+                </div>
+                <div id="addMealextra" class="addMealextra">
+                    <h4>Extras</h4>
+                    <div class="item row">
+                        <div class="col-7">Beef</div>
+                        <div class="col-4"><input type="number"></div>
+                        <div class="col-1"><i class="far fa-minus-square"></i></div>
+                    </div>
+                    <div class="item row">
+                        <div class="col-7">Chicken</div>
+                        <div class="col-4"><input type="number"></div>
+                        <div class="col-1"><i class="far fa-minus-square"></i></div>
+                    </div>
+                    <div class="item row">
+                        <div class="col-7">Mutton</div>
+                        <div class="col-4"><input type="number"></div>
+                        <div class="col-1"><i class="far fa-minus-square"></i></div>
+                    </div>
+                    <div class="item row">
+                        <div class="col-7">Turkey</div>
+                        <div class="col-4"><input type="number"></div>
+                        <div class="col-1"><i class="far fa-minus-square"></i></div>
+                    </div>
+                    <i class="far fa-plus-square" style="margin-left: 18px"></i>
+                </div>
+                <div>
+                    <input type="submit"  class="add" value="Add Meal">
+                </div>
+            </div>       
+        </form>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>category</th>
-                <th>price</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tfoot>
+    <div class="container" style="overflow-x:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>category</th>
+                    <th>price</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tfoot>
 
-        </tfoot>
-        <tbody>
-            <tr onclick="onSelect(event)">
-                <td>110134</td>
-                <td>Rice</td>
-                <td>category</td>
-                <td>&#x20A6;400</td>
-                <td><i class="far fa-trash-alt remove"></i></td>
-            </tr> 
-            <tr onclick="onSelect(event)">
-                <td>110134</td>
-                <td>Rice</td>
-                <td>dropdown category</td>
-                <td>&#x20A6;400</td>
-                <td><i class="far fa-trash-alt remove"></i></td>
-            </tr> 
-            <tr onclick="onSelect(event)">
-                <td>110134</td>
-                <td>Rice</td>
-                <td>category</td>
-                <td>&#x20A6;400</td>
-                <td><i class="far fa-trash-alt remove"></i></td>
-            </tr>
-            <tr onclick="onSelect(event)">
-                <td>110134</td>
-                <td>Rice</td>
-                <td>category</td>
-                <td>&#x20A6;400</td>
-                <td><i class="far fa-trash-alt remove"></i></td>
-            </tr>          
-        </tbody>
-    </table>
-    <button onclick="onSelect(event)">ADD</button>
+            </tfoot>
+            <tbody>
+                <tr>
+                    <td>110134</td>
+                    <td>Rice</td>
+                    <td>category</td>
+                    <td>&#x20A6;400</td>
+                    <td onclick="onSelect(event)" class="edit"><i class="far fa-edit"></i></td>
+                    <td><i class="far fa-trash-alt remove"></i></td>
+                </tr> 
+                <tr>
+                    <td>110134</td>
+                    <td>Rice</td>
+                    <td>dropdown category</td>
+                    <td>&#x20A6;400</td>
+                    <td onclick="onSelect(event)" class="edit"><i class="far fa-edit"></i></td>
+                    <td><i class="far fa-trash-alt remove"></i></td>
+                </tr> 
+                <tr>
+                    <td>110134</td>
+                    <td>Rice</td>
+                    <td>category</td>
+                    <td>&#x20A6;400</td>
+                    <td onclick="onSelect(event)" class="edit"><i class="far fa-edit"></i></td>
+                    <td><i class="far fa-trash-alt remove"></i></td>
+                </tr>
+                <tr>
+                    <td>110134</td>
+                    <td>Rice</td>
+                    <td>category</td>
+                    <td>&#x20A6;400</td>
+                    <td onclick="onSelect(event)" class="edit"><i class="far fa-edit"></i></td>
+                    <td><i class="far fa-trash-alt remove"></i></td>
+                </tr>          
+            </tbody>
+        </table>
+    </div>
+    
+    
     <div id="modal-container" class="modal">
         <span id="close" class="close" onclick="onClose()">&times;</span>
         <form id="modal-form" class="modal-form" action="" method="POST">
@@ -85,22 +156,22 @@
                 <div id="mealwith" class="mealwith">
                     <h4>Goes With</h4>
                     <div class="item row">
-                        <div class="col-5"><input type="checkbox" name="" value=""><span >Garri</span></div>
+                        <div class="col-5">Garri</div>
                         <div class="col-2"><input type="number"></div>
                         <div class="col-1"><input type="button" value="-"></div>
                     </div>
                     <div class="item row">
-                        <div class="col-5"><input type="checkbox" name="" value=""><span >Amala</span></div>
+                        <div class="col-5">Amala</div>
                         <div class="col-2"><input type="number"></div>
                         <div class="col-1"><input type="button" value="-"></div>
                     </div>
                     <div class="item row">
-                        <div class="col-5"><input type="checkbox" name="" value=""><span >Akpu</span></div>
+                        <div class="col-5">Akpu</div>
                         <div class="col-2"><input type="number"></div>
                         <div class="col-1"><input type="button" value="-"></div>
                     </div>
                     <div class="item row">
-                        <div class="col-5"><input type="checkbox" name="" value=""><span >Pounded Yam</span></div>
+                        <div class="col-5">Pounded Yam</div>
                         <div class="col-2"><input type="number"></div>
                         <div class="col-1"><input type="button" value="-"></div>
                     </div>
@@ -110,22 +181,22 @@
                 <div id="mealextra" class="mealextra">
                     <h4>Extras</h4>
                     <div class="item row">
-                        <div class="col-5"><input type="checkbox" name="" value=""><span >Beef</span></div>
+                        <div class="col-5">Beef</div>
                         <div class="col-2"><input type="number"></div>
                         <div class="col-1"><input type="button" value="-"></div>
                     </div>
                     <div class="item row">
-                        <div class="col-5"><input type="checkbox" name="" value=""><span >Chicken</span></div>
+                        <div class="col-5">Chicken</div>
                         <div class="col-2"><input type="number"></div>
                         <div class="col-1"><input type="button" value="-"></div>
                     </div>
                     <div class="item row">
-                        <div class="col-5"><input type="checkbox" name="" value=""><span >Mutton</span></div>
+                        <div class="col-5">Mutton</div>
                         <div class="col-2"><input type="number"></div>
                         <div class="col-1"><input type="button" value="-"></div>
                     </div>
                     <div class="item row">
-                        <div class="col-5"><input type="checkbox" name="" value=""><span >Turkey</span></div>
+                        <div class="col-5">Turkey</div>
                         <div class="col-2"><input type="number"></div>
                         <div class="col-1"><input type="button" value="-"></div>
                     </div>
