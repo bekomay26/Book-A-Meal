@@ -1,12 +1,19 @@
+import moment from 'moment';
 import Controller from './Controller';
-import Order from '../models/Order';
 import db from '../model/index';
 
 class OrderController extends Controller {
-  static createOrder(req, res) {
-    const { mealId, address, createdById, cateredById } = req.body;
+  static async createOrder(req, res) {
+    const {
+      mealId,
+      extraIds,
+      qtys, // zero not allowed, default is 1
+      address,
+      createdById,
+      cateredById,
+    } = await req.body;
 
-    const mealIdInt = parseInt(mealId, 10);
+    const mealIdInt = await parseInt(mealId, 10);
     // if mealId is empty or not an integer output error message
     if (!mealId || !Number.isInteger(mealIdInt)) {
       return res.status(400).json({
@@ -14,94 +21,161 @@ class OrderController extends Controller {
         message: 'Input a valid mealId',
       });
     }
-    db.Meal
-      .findOne({ where: { id: mealId } })
-      .then((exists) => {
-        if (exists) {
-          db.Order.create({
-            mealId,
-            address,
-            createdById,
-            cateredById,
-          })
-            .then((ord) => {
-              res.status(201).send(ord);
-            });
+    // db.Meal.findOne({
+    //   where: { id: mealId },
+    //   include: [{
+    //     model: db.Extra,
+    //     through: {
+    //       foreignKey: 'extraId',
+    //       attributes: ['id'],
+    //     },
+    //     as: 'extras',
+    //   }],
+    // })
+    // .then(orderedMeal => {
+    //   extraIds.forEach(element => {
+    //     // if( mealExtras.includes(element)){
+    //       // mealExtras.find(ext => ext===element )
+    //     // }
+    //     return res.status(404).json({
+    //       success: false,
+    //       message: 'Extra is not served with this particular meal',
+    //     });
+    //   })
+    // })
+    let price = 0;
+    const exists = await db.Meal.findOne({ where: { id: mealId } });
+    if (exists) {
+      price += exists.price;
+      const mealExtras = await db.MealExtra.findAll({ where: { mealId } });
+      const mealExtrasIds = await mealExtras.map(obj => obj.extraId);
+      for (let i = 0; i < extraIds.length; i++) {
+        if (mealExtrasIds.includes(extraIds[i])) {
+          const extra = await db.Extra.findOne({ where: { id: extraIds[i] } });
+          price += (extra.price * (qtys[i] || 1));
         } else {
-          res.status(404).json({
+          return res.status(404).json({
             success: false,
-            message: 'Meal not found',
+            message: 'Extra is not served with this particular meal',
           });
         }
+      }
+      const ord =
+        await db.Order.create({
+          mealId,
+          totalPrice: price,
+          address,
+          createdById,
+          cateredById,
+          status: 'Pending',
+        });
+      await req.body.extraIds.map(id =>
+        db.OrderExtra.create({ extraId: id, orderId: ord.id }));
+      (res.status(201).send(ord));
+    } else {
+      res.status(404).json({
+        success: false,
+        message: 'Meal not found',
       });
+    }
   }
-  static updateOrder(req, res) {
+  static async updateOrder(req, res) {
     const id = parseInt(req.params.id, 10);
     const {
-      extras,
-      qty,
+      extraIds,
+      qtys,
+      address,
     } = req.body;
-    if (!Number.isInteger(parseInt(qty, 10))) {
-      return res.status(400)
-        .json({
-          success: false,
-          message: 'Input a valid quantity',
-        });
-    }
-    let updatedOrder;
-    for (let i = 0; i < orders.length; i += 1) {
-      if (orders[i].id === id) {
-        orders[i].meal.extras = extras || orders[i].meal.extras;
-        orders[i].meal.qty = qty;
-        updatedOrder = orders[i];
-        return res.status(200)
-          .json({
-            success: true,
-            message: 'Order Updated',
-            Order: updatedOrder,
+    let price = 0;
+    const orderOpt = await db.Order
+      .findOne({ where: { id: parseInt(req.params.id, 10) } });
+    if (orderOpt) {
+      console.log(`folafdgdggd ${orderOpt}`)
+      console.log(`foladsff ${orderOpt.mealId}`)
+      const meal = await db.Meal.findOne({ where: { id: orderOpt.mealId } });
+      price += meal.price;
+      const mealExtras = await db.MealExtra.findAll({ where: { mealId: orderOpt.mealId } });
+      const mealExtrasIds = await mealExtras.map(obj => obj.extraId);
+      for (let i = 0; i < extraIds.length; i++) {
+        if (mealExtrasIds.includes(extraIds[i])) {
+          const extra = await db.Extra.findOne({ where: { id: extraIds[i] } });
+          price += (extra.price * (qtys[i] || 1));
+        } else {
+          return res.status(404).json({
+            success: false,
+            message: 'Extra is not served with this particular meal',
           });
+        }
       }
+      orderOpt.update({
+        address,
+        totalPrice: price,
+      });
+      res.status(200).json({
+        success: true,
+        message: 'meal updated',
+        order: orderOpt,
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: `Cannot find meal with id ${id}`,
+      });
     }
-    return res.status(404).json({
-      success: false,
-      message: `Cannot find order with id ${id}`,
-    });
   }
-  static retrieveOrders(req, res) {
-    res.status(200).json({
-      success: true,
-      message: 'Orders retrieved',
-      orders,
-    });
+  // this is retrieve all for admin. dere should be retrieve by user and by date for customer and user respectively. 
+  // there can also be retrieve by date for customer
+  // Admin can have retrieve by status
+  // there can also be retrieve by caterer. If going the route of multi admins
+  static async retrieveOrders(req, res) {
+    const orders = await db.Order
+      .findAll({
+        include: [{
+          model: db.Meal,
+          attributes: ['title', 'description', 'price'],
+        },
+        {
+          model: db.Extra,
+          through: {
+            foreignKey: 'extraId',
+            attributes: ['title', 'price'],
+          },
+          as: 'extras',
+        },
+        ],
+      });
+    res.status(200).send({ orders });
   }
 
-  static deleteOrder(req, res) {
+  static async deleteOrder(req, res) {
+    const currentTime = moment.tz(new Date(), 'America/Danmarkshavn');
+    console.log(currentTime);
     const id = parseInt(req.params.id, 10);
-    for (let i = 0; i < orders.length; i += 1) {
-      if (parseInt(orders[i].id, 10) === id) {
-        // const endTimer = Date.now();
-        const endTimer = new Date();
-        const timeElapsed = endTimer.getTime() - orders[i].startTimer;
-        if (timeElapsed < 50000) { // if less than 10secons has passed
-          const newOrders = orders.splice(i, 1);
-          return res.status(200)
-            .json({
-              success: true,
-              message: 'Order deleted',
-              newOrders,
-            });
-        }
+    const orderOpt = await db.Order
+      .findOne({ where: { id: parseInt(req.params.id, 10) } });
+    const creaTime = moment.tz(orderOpt.createdAt, 'America/Danmarkshavn');
+    // const e = moment(creaTime).fromNow();
+    const timeElapsed = (moment.duration(currentTime.diff(creaTime))).asMinutes();
+    if (orderOpt) {
+      if (timeElapsed < 15) {
+        await orderOpt.destroy();
+        res.status(200).json({
+          success: true,
+          message: 'Meal deleted',
+        });
+      } else {
         return res.status(400)
           .json({
             success: false,
-            message: 'You cannot delete an order after 50 seconds',
+            message: 'You cannot delete an order after 15 Minutes',
           });
       }
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: `Cannot find meal with id ${id}`,
+      });
     }
-    return res.status(404).json({
-      success: false,
-      message: `Cannot find order with id ${id}`,
-    });
   }
 }
 

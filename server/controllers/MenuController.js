@@ -66,17 +66,12 @@ class MenuController extends Controller {
               message: 'There is no menu for today',
             });
         }
-        // return res.status(200)
-        //   .json({
-        //     success: true,
-        //     message: 'Menu retrieved',
-        //   });
         return db.Menu.findOne({
           where: { date: todaysDate },
           include: [{
             model: db.Meal,
             through: {
-              foeignKey: 'mealId',
+              foreignKey: 'mealId',
               attributes: ['title', 'description', 'price'],
             },
             as: 'meals',

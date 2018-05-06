@@ -1,20 +1,19 @@
 import Controller from './Controller';
-import Meal from '../models/Meal';
 // import meals from '../tests/dummyData/fakeData';
 import db from '../model/index';
 
 class MealController extends Controller {
-  static createMeal(req, res) {
+  static async createMeal(req, res) {
     const {
-      title1,
-      description1,
-      image1,
-      price1,
-      extras1,
-    } = req.body;
+      title,
+      description,
+      image,
+      price,
+      extraIds,
+    } = await req.body;
 
     // if title or price field are empty output error message
-    if (!title1 || !price1) {
+    if (!title || !price) {
       return res.status(400).json({
         success: false,
         message: 'Input missing field',
@@ -24,23 +23,32 @@ class MealController extends Controller {
     // const lenOfId = meals.length;
     // const id = meals[lenOfId - 1].id + 1;
     // const meal = new Meal(id, title, description, image, price, extras, 1); // initialize qty to 1
-
     // // if meal array is not empty set the id to the last element + 1 else, set it to zero
     // meals.push(meal);
-    db.Meal.create({
-      title: title1,
-      description: description1,
-      image: image1,
-      price: price1,
-      extras: extras1,
-    })
-      .then(todo => res.status(201).send(todo))
-      .catch(error => res.status(400).send(error));
-    // return res.status(201).json({
-    //   success: true,
-    //   message: 'Meal created',
-    //   meals,
-    // });
+    const meal = await db.Meal.create({
+      title,
+      description,
+      image_url: image,
+      price,
+    });
+    let exists;
+    // await req.body.extraIds.map(async id =>
+    for (let i = 0; i < extraIds.length; i++) {
+      exists = await db.Extra.findOne({ where: { id: extraIds[i] } });
+      if (exists) {
+        await db.MealExtra.create({ extraId: extraIds[i], mealId: meal.id });
+      } else {
+        return res.status(404).json({
+          success: false,
+          message: 'Extra not found',
+        });
+      }
+    }
+    return res.status(201).json({
+      success: true,
+      message: 'Meal created',
+      meal,
+    });
   }
   static update(req, res) {
     let updatedMeal;
@@ -53,8 +61,8 @@ class MealController extends Controller {
             title: req.body.title,
             description: req.body.description,
             price: req.body.price,
-            image: req.body.image,
-            extras: req.body.extras,
+            image_url: req.body.image,
+            // extras: req.body.extras,
           })
             .then(() => {
               res.status(200).json({
