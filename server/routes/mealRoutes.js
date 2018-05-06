@@ -1,7 +1,9 @@
 import express from 'express';
 import MealController from '../controllers/MealController';
+import Authentication from '../middleware/Authentication';
 
 const mealRouter = express.Router();
+mealRouter.use(Authentication.verifyUser, Authentication.checkAdmin);
 
 mealRouter.route('/')
   .post(MealController.createMeal);

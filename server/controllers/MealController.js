@@ -34,6 +34,7 @@ class MealController extends Controller {
     let exists;
     // await req.body.extraIds.map(async id =>
     for (let i = 0; i < extraIds.length; i++) {
+      /* eslint-disable no-await-in-loop */
       exists = await db.Extra.findOne({ where: { id: extraIds[i] } });
       if (exists) {
         await db.MealExtra.create({ extraId: extraIds[i], mealId: meal.id });

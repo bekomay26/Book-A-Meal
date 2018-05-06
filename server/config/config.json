@@ -3,6 +3,7 @@
     "username": "postgres",
     "password": "Crimson26",
     "database": "bookmeal-test6",
+    "secret": "letsgothere",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

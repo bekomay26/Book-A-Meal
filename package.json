@@ -44,12 +44,14 @@
     "sequelize-cli": "^4.0.0"
   },
   "dependencies": {
+    "base64-url": "^2.2.0",
     "body-parser": "^1.18.2",
     "chai-http": "^4.0.0",
     "chalk": "^2.4.0",
     "express": "^4.16.3",
     "faker": "^4.1.0",
     "json-schema-faker": "^0.5.0-rc15",
+    "jsonwebtoken": "^8.2.1",
     "moment": "^2.22.1",
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
