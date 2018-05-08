@@ -2,6 +2,10 @@ import Controller from './Controller';
 // import meals from '../tests/dummyData/fakeData';
 import db from '../model/index';
 
+/**
+ * Class representing a Meal Controller.
+ * @extends Controller
+ */
 class MealController extends Controller {
   static async createMeal(req, res) {
     const {
@@ -20,30 +24,32 @@ class MealController extends Controller {
       });
     }
 
-    // const lenOfId = meals.length;
-    // const id = meals[lenOfId - 1].id + 1;
-    // const meal = new Meal(id, title, description, image, price, extras, 1); // initialize qty to 1
-    // // if meal array is not empty set the id to the last element + 1 else, set it to zero
-    // meals.push(meal);
+    let exists;
+
+    // for each extra in the array, if the extra does not exist, return an error
+    for (let i = 0; i < extraIds.length; i += 1) {
+      /* eslint-disable no-await-in-loop */
+      exists = await db.Extra.findOne({ where: { id: extraIds[i] } });
+      if (!exists) {
+        return res.status(404).json({
+          success: false,
+          message: `Extra with id ${extraIds[i]} not found`,
+        });
+      }
+    }
+
+    // Create the meal
     const meal = await db.Meal.create({
       title,
       description,
       image_url: image,
       price,
     });
-    let exists;
-    // await req.body.extraIds.map(async id =>
-    for (let i = 0; i < extraIds.length; i++) {
+
+    // for each extra id, create a row along with the mealId in the join table
+    for (let i = 0; i < extraIds.length; i += 1) {
       /* eslint-disable no-await-in-loop */
-      exists = await db.Extra.findOne({ where: { id: extraIds[i] } });
-      if (exists) {
-        await db.MealExtra.create({ extraId: extraIds[i], mealId: meal.id });
-      } else {
-        return res.status(404).json({
-          success: false,
-          message: 'Extra not found',
-        });
-      }
+      await db.MealExtra.create({ extraId: extraIds[i], mealId: meal.id });
     }
     return res.status(201).json({
       success: true,
@@ -51,67 +57,63 @@ class MealController extends Controller {
       meal,
     });
   }
-  static update(req, res) {
-    let updatedMeal;
+
+  static async updateMeal(req, res) {
     const id = parseInt(req.params.id, 10);
-    db.Meal
-      .findOne({ where: { id: parseInt(req.params.id, 10) } })
-      .then((mealOpt) => {
-        if (mealOpt) {
-          mealOpt.update({
-            title: req.body.title,
-            description: req.body.description,
-            price: req.body.price,
-            image_url: req.body.image,
-            // extras: req.body.extras,
-          })
-            .then(() => {
-              res.status(200).json({
-                success: true,
-                message: 'meal updated',
-                meal: mealOpt,
-              });
-            });
-        } else {
-          return res.status(404).json({
-            success: false,
-            message: `Cannot find meal with id ${id}`,
-          });
-        }
+    const meal = await db.Meal.findOne({ where: { id: parseInt(req.params.id, 10) } });
+    const { extraIds } = req.body;
+
+    if (meal) {
+      meal.update({
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        image_url: req.body.image,
       });
+      const mealextras = await db.MealExtra.findAll({ where: { mealId: id } });
+      for (let i = 0; i < mealextras.length; i += 1) {
+        await mealextras[i].destroy();
+      }
+      for (let i = 0; i < extraIds.length; i += 1) {
+        await db.MealExtra.create({ extraId: extraIds[i], mealId: id });
+      }
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: `Cannot find meal with id ${id}`,
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: 'meal updated',
+      meal,
+    });
   }
-  static deleteMeal(req, res) {
+  static async deleteMeal(req, res) {
     const id = parseInt(req.params.id, 10);
-    db.Meal
-      .findOne({ where: { id: parseInt(req.params.id, 10) } })
-      .then((mealOpt) => {
-        if (mealOpt) {
-          mealOpt.destroy()
-            .then(() => {
-              res.status(200).json({
-                success: true,
-                message: 'Meal deleted',
-                // meal: updatedMeal,
-              });
-            });
-        } else {
-          return res.status(404).json({
-            success: false,
-            message: `Cannot find meal with id ${id}`,
-          });
-        }
+    const meal = await db.Meal.findOne({ where: { id: parseInt(req.params.id, 10) } });
+    if (meal) {
+      await meal.destroy();
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: `Cannot find meal with id ${id}`,
       });
+    }
+    return res.status(200).json({
+      success: true,
+      message: 'Meal deleted',
+      meal,
+    });
   }
-  static retrieveAll(req, res) {
-    db.Meal
-      .findAll({})
-      .then((meals) => {
-        res.status(200).json({
-          success: true,
-          message: 'Meals retrieved',
-          meals,
-        });
-      });
+
+  static async retrieveAll(req, res) {
+    const meals = await db.Meal.findAll({});
+    res.status(200).json({
+      success: true,
+      message: 'Meals retrieved',
+      meals,
+    });
   }
 }
 

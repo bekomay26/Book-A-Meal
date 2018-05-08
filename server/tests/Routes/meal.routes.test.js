@@ -2,12 +2,8 @@ import { expect } from 'chai';
 import request from 'supertest';
 import app from '../../app';
 
-// import chaiHttp from 'chai-http';
-// chai.expect();
-// const { expect } = chai.expect;
-// chai.use(chaiHttp);
-
 /* global it, describe */
+const token = app.get('token');
 describe('/POST meal', () => {
   it('it should not POST a meal without the price field', (done) => {
     const meal = {
@@ -34,6 +30,7 @@ describe('/POST meal', () => {
     };
     request(app)
       .post('/api/v1/meals')
+      .set('x-access-token', token)
       .send(meal)
       .end((err, res) => {
         expect(res.statusCode).to.equal(201);

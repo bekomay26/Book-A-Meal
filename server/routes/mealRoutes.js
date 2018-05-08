@@ -7,7 +7,7 @@ mealRouter.use(Authentication.verifyUser, Authentication.checkAdmin);
 
 mealRouter.route('/')
   .post(MealController.createMeal);
-mealRouter.put('/:id', MealController.update);
+mealRouter.put('/:id', MealController.updateMeal);
 mealRouter.delete('/:id', MealController.deleteMeal);
 mealRouter.route('/')
   .get(MealController.retrieveAll);

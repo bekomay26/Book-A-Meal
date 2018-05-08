@@ -30,27 +30,22 @@ class ExtraController extends Controller {
       extra,
     });
   }
-  static deleteMeal(req, res) {
+  static async deleteExtra(req, res) {
     const id = parseInt(req.params.id, 10);
-    db.Meal
-      .findOne({ where: { id: parseInt(req.params.id, 10) } })
-      .then((mealOpt) => {
-        if (mealOpt) {
-          mealOpt.destroy()
-            .then(() => {
-              res.status(200).json({
-                success: true,
-                message: 'Meal deleted',
-                // meal: updatedMeal,
-              });
-            });
-        } else {
-          return res.status(404).json({
-            success: false,
-            message: `Cannot find meal with id ${id}`,
-          });
-        }
+    const extra = await db.Extra
+      .findOne({ where: { id: parseInt(req.params.id, 10) } });
+    if (extra) {
+      await extra.destroy();
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: `Cannot find meal with id ${id}`,
       });
+    }
+    return res.status(200).json({
+      success: true,
+      message: 'Meal deleted',
+    });
   }
 }
 
