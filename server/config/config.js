@@ -1,8 +1,6 @@
-import dotenv from 'dotenv';
+require('dotenv').config();
 
-dotenv.config();
-
-export default {
+module.exports = {
   development: {
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
@@ -11,17 +9,14 @@ export default {
     dialect: 'postgres',
   },
   test: {
-    username: process.env.DB_TEST_USER,
-    password: process.env.DB_TEST_PASS,
-    database: process.env.DB_TEST_NAME,
-    host: process.env.DB_TEST_HOST,
+    username: process.env.DB_TEST_USER || 'postgres',
+    password: process.env.DB_TEST_PASS || '',
+    database: process.env.DB_TEST_NAME || 'travis',
+    host: process.env.DB_TEST_HOST || '127.0.0.1',
     dialect: 'postgres',
   },
   production: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
+    use_env_variable: 'DATABASE_URL',
     dialect: 'postgres',
   },
 };

@@ -44,7 +44,7 @@ class MealController extends Controller {
         if (!extra) {
           return res.status(404).json({
             success: false,
-            message: `Extra with id ${uniqueExtraIds[i]} not found`,
+            message: `Extra with id ${uniqueExtraIds[i]} not found`, // does not exist
           });
         }
       }
@@ -89,12 +89,21 @@ class MealController extends Controller {
       const meal = await db.Meal.findOne({ where: { id: parseInt(req.params.id, 10) } });
       const { extraIds } = req.body;
       const uniqueExtraIds = removeDuplicates(extraIds);
+      if (req.body.title) {
+        const existingMeal = await db.Meal.findOne({ where: { title: req.body.title } });
+        if (existingMeal) {
+          return res.status(409).json({
+            success: false,
+            message: `Cannot update this meal because the title ${req.body.title} exists`,
+          });
+        }
+      }
       if (meal) {
         meal.update({
-          title: req.body.title,
-          description: req.body.description,
-          price: req.body.price,
-          image_url: req.body.image,
+          title: req.body.title || meal.title,
+          description: req.body.description || meal.description,
+          price: req.body.price || meal.price,
+          image_url: req.body.image || meal.image_url,
         });
         const mealextras = await db.MealExtra.findAll({ where: { mealId: id } });
         for (let i = 0; i < mealextras.length; i += 1) {

@@ -2,12 +2,12 @@ module.exports = {
   up(queryInterface) {
     return queryInterface.bulkInsert('Menus', [
       {
-        date: '1/1/2018',
+        date: '6-10-2018',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        date: '1/2/2018',
+        date: '11-5-2018',
         createdAt: new Date(),
         updatedAt: new Date(),
       },

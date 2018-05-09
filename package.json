@@ -11,12 +11,13 @@
     "migrate": "sequelize --env=test db:migrate:undo:all && sequelize --env=test db:migrate",
     "seed": "sequelize --env=test db:seed:all",
     "pretest": "npm-run-all migrate seed",
-    "test": "nyc mocha --reporter progress --require babel-core/register ./server/tests/Routes/meal.routes.test.js --exit",
+    "test": "cross-env NODE_ENV=test nyc mocha --reporter progress --require babel-core/register \"server/tests/**/*.test.js\" --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "security-check": "nsp check",
     "lint": "eslint \"server/**/*.js\" app.js --fix",
     "build": "babel server/ -d build --copy-files -s",
-    "start-prod": "npm run build && node ./build/app.js"
+    "start-prod": "npm run build && node ./build/app.js",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "sequelize-cli": "^4.0.0"
   },
   "dependencies": {
+    "babel-core": "^6.26.3",
     "babel-polyfill": "^6.26.0",
     "base64-url": "^2.2.0",
     "bcrypt": "^2.0.1",
@@ -60,7 +62,7 @@
     "json-schema-faker": "^0.5.0-rc15",
     "jsonwebtoken": "^8.2.1",
     "moment": "^2.22.1",
-    "pg": "^7.4.1",
+    "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.37.6",
     "supertest": "^3.0.0"

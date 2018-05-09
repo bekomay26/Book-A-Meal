@@ -23,12 +23,12 @@ export default {
     param('id')
       .isInt()
       .withMessage('Parameter must be an integer'),
-    body('qty')
+    body('qtys')
       .trim()
       .optional({ checkFalsy: true })
-      .isInt()
-      .withMessage('Parameter must be an integer'),
-    sanitizeBody('qty').trim().escape(),
+      .isArray()
+      .withMessage('qtys field must be an array'),
+    sanitizeBody('qtys').trim().escape(),
   ],
   delete: [
     param('id')

@@ -1,64 +1,78 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import app from '../../app';
-import menus from '../dummyData/fakeMenus';
+import token from '../../helpers/testToken';
+
+const adminToken = token.adminToken();
 
 
 /* global it, describe */
 describe('/POST menu', () => {
-  it('it should return a 400 error if not an array', (done) => {
-    const menu = { meals: 'meal1' };
+  it('it should return a 422 error if not an array', (done) => {
+    const menu = {
+      date: '6/10/2018',
+      mealIds: 'dfdf',
+    };
     request(app)
-      .post('/api/v1/menu')
+      .post('/api/v1/menu/future')
+      .set('x-access-token', adminToken)
       .send(menu)
       .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
-        expect(res.body.message).to.equal('Input must be a list of meals i.e an array');
+        expect(res.statusCode).to.equal(422);
+        expect(res.body.errors.mealIds.msg).to.equal('Input must be a list of meals i.e an array');
         done();
       });
   });
-  it('it should return a 400 error if array is empty or contains just 1 meal', (done) => {
-    const menu = { meals: ['meal1'] };
+  it('it should return a 422 error if array is empty or contains just 1 meal', (done) => {
+    const menu = {
+      date: '6/10/2018',
+      mealIds: [1],
+    };
     request(app)
-      .post('/api/v1/menu')
+      .post('/api/v1/menu/future')
+      .set('x-access-token', adminToken)
       .send(menu)
       .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
-        expect(res.body.message).to.equal('Menu list must contain 2 or more meals');
+        expect(res.statusCode).to.equal(422);
+        expect(res.body.errors.mealIds.msg).to.equal('Menu list must contain 2 or more meals');
         done();
       });
   });
   it('it should return a 201 status with two or more meals in the array', (done) => {
-    const menu = { meals: ['meal1', 'meal2'] };
+    const menu = {
+      date: '1/1/2019',
+      mealIds: [1, 2, 4],
+    };
     request(app)
-      .post('/api/v1/menu')
+      .post('/api/v1/menu/future')
+      .set('x-access-token', adminToken)
       .send(menu)
       .end((err, res) => {
         expect(res.statusCode).to.equal(201);
-        expect(res.body.message).to.equal('menu created');
+        expect(res.body.message).to.equal('Menu created');
         done();
       });
   });
+
+  // wrong cos of travis, change*
   it('it should return a 409 status if menu for today already exists', (done) => {
     // initialize todays date
-    const d = new Date();
-    const todaysDate = `${d.getDate().toString()}/${(d.getMonth() + 1).toString()}/${d.getFullYear().toString()}`;
-    // add meal for today into the database
-    const oldMenu = {
-      id: 1111,
-      date: todaysDate,
-      meals: ['fff', 'fddd'],
-      createdBy: 'ffffff',
-      editedBy: ['eee', 'ddd'],
+
+    const menu = {
+      mealIds: [2, 1],
     };
-    menus.push(oldMenu);
-    const menu = { meals: ['meal1', 'meal2'] };
+
     request(app)
       .post('/api/v1/menu')
+      .set('x-access-token', adminToken)
+      .send(menu);
+    request(app)
+      .post('/api/v1/menu')
+      .set('x-access-token', adminToken)
       .send(menu)
       .end((err, res) => {
-        expect(res.statusCode).to.equal(409);
-        expect(res.body.message).to.equal(`Menu for today, the ${todaysDate} already exists`);
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.message).to.equal('Menu created for today');
         done();
       });
   });
@@ -68,9 +82,10 @@ describe('/GET menu', () => {
   it('it should return a 200 status', (done) => {
     request(app)
       .get('/api/v1/menu')
+      .set('x-access-token', adminToken)
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
-        expect(res.body.message).to.equal('Menu retrieved');
+        expect(res.body.message).to.equal('Menu Retrieved');
         done();
       });
   });

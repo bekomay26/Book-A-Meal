@@ -6,15 +6,13 @@ import menusRouter from './routes/menusRoutes';
 import menuRouter from './routes/menuRoutes';
 import orderRouter from './routes/orderRoutes';
 import authRouter from './routes/authRoutes';
-import settings from './config/config.json';
+import errorRouter from './routes/errorRoutes';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// app.set('superSecret', settings.development.secret);
-app.set('token', settings.development.token);
 
 app.use('/api/v1/meals', mealRouter);
 app.use('/api/v1/menus', menusRouter);
@@ -24,9 +22,10 @@ app.use('/api/v1/auth', authRouter);
 
 
 app.get('/', (req, res) => {
-  res.send('Hello, world');
+  res.send('Book-A-Meal');
 });
 
+app.use('/*', errorRouter);
 app.listen(port, () => {
   console.log(`listening on port: ${port}`);
 });

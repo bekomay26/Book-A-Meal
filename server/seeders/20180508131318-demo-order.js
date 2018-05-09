@@ -9,7 +9,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        mealId: 2,
+        mealId: 3,
         address: 'fdjkdjhdhgjd',
         quantity: 1,
         createdAt: new Date(),

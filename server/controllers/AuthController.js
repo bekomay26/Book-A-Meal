@@ -17,41 +17,51 @@ class AuthController extends Controller {
    * @static
    */
   static async createUser(req, res) {
-    const { // add username l8r
-      username,
-      password,
-      address,
-      role, // validate all this in validator file
-    } = await req.body;
-    // const hashPassword;
-    const user = await db.User
-      .findOne({ where: { username } });
-    if (user) {
-      return res.status(409)
-        .json({
-          success: false,
-          message: `${username} already exists`,
-        });
-    }
-    const hashPassword = await bcrypt.hash(password, 10);
+    try {
+      const { // add username l8r
+        username,
+        password,
+        address, // validate all this in validator file
+      } = await req.body;
 
-    const newUser = await db.User.create({
-      username,
-      password: hashPassword,
-      address,
-      role,
-    });
-    const payload = {
-      id: newUser.id,
-      role: newUser.role,
-    };
-    const token = Authentication.generateToken(payload);
-    return res.status(200).json({
-      success: true,
-      message: 'User Created',
-      newUser,
-      token,
-    });
+      
+      // const hashPassword;
+      const user = await db.User
+        .findOne({ where: { username } });
+      if (user) {
+        return res.status(409)
+          .json({
+            success: false,
+            message: `${username} already exists`,
+          });
+      }
+      const hashPassword = await bcrypt.hash(password, 10);
+
+      const role = 'Customer';
+      const newUser = await db.User.create({
+        username,
+        password: hashPassword,
+        address,
+        role,
+      });
+      const payload = {
+        id: newUser.id,
+        role: newUser.role,
+      };
+      const token = Authentication.generateToken(payload);
+      return res.status(201).json({
+        success: true,
+        message: 'User Created',
+        newUser,
+        token,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
+      });
+    }
   }
 
   /**
@@ -63,28 +73,88 @@ class AuthController extends Controller {
    * @static
    */
   static async loginUser(req, res) {
-    const { // add username l8r
-      username,
-      password,
-    } = await req.body;
+    try {
+      const { // add username l8r
+        username,
+        password,
+      } = await req.body;
 
-    const foundUser = await db.User.findOne({ where: { username } });
-    const match = await bcrypt.compare(password, foundUser.password);
-    if (!foundUser || !match) {
-      res.status(401).json({
-        success: false,
-        message: 'Invalid Credentials',
-      });
-    } else {
+      const foundUser = await db.User.findOne({ where: { username } });
+      const match = await bcrypt.compare(password, foundUser.password);
+      if (!foundUser || !match) {
+        return res.status(401).json({
+          success: false,
+          message: 'Invalid username or password',
+        });
+      }
       const payload = {
         id: foundUser.id,
         role: foundUser.role,
       };
       const token = Authentication.generateToken(payload);
-      res.json({
+      return res.status(200).json({
         success: true,
         message: `Welcome, ${username}`,
         token,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
+      });
+    }
+  }
+
+  static async createSuperUser(req, res) {
+    try {
+      const { // add username l8r
+        username,
+        password,
+        address, // validate all this in validator file
+        roleId,
+      } = await req.body;
+
+      let { role } = req.body;
+      // const hashPassword;
+      const user = await db.User
+        .findOne({ where: { username } });
+      if (user) {
+        return res.status(409)
+          .json({
+            success: false,
+            message: `${username} already exists`,
+          });
+      }
+      const hashPassword = await bcrypt.hash(password, 10);
+
+      if (roleId === 0) {
+        role = 'Customer';
+      } else if (roleId === 1) {
+        role = 'Caterer';
+      }
+      const newUser = await db.User.create({
+        username,
+        password: hashPassword,
+        address,
+        role,
+      });
+      const payload = {
+        id: newUser.id,
+        role: newUser.role,
+      };
+      const token = Authentication.generateToken(payload);
+      return res.status(200).json({
+        success: true,
+        message: 'User Created',
+        newUser,
+        token,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
       });
     }
   }

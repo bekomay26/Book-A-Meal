@@ -1,3 +1,5 @@
+import jwt from 'jsonwebtoken';
+
 class Token {
   static adminToken() {
     return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsInJvbGUiOiJDYXRlcmVyIiwiaWF0IjoxNTI1ODcwNDc4LCJleHAiOjE1ODQ5NTY4Nzh9.naP5-2F-Xyl2ISo9P1AAubmhKFnDTjykraPlvTrdCjM';

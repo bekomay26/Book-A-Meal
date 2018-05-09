@@ -13,7 +13,7 @@ class Authentication {
         message: 'Token not provided',
       });
     } else {
-      jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      jwt.verify(token, process.env.JWT_SECRET || 'letsgothere', (err, decoded) => {
         if (err) {
           res.status(403).send({ success: false, message: 'invalid token' });
         } else {
@@ -27,13 +27,21 @@ class Authentication {
     if (req.decoded.role === 'Caterer') {
       next();
     } else {
-      res.status(401).send({ success: false, message: 'Admin Only' });
+      res.status(403).send({ success: false, message: 'Admin Only' });
+    }
+  }
+
+  static checkSuperAdmin(req, res, next) {
+    if (req.decoded.id === 1) {
+      next();
+    } else {
+      res.status(403).send({ success: false, message: 'Super Admin Only' });
     }
   }
 
   static generateToken(payload) {
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: 59086400, // expires in 24 hours
+    const token = jwt.sign(payload, process.env.JWT_SECRET || 'letsgothere', {
+      expiresIn: 86400, // expires in 24 hours
     });
     return token;
   }

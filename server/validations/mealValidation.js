@@ -7,15 +7,13 @@ export default {
       .trim().isLength({ min: 1 }).withMessage('Title cannot be empty.')
       .isLength({ max: 40 })
       .withMessage('Title cannot be more than 40 characters long')
-      .isAlpha()
-      .withMessage('Title must be alphabet letters.')
       .exists()
       .withMessage('Title must be specified'),
     body('description')
       .trim()
       .optional({ checkFalsy: true }) // null and empty strings will not fail validation
       .isLength({ max: 255 })
-      .withMessage('Title cannot be more than 255 characters long'),
+      .withMessage('Description cannot be more than 255 characters long'),
     body('image')
       .trim()
       .optional({ checkFalsy: true }),
@@ -41,8 +39,6 @@ export default {
       .optional({ checkFalsy: true })
       .isLength({ min: 1 })
       .withMessage('Title cannot be empty.')
-      .isAlpha()
-      .withMessage('Title must be alphabet letters.')
       .exists()
       .withMessage('Title must be specified')
       .isLength({ max: 40 })
