@@ -34,9 +34,7 @@ module.exports = {
 
   down(queryInterface) {
     return queryInterface.bulkDelete('Extras', {
-      category: [
-        'OnTop',
-        'GoesWith'],
+      id: [1, 2, 3, 4],
     }, {});
   },
 };

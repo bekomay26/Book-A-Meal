@@ -49,7 +49,7 @@ class OrderController extends Controller {
       price += exists.price;
       const mealExtras = await db.MealExtra.findAll({ where: { mealId } });
       const mealExtrasIds = await mealExtras.map(obj => obj.extraId);
-      for (let i = 0; i < extraIds.length; i++) {
+      for (let i = 0; i < extraIds.length; i += 1) {
         if (mealExtrasIds.includes(extraIds[i])) {
           const extra = await db.Extra.findOne({ where: { id: extraIds[i] } });
           price += (extra.price * (qtys[i] || 1));
@@ -90,13 +90,13 @@ class OrderController extends Controller {
     const orderOpt = await db.Order
       .findOne({ where: { id: parseInt(req.params.id, 10) } });
     if (orderOpt) {
-      console.log(`folafdgdggd ${orderOpt}`)
-      console.log(`foladsff ${orderOpt.mealId}`)
+      console.log(`folafdgdggd ${orderOpt}`);
+      console.log(`foladsff ${orderOpt.mealId}`);
       const meal = await db.Meal.findOne({ where: { id: orderOpt.mealId } });
       price += meal.price;
       const mealExtras = await db.MealExtra.findAll({ where: { mealId: orderOpt.mealId } });
       const mealExtrasIds = await mealExtras.map(obj => obj.extraId);
-      for (let i = 0; i < extraIds.length; i++) {
+      for (let i = 0; i < extraIds.length; i += 1) {
         if (mealExtrasIds.includes(extraIds[i])) {
           const extra = await db.Extra.findOne({ where: { id: extraIds[i] } });
           price += (extra.price * (qtys[i] || 1));
@@ -123,7 +123,7 @@ class OrderController extends Controller {
       });
     }
   }
-  // this is retrieve all for admin. dere should be retrieve by user and by date for customer and user respectively. 
+  // this is retrieve all for admin. dere should be retrieve by user and by date for customer and user respectively.
   // there can also be retrieve by date for customer
   // Admin can have retrieve by status
   // there can also be retrieve by caterer. If going the route of multi admins

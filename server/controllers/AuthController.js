@@ -1,65 +1,89 @@
+import bcrypt from 'bcrypt';
 import Controller from './Controller';
 import db from '../model/index';
 import Authentication from '../middleware/Authentication';
 
+/**
+ * Class representing an Authentication Controller.
+ * @extends Controller
+ */
 class AuthController extends Controller {
-  // creates menu for current day, adds Id and date automatically and posts it to the menus list
+  /**
+   * Creates a new User
+   * @method createUser
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
   static async createUser(req, res) {
     const { // add username l8r
-      fullname,
+      username,
       password,
       address,
       role, // validate all this in validator file
     } = await req.body;
-
-    const userExists = await db.User
-      .findOne({ where: { fullname } });
-    if (userExists) {
+    // const hashPassword;
+    const user = await db.User
+      .findOne({ where: { username } });
+    if (user) {
       return res.status(409)
         .json({
           success: false,
-          message: `User with the name ${fullname} already exists`,
+          message: `${username} already exists`,
         });
     }
+    const hashPassword = await bcrypt.hash(password, 10);
+
     const newUser = await db.User.create({
-      fullname,
-      password,
+      username,
+      password: hashPassword,
       address,
       role,
     });
-    res.status(200).json({
+    const payload = {
+      id: newUser.id,
+      role: newUser.role,
+    };
+    const token = Authentication.generateToken(payload);
+    return res.status(200).json({
       success: true,
       message: 'User Created',
       newUser,
+      token,
     });
   }
 
+  /**
+   * Logs in a user
+   * @method loginUser
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
   static async loginUser(req, res) {
     const { // add username l8r
-      fullname,
+      username,
       password,
     } = await req.body;
 
-    const userExists = await db.User.findOne({ where: { fullname } });
-    if (!userExists) {
-      res.status(404).json({
-        success: false,
-        message: 'User does not exist',
-      });
-    } else if (userExists.password !== password) {
+    const foundUser = await db.User.findOne({ where: { username } });
+    const match = await bcrypt.compare(password, foundUser.password);
+    if (!foundUser || !match) {
       res.status(401).json({
         success: false,
-        message: 'Authentication failed. Wrong password.',
+        message: 'Invalid Credentials',
       });
     } else {
       const payload = {
-        id: userExists.id,
-        role: userExists.role,
+        id: foundUser.id,
+        role: foundUser.role,
       };
       const token = Authentication.generateToken(payload);
       res.json({
         success: true,
-        message: 'Here is your token!',
+        message: `Welcome, ${username}`,
         token,
       });
     }
