@@ -27,7 +27,7 @@ class Authentication {
     if (req.decoded.role === 'Caterer') {
       next();
     } else {
-      res.status(401).send({ success: false, message: 'unauthorized' });
+      res.status(401).send({ success: false, message: 'Admin Only' });
     }
   }
 
