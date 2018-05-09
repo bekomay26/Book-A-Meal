@@ -4,9 +4,9 @@ import authValidate from '../validations/authValidation';
 import AuthController from '../controllers/AuthController';
 
 const authRouter = express.Router();
-// authRouter.use(validateHelper.validate);
+authRouter.use(authValidate.create, validateHelper.validate);
 authRouter.route('/signup')
-  .post(authValidate.create, validateHelper.validate, AuthController.createUser);
+  .post(AuthController.createUser);
 authRouter.route('/login')
   .post(AuthController.loginUser);
 
