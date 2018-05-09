@@ -5,11 +5,19 @@ import db from '../model/index';
 class MenuController extends Controller {
   // creates menu for current day, adds Id and date automatically and posts it to the menus list
   static createMenu(req, res) {
+    try {
+
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
+      });
+    }
     const {
       date,
       mealIds,
       createdBy, // required field just not inputted by the user but the app
-      editedBy,
     } = req.body;
 
     // if date is not inputted or meals array is empty
@@ -54,6 +62,15 @@ class MenuController extends Controller {
   /** should be retrieved by date from the menus table when
    * working with the database and returns a lit of meals */
   static retrieveDayMenu(req, res) {
+    try {
+
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
+      });
+    }
     const todaysDateStr = (new Date()).toLocaleDateString('en-GB');
     const todaysDate = (moment(todaysDateStr, 'MM-DD-YYYY')).toDate();
     db.Menu

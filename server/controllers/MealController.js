@@ -84,33 +84,41 @@ class MealController extends Controller {
    * @static
    */
   static async updateMeal(req, res) {
-    const id = parseInt(req.params.id, 10);
-    const meal = await db.Meal.findOne({ where: { id: parseInt(req.params.id, 10) } });
-    const { extraIds } = req.body;
-    const uniqueExtraIds = removeDuplicates(extraIds);
-    if (meal) {
-      meal.update({
-        title: req.body.title,
-        description: req.body.description,
-        price: req.body.price,
-        image_url: req.body.image,
-      });
-      const mealextras = await db.MealExtra.findAll({ where: { mealId: id } });
-      for (let i = 0; i < mealextras.length; i += 1) {
-        await mealextras[i].destroy();
+    try {
+      const id = parseInt(req.params.id, 10);
+      const meal = await db.Meal.findOne({ where: { id: parseInt(req.params.id, 10) } });
+      const { extraIds } = req.body;
+      const uniqueExtraIds = removeDuplicates(extraIds);
+      if (meal) {
+        meal.update({
+          title: req.body.title,
+          description: req.body.description,
+          price: req.body.price,
+          image_url: req.body.image,
+        });
+        const mealextras = await db.MealExtra.findAll({ where: { mealId: id } });
+        for (let i = 0; i < mealextras.length; i += 1) {
+          await mealextras[i].destroy();
+        }
+        await meal.setExtras(uniqueExtraIds, { through: db.MealExtras });
+      } else {
+        return res.status(404).json({
+          success: false,
+          message: `Cannot find meal with id ${id}`,
+        });
       }
-      await meal.setExtras(uniqueExtraIds, { through: db.MealExtras });
-    } else {
-      return res.status(404).json({
-        success: false,
-        message: `Cannot find meal with id ${id}`,
+      return res.status(200).json({
+        success: true,
+        message: 'meal updated',
+        meal,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
       });
     }
-    return res.status(200).json({
-      success: true,
-      message: 'meal updated',
-      meal,
-    });
   }
 
   /**
@@ -122,21 +130,29 @@ class MealController extends Controller {
    * @static
    */
   static async deleteMeal(req, res) {
-    const id = parseInt(req.params.id, 10);
-    const meal = await db.Meal.findOne({ where: { id: parseInt(req.params.id, 10) } });
-    if (meal) {
-      await meal.destroy({ paranoid: true });
-    } else {
-      return res.status(404).json({
-        success: false,
-        message: `Cannot find meal with id ${id}`,
+    try {
+      const id = parseInt(req.params.id, 10);
+      const meal = await db.Meal.findOne({ where: { id: parseInt(req.params.id, 10) } });
+      if (meal) {
+        await meal.destroy({ paranoid: true });
+      } else {
+        return res.status(404).json({
+          success: false,
+          message: `Cannot find meal with id ${id}`,
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        message: 'Meal deleted',
+        meal,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
       });
     }
-    return res.status(200).json({
-      success: true,
-      message: 'Meal deleted',
-      meal,
-    });
   }
 
   /**
@@ -148,21 +164,29 @@ class MealController extends Controller {
    * @static
    */
   static async retrieveAll(req, res) {
-    const meals = await db.Meal.findAll({
-      include: [{
-        model: db.Extra,
-        through: {
-          foreignKey: 'extraId',
-          attributes: ['title', 'description', 'price'],
-        },
-        as: 'extras',
-      }],
-    });
-    res.status(200).json({
-      success: true,
-      message: 'Meals retrieved',
-      meals,
-    });
+    try {
+      const meals = await db.Meal.findAll({
+        include: [{
+          model: db.Extra,
+          through: {
+            foreignKey: 'extraId',
+            attributes: ['title', 'description', 'price'],
+          },
+          as: 'extras',
+        }],
+      });
+      return res.status(200).json({
+        success: true,
+        message: 'Meals retrieved',
+        meals,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
+      });
+    }
   }
 }
 

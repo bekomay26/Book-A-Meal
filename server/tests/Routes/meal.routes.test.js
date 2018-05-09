@@ -1,9 +1,11 @@
 import { expect } from 'chai';
 import request from 'supertest';
+import token from '../../helpers/testToken';
 import app from '../../app';
 
 /* global it, describe */
-const token = app.get('token');
+const adminToken = token.adminToken();
+const userToken = token.userToken();
 describe('/POST meal', () => {
   it('it should not POST a meal without the price field', (done) => {
     const meal = {
@@ -14,9 +16,12 @@ describe('/POST meal', () => {
     };
     request(app)
       .post('/api/v1/meals')
+      .set('Content-Type', 'application/json')
+      .set('Authorization', adminToken)
       .send(meal)
       .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
+        expect(res.statusCode).to.equal(422);
+        expect(res.error.title.msg).to.equal('Title cannot be empty.');
         done();
       });
   });
@@ -30,7 +35,7 @@ describe('/POST meal', () => {
     };
     request(app)
       .post('/api/v1/meals')
-      .set('x-access-token', token)
+      .set('Authorization', adminToken)
       .send(meal)
       .end((err, res) => {
         expect(res.statusCode).to.equal(201);
@@ -40,19 +45,18 @@ describe('/POST meal', () => {
 });
 
 describe('/PUT meal', () => {
-  it('it should not POST a meal that is not found', (done) => {
+  it('it should not PUT a meal that is not found', (done) => {
     const meal = {
       title: 'Bread',
       description: 'Bread Bread',
       image: 'fgffh',
     };
     request(app)
-      .put('/api/v1/meals/1114')
+      .put('/api/v1/meals/1')
+      .set('Authorization', adminToken)
       .send(meal)
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
-        // expect(res).to.have.status(400);
-        // if (err) return done(err);
         done();
       });
   });
@@ -65,6 +69,7 @@ describe('/PUT meal', () => {
     };
     request(app)
       .put('/api/v1/meals/1111')
+      .set('Authorization', adminToken)
       .send(meal)
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
@@ -75,6 +80,7 @@ describe('/PUT meal', () => {
     const meal = {};
     request(app)
       .put('/api/v1/meals/1111')
+      .set('Authorization', adminToken)
       .send(meal)
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
@@ -89,8 +95,6 @@ describe('/DELETE meal', () => {
       .delete('/api/v1/meals/1114')
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
-        // expect(res).to.have.status(400);
-        // if (err) return done(err);
         done();
       });
   });

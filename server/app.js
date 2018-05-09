@@ -6,7 +6,7 @@ import menusRouter from './routes/menusRoutes';
 import menuRouter from './routes/menuRoutes';
 import orderRouter from './routes/orderRoutes';
 import authRouter from './routes/authRoutes';
-// import settings from './config/config.json';
+import settings from './config/config.json';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -14,7 +14,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // app.set('superSecret', settings.development.secret);
-// app.set('token', settings.development.token);
+app.set('token', settings.development.token);
 
 app.use('/api/v1/meals', mealRouter);
 app.use('/api/v1/menus', menusRouter);
