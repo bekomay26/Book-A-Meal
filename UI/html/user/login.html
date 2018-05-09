@@ -12,18 +12,28 @@
 <body>
     <header id="bigpic" class="bigpic">
         <div class="back-image"></div>
-        <div class="top">
-            <a href="index.html"><h2>Book-A-Meal</h2></a>
-            <nav class="menu">
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="cart.html">Order</a></li>
-                <li><a id="signin-trigger" href="#modal" onclick="onSign()">SignIn</a></li>
+        <div class="top row">
+            <a href="index.html" class="col-8 logo"><h2>Book-A-Meal</h2></a>
+            <nav class="menu col-4">
+                <li class="col-3"><a href="menu.html">Menu</a></li>
+                <li class="col-3"><a href="cart.html">Order</a></li>
+                <li class="col-3"><a href="login.html">SignIn</a></li>
+                <li class="col-3"><a href="signup.html">Signup</a></li>
             </nav>
         </div>
         <form class="form" action="" method="POST">
             <div class="form-details">
                 <input id="uname" type="text" placeholder="Enter Username">
                 <input id="pwd" type="password" placeholder="Enter Password">
+                <div class="userRole row">
+                    <div class="col-6">
+                        <input name="role" type="radio" value="Customer"> Customer
+                    </div>
+                    <div class="col-6">
+                        <input name="role" type="radio" value="Caterer"> Caterer
+                    </div>
+                </div>
+                
                 <!-- <button type="submit">Sign In</button> -->
                 <input type="submit" value="Sign In">
             </div>
