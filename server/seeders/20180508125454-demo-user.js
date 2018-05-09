@@ -2,28 +2,28 @@ module.exports = {
   up(queryInterface) {
     return queryInterface.bulkInsert('Users', [
       {
-        fullname: 'folajimi',
+        username: 'folajimi',
         password: 'fola',
         role: 'Caterer',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        fullname: 'joseph',
+        username: 'joseph',
         password: 'fola',
         role: 'Customer',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        fullname: 'david',
+        username: 'david',
         password: 'fola',
         role: 'Customer',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        fullname: 'peter',
+        username: 'peter',
         password: 'fola',
         role: 'Customer',
         createdAt: new Date(),
@@ -34,7 +34,7 @@ module.exports = {
 
   down(queryInterface) {
     return queryInterface.bulkDelete('Users', {
-      fullname: [
+      username: [
         'folajimi',
         'david',
         'joseph',

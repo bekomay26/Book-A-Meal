@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
-import app from '../app';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 
 class Authentication {
@@ -11,7 +13,7 @@ class Authentication {
         message: 'Token not provided',
       });
     } else {
-      jwt.verify(token, app.get('superSecret'), (err, decoded) => {
+      jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
           res.status(403).send({ success: false, message: 'invalid token' });
         } else {
@@ -30,7 +32,7 @@ class Authentication {
   }
 
   static generateToken(payload) {
-    const token = jwt.sign(payload, app.get('superSecret'), {
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: 86400, // expires in 24 hours
     });
     return token;

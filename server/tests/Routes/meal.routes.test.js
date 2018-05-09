@@ -10,14 +10,13 @@ describe('/POST meal', () => {
       title: 'Bread',
       description: 'Bread Bread',
       image: 'fgffh',
+      extraIds: [1, 2],
     };
     request(app)
       .post('/api/v1/meals')
       .send(meal)
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
-        // expect(res).to.have.status(400);
-        // if (err) return done(err);
         done();
       });
   });
@@ -27,6 +26,7 @@ describe('/POST meal', () => {
       description: 'Bread Bread',
       image: 'fgffh',
       price: 999,
+      extraIds: [1, 2],
     };
     request(app)
       .post('/api/v1/meals')
