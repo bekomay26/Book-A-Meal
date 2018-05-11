@@ -105,3 +105,37 @@ img{
     font-size: 18px;
     margin-bottom: 40px;
 }
+
+@media screen and (max-width: 600px) {
+    /* .menu a{display: none;} */
+    .active {
+        border-bottom: 1px solid white;
+    }
+    .logo{
+        display: none;
+    }
+    .menu {
+        width: 100%;
+    }
+    .row{
+        padding: 20px 0;
+    }
+    a {
+        font-size: 2.0vh;
+        float: none;
+        display: block;
+        text-align: left;
+        margin: 0 5px;
+    }
+    .bigpic h1{
+        font-size: 8.0vh;
+    }
+    .bigpic h3{
+        font-size: 4.0vh;
+    }
+  }
+@media(min-width: 1400px){
+    .active {
+        border-bottom: 2px solid white;
+    }
+}
