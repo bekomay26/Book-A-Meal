@@ -96,8 +96,6 @@ a:hover{
 .addContainer{
     border-bottom: 2px solid #ffa200;
     border-top: 2px solid #ffa200;
-    width: 60%;
-    margin: 0 auto;
 }
 
 
@@ -513,5 +511,10 @@ input[type=number]{
     }
     .addContainer{
         margin-top: 40px;
+    }
+    .addContainer{
+        
+        width: 60%;
+        margin: 0 auto;
     }
 }
