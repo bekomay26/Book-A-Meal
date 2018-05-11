@@ -8,12 +8,16 @@
     "start": "npm-run-all --parallel dev",
     "dev": "nodemon --exec babel-node ./server/app.js",
     "generate-mock-data": "babel-node ./server/dummyBuildScripts/generateMockData",
-    "test": "nyc mocha --reporter progress --require babel-core/register \"server/tests/**/*.test.js\" --exit",
+    "migrate": "sequelize --env=test db:migrate:undo:all && sequelize --env=test db:migrate",
+    "seed": "sequelize --env=test db:seed:all",
+    "pretest": "npm-run-all migrate seed",
+    "test": "cross-env NODE_ENV=test nyc mocha --reporter progress --require babel-core/register \"server/tests/**/*.test.js\" --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "security-check": "nsp check",
     "lint": "eslint \"server/**/*.js\" app.js --fix",
     "build": "babel server/ -d build --copy-files -s",
-    "start-prod": "npm run build && node ./build/app.js"
+    "start-prod": "npm run build && node ./build/app.js",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -27,7 +31,6 @@
   "homepage": "https://github.com/bekomay26/Book-A-Meal#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
     "coveralls": "^3.0.0",
@@ -40,18 +43,29 @@
     "nodemon": "^1.17.3",
     "npm-run-all": "^4.1.2",
     "nsp": "^3.2.1",
-    "nyc": "^11.7.1"
+    "nyc": "^11.7.1",
+    "sequelize-cli": "^4.0.0"
   },
   "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-polyfill": "^6.26.0",
+    "base64-url": "^2.2.0",
+    "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
     "chai-http": "^4.0.0",
     "chalk": "^2.4.0",
+    "cross-env": "^5.1.4",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3",
-    "express-validator": "^5.1.2",
+    "express-validator": "^5.2.0",
     "faker": "^4.1.0",
     "json-schema-faker": "^0.5.0-rc15",
-    "supertest": "^3.0.0",
-    "uniqid": "^4.1.1"
+    "jsonwebtoken": "^8.2.1",
+    "moment": "^2.22.1",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.37.6",
+    "supertest": "^3.0.0"
   },
   "nodemonConfig": {
     "restartable": "rs",

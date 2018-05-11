@@ -1,4 +1,16 @@
 language: node_js
 node_js:
-  - "6"
+  - "9"
+install: npm install
+services:
+- postgresql
+env:
+- NODE_ENV=test
+- JWT_SECRET='letsgothere'
+
+before_script:
+- psql -c 'create database travis;' -U postgres
+- dropdb --if-exists travis && createdb travis
+script: npm test
+
 after_success: npm run coverage

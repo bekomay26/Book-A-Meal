@@ -1,12 +1,12 @@
 import uniqid from 'uniqid';
 import Controller from './Controller';
-import Meal from '../models/Meal';
-import meals from '../tests/dummyData/fakeMeal';
-
+// import meals from '../tests/dummyData/fakeData';
+import db from '../model/index';
+import removeDuplicates from '../helpers/removeDuplicates';
 
 /**
  * Class representing a Meal Controller.
- * @extends Point
+ * @extends Controller
  */
 class MealController extends Controller {
   /**
@@ -17,25 +17,63 @@ class MealController extends Controller {
    * @returns {(json)}JSON object
    * @static
    */
-  static createMeal(req, res) {
-    const {
-      title,
-      description,
-      image,
-      price,
-      extrasId,
-    } = req.body;
+  static async createMeal(req, res) {
+    try {
+      const {
+        title,
+        description,
+        image,
+        price,
+        extraIds,
+      } = await req.body;
+      const foundMeal = await db.Meal.findOne({ where: { title } });
+      if (foundMeal) {
+        return res.status(409).json({
+          success: false,
+          message: `meal ${title} exists`,
+        });
+      }
+      // Removes duplicate Ids from inputted extraIds array
+      const uniqueExtraIds = removeDuplicates(extraIds);
 
-    const id = uniqid();
-    const meal = new Meal(id, title, description, image, price, extrasId, 1); // initialize qty to 1
+      let extra;
 
-    // if meal array is not empty set the id to the last element + 1 else, set it to zero
-    meals.push(meal);
-    return res.status(201).json({
-      success: true,
-      message: 'Meal created',
-      meals,
-    });
+      // for each extra in the array, if the extra does not exist, return an error
+      for (let i = 0; i < uniqueExtraIds.length; i += 1) {
+        /* eslint-disable no-await-in-loop */
+        extra = await db.Extra.findOne({ where: { id: uniqueExtraIds[i] } });
+        if (!extra) {
+          return res.status(404).json({
+            success: false,
+            message: `Extra with id ${uniqueExtraIds[i]} not found`, // does not exist
+          });
+        }
+      }
+
+      // Create the meal
+      const meal = await db.Meal.create({
+        title,
+        description,
+        image_url: image,
+        price,
+      });
+
+      // for each unique extra id, create a row along with the mealId in the join table
+      // await meal.setExtras(uniqueExtraIds, { through: db.MealExtras });
+      await meal.addExtras(uniqueExtraIds);
+
+      return res.status(201).json({
+        success: true,
+        message: 'Meal created',
+        meal,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
+      });
+    }
   }
   /**
    * Modifies an existing meal
@@ -45,30 +83,51 @@ class MealController extends Controller {
    * @returns {(json)}JSON object
    * @static
    */
-  static update(req, res) {
-    const id = parseInt(req.params.id, 10);
-    let updatedMeal;
-    meals.forEach((meal) => {
-      if (meal.id === id) {
-        meal.title = req.body.title || meal.title;
-        meal.description = req.body.description || meal.description;
-        meal.price = req.body.price || meal.price;
-        meal.image = req.body.image || meal.image;
-        meal.extras = req.body.extras || meal.extras;
-        updatedMeal = meal;
+  static async updateMeal(req, res) {
+    try {
+      const id = parseInt(req.params.id, 10);
+      const meal = await db.Meal.findOne({ where: { id: parseInt(req.params.id, 10) } });
+      const { extraIds } = req.body;
+      const uniqueExtraIds = removeDuplicates(extraIds);
+      if (req.body.title) {
+        const existingMeal = await db.Meal.findOne({ where: { title: req.body.title } });
+        if (existingMeal) {
+          return res.status(409).json({
+            success: false,
+            message: `Cannot update this meal because the title ${req.body.title} exists`,
+          });
+        }
       }
-    });
-    if (updatedMeal) {
+      if (meal) {
+        meal.update({
+          title: req.body.title || meal.title,
+          description: req.body.description || meal.description,
+          price: req.body.price || meal.price,
+          image_url: req.body.image || meal.image_url,
+        });
+        const mealextras = await db.MealExtra.findAll({ where: { mealId: id } });
+        for (let i = 0; i < mealextras.length; i += 1) {
+          await mealextras[i].destroy();
+        }
+        await meal.setExtras(uniqueExtraIds, { through: db.MealExtras });
+      } else {
+        return res.status(404).json({
+          success: false,
+          message: `Cannot find meal with id ${id}`,
+        });
+      }
       return res.status(200).json({
         success: true,
         message: 'meal updated',
-        meal: updatedMeal,
+        meal,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
       });
     }
-    return res.status(404).json({
-      success: false,
-      message: `Cannot find meal with id ${id}`,
-    });
   }
   /**
    * Deletes an existing meal
@@ -78,23 +137,30 @@ class MealController extends Controller {
    * @returns {(json)}JSON object
    * @static
    */
-  static deleteMeal(req, res) {
-    const id = parseInt(req.params.id, 10);
-    for (let i = 0; i < meals.length; i += 1) {
-      if (parseInt(meals[i].id, 10) === id) {
-        meals.splice(i, 1);
-        return res.status(200)
-          .json({
-            success: true,
-            message: 'Meal deleted',
-            meals,
-          });
+  static async deleteMeal(req, res) {
+    try {
+      const id = parseInt(req.params.id, 10);
+      const meal = await db.Meal.findOne({ where: { id: parseInt(req.params.id, 10) } });
+      if (meal) {
+        await meal.destroy({ paranoid: true });
+      } else {
+        return res.status(404).json({
+          success: false,
+          message: `Cannot find meal with id ${id}`,
+        });
       }
+      return res.status(200).json({
+        success: true,
+        message: 'Meal deleted',
+        meal,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
+      });
     }
-    return res.status(404).json({
-      success: false,
-      message: `Cannot find meal with id ${id}`,
-    });
   }
   /**
    * Retrieves all Meals
@@ -104,12 +170,30 @@ class MealController extends Controller {
    * @returns {(json)}JSON object
    * @static
    */
-  static retrieveAll(req, res) {
-    res.status(200).json({
-      success: true,
-      message: 'Meals retrieved',
-      meals,
-    });
+  static async retrieveAll(req, res) {
+    try {
+      const meals = await db.Meal.findAll({
+        include: [{
+          model: db.Extra,
+          through: {
+            foreignKey: 'extraId',
+            attributes: ['title', 'description', 'price'],
+          },
+          as: 'extras',
+        }],
+      });
+      return res.status(200).json({
+        success: true,
+        message: 'Meals retrieved',
+        meals,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
+      });
+    }
   }
 }
 
