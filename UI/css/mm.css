@@ -3,6 +3,29 @@
     font-family: 'Jua', sans-serif;
 }
 
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+[class*="col-"] {
+    float: left;
+    /* padding: 15px; */
+    /* border: 1px solid red; */
+}
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
 body {
     margin: 0;
 }
@@ -16,14 +39,16 @@ body {
     z-index: -1;
 }
 
-.logo{
+/* .logo{
     width: 100px;
+} */
+.logo h2{
+    text-align: left;
 }
 h2{
     text-align: center;
-    margin-top:25px;
+    margin-top:95px;
     font-size: 2em;
-    margin-bottom: 50px;
 }
 .fa-long-arrow-alt-left{
     font-size: 1em;
@@ -70,6 +95,7 @@ a:hover{
 }
 .addContainer{
     border-bottom: 2px solid #ffa200;
+    border-top: 2px solid #ffa200;
 }
 
 
@@ -139,102 +165,6 @@ tr:hover {
     margin: 0 150px;
 }
 
-@media(min-width: 800px){
-
-    img{
-        width: 100px;
-    }
-    .admin{
-        height: 100px;
-    }
-    table{
-        max-width: 700px;
-        margin-left:  auto;
-        margin-right: auto;
-    }
-
-    /* Header */
-     .logo{
-        float: left;
-        text-align: left;
-    }
-
-    .top h2{
-        margin: 0;
-    }
-    a{
-        text-decoration: none;
-    }
-
-    ul, nav{
-        list-style: none;
-    }
-    .menu{
-        float: right;
-    }
-    .menu li{
-        text-align: center;
-    }
-    ul.grid{
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    .menu a{
-        color: inherit;
-        cursor: pointer;
-        opacity: 0.9;
-        font-family: 'Nunito', sans-serif;
-    }
-    h1{
-        color: #ffa200;
-        text-align: center;
-    }
-    h2{
-        margin-bottom: 15px;
-        font-family: 'Nunito', sans-serif;
-    }
-
-    .menu a:hover{
-        opacity: 1;
-        color: black;
-        border-bottom: 2px solid black; 
-    }
-
-    .top{
-        background-color: #ffa200;
-        width: 100%;
-        z-index: 10;
-        align-items: center;
-        color: white;
-        padding: 35px 70px 20px;
-        display: flex;
-        justify-content: space-around; 
-    }
-    .top::after{
-        content: '';
-        display: block;
-        clear: both;
-    }
-
-    header nav{
-        display: flex;
-    }
-
-    header nav li{
-        margin: 0 15px;
-    }
-
-    header nav li:first-child{
-        margin-left: 0;
-    }
-
-    header nav li:last-child{
-        margin-right: 0;
-    }
-
-}
 
 /* Modal Form */
 .modal{
@@ -370,25 +300,216 @@ input[type=number]{
 }
 
 
-.row::after {
-    content: "";
-    clear: both;
-    display: table;
+
+.active {
+    border-bottom: 2px solid white;
 }
-[class*="col-"] {
-    float: left;
-    /* padding: 15px; */
-    /* border: 1px solid red; */
+@media screen and (max-width: 799px) {
+    h2{
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+    .active {
+        border-bottom: 1px solid white;
+    }
+    p {
+        font-size: 2vh;
+    }
+    ul, nav{
+        list-style: none;
+    }
+    .menu{
+        float: right;
+    }
+    .menu li{
+        /* margin: 0; */
+        text-align: center;
+    }
+    ul.grid{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .menu{
+        width: 100%;
+    }
+    .menu a{
+        color: inherit;
+        cursor: pointer;
+        opacity: 0.9;
+        /* margin: 10px 20px; */
+        font-family: 'Nunito', sans-serif;
+    }
+
+    .top{
+        background-color: #ffa200;
+        /* opacity: 0.7; */
+        width: 100%;
+        z-index: 10;
+        align-items: center;
+        color: white;
+        padding:10px;
+        display: flex;
+        justify-content: space-around; 
+    }
+    .top::after{
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+    header nav{
+        display: flex;
+        /* margin-bottom: 50px; */
+    }
+
+    
+
+    header nav li:first-child{
+        margin-left: 0;
+    }
+
+    header nav li:last-child{
+        margin-right: 0;
+    }
+    .logo{
+        display: none;
+    }
 }
-.col-1 {width: 8.33%;}
-.col-2 {width: 16.66%;}
-.col-3 {width: 25%;}
-.col-4 {width: 33.33%;}
-.col-5 {width: 41.66%;}
-.col-6 {width: 50%;}
-.col-7 {width: 58.33%;}
-.col-8 {width: 66.66%;}
-.col-9 {width: 75%;}
-.col-10 {width: 83.33%;}
-.col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
+
+@media(min-width: 800px){
+
+    img{
+        width: 100px;
+    }
+    .admin{
+        height: 100px;
+    }
+    table{
+        max-width: 700px;
+        margin-left:  auto;
+        margin-right: auto;
+    }
+
+    /* Header */
+     .logo{
+        float: left;
+        text-align: left;
+    }
+
+    .top h2{
+        margin: 0;
+    }
+    a{
+        text-decoration: none;
+    }
+
+    ul, nav{
+        list-style: none;
+    }
+    .menu{
+        float: right;
+    }
+    .menu li{
+        text-align: center;
+    }
+    ul.grid{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .menu a{
+        color: inherit;
+        cursor: pointer;
+        opacity: 0.9;
+        font-family: 'Nunito', sans-serif;
+    }
+    h1{
+        color: #ffa200;
+        text-align: center;
+    }
+    h2{
+        margin-bottom: 15px;
+        font-family: 'Nunito', sans-serif;
+    }
+
+    .menu a:hover{
+        opacity: 1;
+        color: black;
+        border-bottom: 2px solid black; 
+    }
+
+    .top{
+        background-color: #ffa200;
+        width: 100%;
+        z-index: 10;
+        align-items: center;
+        color: white;
+        padding: 35px 70px 20px;
+        display: flex;
+        justify-content: space-around; 
+    }
+    .top::after{
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+    header nav{
+        display: flex;
+    }
+
+    header nav li{
+        margin: 0 15px;
+    }
+
+    header nav li:first-child{
+        margin-left: 0;
+    }
+
+    header nav li:last-child{
+        margin-right: 0;
+    }
+
+
+    .addImg{
+        clear: none;
+        display: block;
+        float: left;
+        width: 33.33%;
+    }
+    .addMealwith{
+        clear: none;
+        display: block;
+        float: left;
+        width: 50%;
+        border-right: 2px solid #ffa200;
+        
+    }
+    .addMealextra{
+        clear: none;
+        display: block;
+        float: left;
+        width: 50%;
+    }
+    .addForm{
+        width: 100%;
+        max-width: 100%;
+    }
+    .add-details{
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    input[type=number] {
+        width: 30%;
+    }
+    .add{
+        width: 15%;
+    }
+    .addContainer{
+        margin-top: 40px;
+    }
+}

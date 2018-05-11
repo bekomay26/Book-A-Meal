@@ -11,20 +11,43 @@
     <script src="../../js/selmenu.js"></script>
 </head>
 <body>
-    <div class="col-12 admin adm">
         <header>
             <div class="top row">
-                <a href="index.html" class="col-9 logo"><h2>Book-A-Meal</h2></a>
+                <a href="../user/index.html" class="col-9 logo"><h2>Book-A-Meal</h2></a>
                 <nav class="menu col-3">
                     <li class="col-4"><a href="managemenu.html">Manange meal</a></li>
                     <li class="col-4"><a href="dayorders.html">Day Orders</a></li>
-                    <li class="col-4"><a href="selectmenu.html">Select Menu</a></li>
+                    <li class="col-4"><a href="selectmenu.html" class="active">Set Menu</a></li>
                 </nav>
             </div>
         </header>
         <h2>Manage Menu</h2>
-    </div>
+    <!-- </div> -->
     <form>
+        <div class="other-checks row">
+            <div class="col-4 add-date">
+                <input type="date" placeholder="Date">
+                <input type="button" value="Add date">
+            </div>
+             <div class="col-5 added-dates">
+                 <div class="date-added row">
+                     <p class="col-5">11/09/2018</p>
+                     <div class="col-7">
+                        <i class="far fa-minus-square remove"></i>
+                     </div>
+                     
+                 </div>
+                 <div class="date-added row">
+                     <p class="col-5">11/09/2018</p>
+                     <div class="col-7">
+                        <i class="far fa-minus-square remove"></i>
+                     </div>
+                 </div>
+            </div>
+             <div class="col-2 subm">
+                 <input type="submit" value="Save Menu">
+            </div>           
+        </div>
         <div class="menu-items">
             <ul id="todayslist">
                 <li class="checked">Black Soup</li>
@@ -45,64 +68,8 @@
                 <li>Black Soup</li><li>Black Soup</li>
             </ul>
         </div>
-        <div class="other-checks">
-            <div class="col-4 add-date">
-                <!-- <input type="checkbox"><span>Today</span><br> -->
-                <input type="date" placeholder="Date">
-                <input type="button" value="Add date">
-            </div>
-             <div class="col-5">
-                 <div class="date-added row">
-                     <p class="col-5">11/09/2018</p>
-                     <div class="col-7">
-                        <i class="far fa-minus-square remove"></i>
-                     </div>
-                     
-                 </div>
-                 <div class="date-added row">
-                     <p class="col-5">11/09/2018</p>
-                     <div class="col-7">
-                        <i class="far fa-minus-square remove"></i>
-                     </div>
-                 </div>
-                <!-- <p>11/09/2018<button>-</button></p>
-                <p>19/09/2018<button>-</button></p> -->
-            </div>
-             <div class="col-2">
-                 <input type="submit" value="Save Menu">
-            </div>
-            
-            
-            <!-- <p>19/09/2018<button>-</button></p> -->
-            
-            
-            
-        </div>
+        
         
     </form>
-    <!-- <form>
-        <ul>
-            <li>
-                <input type="checkbox" name="" value="">Black Soup<br>
-            </li>
-            <li>
-                <input type="checkbox" name="" value="">Black Soup<br>
-            </li>
-            <li>
-                <input type="checkbox" name="" value="">Black Soup<br>
-            </li>
-            <li>
-                <input type="checkbox" name="" value="">Black Soup<br>
-            </li>
-            <li>
-                <input type="checkbox" name="" value="">Black Soup<br>
-            </li>
-            <li>
-                <input type="checkbox" name="" value="">Black Soup<br>
-            </li>
-        </ul>
-        <input type="submit" value="Save Order">
-    </form> -->
-    
 </body>
 </html>
