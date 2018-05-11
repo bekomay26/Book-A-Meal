@@ -7,7 +7,7 @@ An application that allows customers to make food orders, helps the food vendor 
 - [Book-A-Meal Customer](https://bekomay26.github.io/Book-A-Meal/UI/html/user/).
 - [Book-A-Meal Admin](https://bekomay26.github.io/Book-A-Meal/UI/html/admin/admin.html).
 - [Book-A-Meal API Endpoints on heroku](https://buuk-a-meal.herokuapp.com/api/v1/).
-- [Documentation] (https://bookameal17.docs.apiary.io/).
+- [Documentation](https://bookameal17.docs.apiary.io/).
 
 
 ## Features
