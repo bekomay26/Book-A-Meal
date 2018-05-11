@@ -1,0 +1,23 @@
+for get specific orders
+#156804044
+
+destroy order
+#157137664
+
+settingg up id
+#156937202
+
+hound error: add:
+"parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "import/no-unresolved": "off",
+        "import/extensions": "off"
+    }
+
+https://github.com/bekomay26/Book-A-Meal/tree/ft-delete-order-api-157137664

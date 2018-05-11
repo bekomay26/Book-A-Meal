@@ -1,49 +1,91 @@
-import uniqid from 'uniqid';
+import moment from 'moment';
 import Controller from './Controller';
-import Order from '../models/Order';
-import orders from '../tests/dummyData/fakeOrder';
-import menu from '../tests/dummyData/fakeMenu';
+import db from '../model/index';
+import removeDuplicates from '../helpers/removeDuplicates';
 
 class OrderController extends Controller {
   /**
-   * Creates a new Order
-   * @memberof OrderController
-   * @param {object} req
-   * @param {object} res
-   * @returns {(json)}JSON object
-   * @static
-   */
-  static createOrder(req, res) {
-    const { mealId, address } = req.body;
+ * Creates a new Order
+ * @memberof OrderController
+ * @param {object} req
+ * @param {object} res
+ * @returns {(json)}JSON object
+ * @static
+ */
+  static async createOrder(req, res) {
+    try {
+      const {
+        mealId,
+        extraIds,
+        qtys, // zero not allowed, default is 1
+        address,
+        createdById,
+        cateredById,
+      } = await req.body;
 
-    const mealIdInt = parseInt(mealId, 10);
-    // if mealId is empty or not an integer output error message
-    if (!mealId || !Number.isInteger(mealIdInt)) {
-      return res.status(400).json({
+      // const mealIdInt = await parseInt(mealId, 10);
+      const uniqueExtraIds = removeDuplicates(extraIds);
+      let price = 0;
+      const foundMeal = await db.Meal.findOne({ where: { id: mealId } });
+      if (foundMeal) {
+        // retrieve day's menu and id
+        const todaysDate = moment(new Date()).format('YYYY-MM-DD');
+        const foundMenu1 = await db.Menu.findOne({ where: { date: todaysDate } });
+        const todayMenuId = foundMenu1.id;
+        const foundMealInMenuJoinObj =
+          await db.MenuMeal.findOne({ where: { menuId: todayMenuId, mealId } });
+
+        if (!foundMealInMenuJoinObj) {
+          return res.status(404).json({
+            success: false,
+            message: 'The Meal is not on the day\'s menu',
+          });
+        }
+        price += foundMeal.price;
+        const mealExtras = await db.MealExtra.findAll({ where: { mealId } });
+        const mealExtrasIds = await mealExtras.map(obj => obj.extraId);
+        for (let i = 0; i < uniqueExtraIds.length; i += 1) {
+          if (mealExtrasIds.includes(uniqueExtraIds[i])) {
+            const extra = await db.Extra.findOne({ where: { id: uniqueExtraIds[i] } });
+            if (qtys) {
+              price += (extra.price * (qtys[i] || 1));
+            } else {
+              price += extra.price;
+            }
+          } else {
+            return res.status(404).json({
+              success: false,
+              message: 'Extra is not served with this particular meal',
+            });
+          }
+        }
+        const newOrder =
+          await db.Order.create({
+            mealId,
+            totalPrice: price,
+            address,
+            createdById,
+            cateredById,
+            status: 'Pending',
+          });
+        newOrder.addExtras(uniqueExtraIds);
+        return res.status(201).json({
+          success: true,
+          message: 'Order created',
+          newOrder,
+        });
+      }
+      return res.status(404).json({
         success: false,
-        message: 'Input a valid mealId',
+        message: 'Meal not found',
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
       });
     }
-    const newOrder = new Order();
-    newOrder.address = address;
-    newOrder.id = uniqid();
-    for (let i = 0; i < menu.length; i += 1) {
-      if (parseInt(menu[i].id, 10) === mealIdInt) {
-        newOrder.meal = menu[i];
-        newOrder.startTimer = Date.now();
-        orders.push(newOrder); // After adding the other properties
-        return res.status(201)
-          .json({
-            success: true,
-            message: 'Meal added to order',
-            orders,
-          });
-      }
-    }
-    return res.status(404).json({
-      success: false,
-      message: 'Meal not found',
-    });
   }
 
   /**
@@ -54,39 +96,72 @@ class OrderController extends Controller {
    * @returns {(json)}JSON object
    * @static
    */
-  static updateOrder(req, res) {
-    const id = parseInt(req.params.id, 10);
-    const {
-      extras,
-      qty,
-    } = req.body;
-    if (!Number.isInteger(parseInt(qty, 10))) {
-      return res.status(400)
-        .json({
-          success: false,
-          message: 'Input a valid quantity',
-        });
-    }
-    let updatedOrder;
-    for (let i = 0; i < orders.length; i += 1) {
-      if (orders[i].id === id) {
-        orders[i].meal.extras = extras || orders[i].meal.extras;
-        orders[i].meal.qty = qty;
-        updatedOrder = orders[i];
-        return res.status(200)
-          .json({
-            success: true,
-            message: 'Order Updated',
-            Order: updatedOrder,
-          });
-      }
-    }
-    return res.status(404).json({
-      success: false,
-      message: `Cannot find order with id ${id}`,
-    });
-  }
+  static async updateOrder(req, res) {
+    try {
+      const id = parseInt(req.params.id, 10);
+      const {
+        extraIds,
+        qtys,
+        address,
+      } = await req.body;
 
+      const currentTime = moment.tz(new Date(), 'America/Danmarkshavn');
+      const foundOrder = await db.Order.findOne({ where: { id: parseInt(req.params.id, 10) } });
+      if (foundOrder) {
+        const creaTime = moment.tz(foundOrder.createdAt, 'America/Danmarkshavn');
+        // const e = moment(creaTime).fromNow();
+        const timeElapsed = (moment.duration(currentTime.diff(creaTime))).asMinutes();
+        if (timeElapsed > 15) {
+          return res.status(400)
+            .json({
+              success: false,
+              message: 'You cannot update an order after 15 Minutes',
+            });
+        }
+        const uniqueExtraIds = removeDuplicates(extraIds);
+        let price = 0;
+        const meal = await db.Meal.findOne({ where: { id: foundOrder.mealId } });
+        price += meal.price;
+        const mealExtras = await db.MealExtra.findAll({ where: { mealId: foundOrder.mealId } });
+        const mealExtrasIds = await mealExtras.map(obj => obj.extraId);
+        for (let i = 0; i < uniqueExtraIds.length; i += 1) {
+          if (mealExtrasIds.includes(uniqueExtraIds[i])) {
+            const extra = await db.Extra.findOne({ where: { id: uniqueExtraIds[i] } });
+            price += (extra.price * (qtys[i] || 1));
+          } else {
+            return res.status(404).json({
+              success: false,
+              message: 'Extra is not served with this particular meal',
+            });
+          }
+        }
+        foundOrder.update({
+          address,
+          totalPrice: price,
+        });
+        return res.status(200).json({
+          success: true,
+          message: 'Order Updated',
+          order: foundOrder,
+        });
+      }
+      return res.status(404).json({
+        success: false,
+        message: `Cannot find order with id ${id}`,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
+      });
+    }
+  }
+  // this is retrieve all for admin. dere should be retrieve by
+  // user and by date for customer and user respectively.
+  // there can also be retrieve by date for customer
+  // Admin can have retrieve by status
+  // there can also be retrieve by caterer. If going the route of multi admins
   /**
    * Retrieves all Orders
    * @memberof OrderController
@@ -95,7 +170,23 @@ class OrderController extends Controller {
    * @returns {(json)}JSON object
    * @static
    */
-  static retrieveOrders(req, res) {
+  static async retrieveOrders(req, res) {
+    const orders = await db.Order
+      .findAll({
+        include: [{
+          model: db.Meal,
+          attributes: ['title', 'description', 'price'],
+        },
+        {
+          model: db.Extra,
+          through: {
+            foreignKey: 'extraId',
+          },
+          attributes: ['title', 'price'],
+          as: 'extras',
+        },
+        ],
+      });
     res.status(200).json({
       success: true,
       message: 'Orders retrieved',
@@ -111,33 +202,35 @@ class OrderController extends Controller {
    * @returns {(json)}JSON object
    * @static
    */
-  static deleteOrder(req, res) {
+  static async deleteOrder(req, res) {
+    const currentTime = moment.tz(new Date(), 'America/Danmarkshavn');
     const id = parseInt(req.params.id, 10);
-    for (let i = 0; i < orders.length; i += 1) {
-      if (parseInt(orders[i].id, 10) === id) {
-        // const endTimer = Date.now();
-        const endTimer = new Date();
-        const timeElapsed = endTimer.getTime() - orders[i].startTimer;
-        if (timeElapsed < 50000) { // if less than 10secons has passed
-          const newOrders = orders.splice(i, 1);
-          return res.status(200)
-            .json({
-              success: true,
-              message: 'Order deleted',
-              newOrders,
-            });
-        }
+    const orderOpt = await db.Order
+      .findOne({ where: { id: parseInt(req.params.id, 10) } });
+
+    if (orderOpt) {
+      const creaTime = moment.tz(orderOpt.createdAt, 'America/Danmarkshavn');
+      // const e = moment(creaTime).fromNow();
+      const timeElapsed = (moment.duration(currentTime.diff(creaTime))).asMinutes();
+      if (timeElapsed < 15) {
+        await orderOpt.destroy();
+        res.status(200).json({
+          success: true,
+          message: 'Order deleted',
+        });
+      } else {
         return res.status(400)
           .json({
             success: false,
-            message: 'You cannot delete an order after 50 seconds',
+            message: 'You cannot delete an order after 15 Minutes',
           });
       }
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: `Cannot find order with id ${id}`,
+      });
     }
-    return res.status(404).json({
-      success: false,
-      message: `Cannot find order with id ${id}`,
-    });
   }
 }
 

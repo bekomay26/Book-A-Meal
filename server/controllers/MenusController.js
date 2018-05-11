@@ -1,4 +1,3 @@
-import uniqid from 'uniqid';
 import Controller from './Controller';
 import Menu from '../models/Menu';
 import menus from '../tests/dummyData/fakeMenus';
