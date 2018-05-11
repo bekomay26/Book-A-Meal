@@ -1,8 +1,18 @@
+import uniqid from 'uniqid';
 import Controller from './Controller';
 import Menu from '../models/Menu';
 import menus from '../tests/dummyData/fakeMenus';
+import mealss from '../tests/dummyData/fakeMeal';
 
 class MenusController extends Controller {
+  /**
+   * Creates a new Menu
+   * @memberof MenuController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
   static addMenu(req, res) {
     const {
       date,
@@ -19,15 +29,25 @@ class MenusController extends Controller {
       });
     }
     let exists = false; // variable to hold the state of existence of a menu for a given day
+    // changeTo find by
     menus.forEach((menu) => {
       if (menu.date === req.body.date) {
         exists = true;
       }
     });
     if (!exists) {
-      const lenOfId = menus.length;
-      const id = menus[lenOfId - 1].id + 1;
-      const menu = new Menu(id, date, meals, createdBy, editedBy);
+      const id = uniqid();
+      const menu = new Menu(id, date, [], createdBy, editedBy);
+      for (let i = 0; i < meals.length; i += 1) {
+        function findById(item) {
+          if (item.id === meals[i]) {
+            return true;
+          }
+          return false;
+        }
+        const todayMenu = mealss.find(findById);
+        menu.meals.push(todayMenu);
+      }
       menus.push(menu);
       return res.status(201).json({
         success: true,
@@ -40,54 +60,18 @@ class MenusController extends Controller {
       message: `Menu for the date ${req.body.date} already exists`,
     });
   }
-  static retrieveMenus(req, res) {
-    res.status(200).json({
-      success: true,
-      message: 'Menus retrieved',
-      menus,
-    });
-  }
-  // input date if future date and not a past nor present date, edit away.
-  static updateMenu(req, res) {
-    // yyyy-mm-dd format
-    const { dateString } = req.params;
-    const dateInput = Date.parse(dateString); // or = new Date(todaysDateString) for date format
-    // today's date
-    const d = new Date();
-    const todaysDateString = `${d.getFullYear().toString()}-${(d.getMonth() + 1).toString()}-${d.getDate().toString()}`;
-    const todaysDate = Date.parse(todaysDateString);
-    const dDate = dateString.replace(/-/g, '/'); // regex to replace all occurence
-    if (dateInput <= todaysDate) { // compares in utc not local time bcos of how it was parsed
-      return res.status(400)
-        .json({
-          success: false,
-          message: 'You cannot edit previous or today\'s menu',
-        });
-    }
-    const { meals } = req.body;
 
-    let updatedMenu;
-    for (let i = 0; i < menus.length; i += 1) {
-      if (menus[i].date === dDate) {
-        menus[i].meals = meals || menus[i].meals;
-        updatedMenu = menus[i];
-        return res.status(200)
-          .json({
-            success: true,
-            message: 'Menu Updated',
-            menu: updatedMenu,
-          });
-      }
-    }
-    return res.status(404).json({
-      success: false,
-      message: `Cannot find menu for date ${dDate}`,
-    });
-  }
-
-  /** delete a meal, cannot select meals of previous days on the UI.
+  /**
+   * Deletes an existing menu
+   * @memberof MenuController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
+  static deleteMenu(req, res) {
+    /** delete a meal, cannot select meals of previous days on the UI.
    * same should be done for the edit above */
-  static destroy(req, res) {
     const id = parseInt(req.params.id, 10);
     for (let i = 0; i < menus.length; i += 1) {
       if (parseInt(menus[i].id, 10) === id) {
@@ -103,6 +87,37 @@ class MenusController extends Controller {
     return res.status(404).json({
       success: false,
       message: `Cannot find menu with id ${id}`,
+    });
+  }
+
+  /**
+   * Retrieves current day's Menu
+   * @memberof MenuController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
+  static retrieveTodaysMenu(req, res) {
+    // added the en-GB cos it was giving yyyy-mm-dd by default
+    const todaysDate = new Date().toLocaleDateString();
+    function findByDate(item) {
+      if (item.date === todaysDate) {
+        return true;
+      }
+      return false;
+    }
+    const todayMenu = menus.find(findByDate);
+    if (todayMenu) {
+      return res.status(200).json({
+        success: true,
+        message: 'Menu retrieved',
+        menu: todayMenu.meals,
+      });
+    }
+    return res.status(404).json({
+      success: false,
+      message: 'There is no menu for today',
     });
   }
 }

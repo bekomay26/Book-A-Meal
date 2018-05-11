@@ -1,5 +1,6 @@
 import faker from 'faker';
 
+const date = new Date();
 const orders = [{
   id: 3111,
   date: '26/14/2221', // use yyyy-mm-dd format
@@ -20,7 +21,8 @@ const orders = [{
     qty: 1,
   },
   status: 'complete', // 4 variables - complete, cancelled, pendingUser, pendingAdmin
-  startTimer: Date.now() - 5000, // simulate 15 secons ago
+  address: faker.address.secondaryAddress(),
+  startTimer: date.getTime() - 3000, // Date.now() - 5000, // simulate 5 secons ago
 },
 {
   id: 3121,
@@ -42,7 +44,7 @@ const orders = [{
     qty: 1,
   },
   status: 'complete', // 4 variables - complete, cancelled, pendingUser, pendingAdmin
-  startTimer: Date.now() - 25000,
+  startTimer: date.getTime() - 75000,
 },
 ];
 

@@ -1,3 +1,4 @@
+import uniqid from 'uniqid';
 import Controller from './Controller';
 // import meals from '../tests/dummyData/fakeData';
 import db from '../model/index';
@@ -74,7 +75,6 @@ class MealController extends Controller {
       });
     }
   }
-
   /**
    * Modifies an existing meal
    * @memberof MealController
@@ -129,7 +129,6 @@ class MealController extends Controller {
       });
     }
   }
-
   /**
    * Deletes an existing meal
    * @memberof MealController
@@ -163,7 +162,6 @@ class MealController extends Controller {
       });
     }
   }
-
   /**
    * Retrieves all Meals
    * @memberof MealController
