@@ -44,3 +44,60 @@ An application that allows customers to make food orders, helps the food vendor 
 - Delete a future Menu - DELETE http://localhost:4000/api/v1/meals/:menuId
 - Retrieve all Orders for a day - GET http://localhost:4000/api/v1/orders/:dateString
 - Delete Order - DELETE http://localhost:4000/api/v1/meals/:orderId
+
+### Payload samples for POST and PUT requests
+
+#### Add a Meal Option: `/api/v1/meals`
+
+To add a new Meal, send the following parameters (sample below):
+```
+{
+  title: 'Bread',
+  description: 'Bread Bread',
+  image: 'images/img.jpeg',
+  price: 99
+}
+```
+NB: price and title parameters must be inputted.
+
+#### Modify Meal Option: `/api/v1/meals/:id`
+
+To edit an existing meal option, send any of the parameters above (sample below):
+```
+{
+  title: 'Rice',
+  description: 'Breaded Rice'
+}
+```
+
+#### Add a Menu: `/api/v1/menu`
+
+To add a new Menu, send the following parameters (sample below):
+```
+{
+  date: '26/14/2018',
+  meals: ['meal1', 'meal2'],
+  createdBy: 'fola'
+};
+```
+
+#### Add an order: `/api/v1/orders`
+
+
+To add a new Menu, send the following parameters (sample below):
+```
+{ 
+  mealId: 1222, 
+  address: '6, gbagada street' 
+}
+```
+
+#### Update orders: `/api/v1/orders/:id`
+
+To edit an order, send any of the parameters above (sample below):
+```
+{
+  extras: ['rice', 'potato'],
+  qty: 2
+}
+```
