@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 });
 
 // api documentation
-app.use('api/v1/docs', express.static(path.join(__dirname, './documentation')));
+app.use('/api/v1/docs', express.static(path.join(__dirname, './documentation')));
 
 app.use('/*', errorRouter);
 app.listen(port, () => {
