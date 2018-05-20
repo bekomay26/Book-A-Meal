@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/bekomay26/Book-A-Meal#readme",
   "devDependencies": {
+    "aglio": "^2.3.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",

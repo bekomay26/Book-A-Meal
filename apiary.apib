@@ -1,0 +1,317 @@
+FORMAT: 1A
+HOST: http://https://buuk-a-meal.herokuapp.com/api/v1/
+
+# Book-A-meal
+
+Book-A-Meal is a simple API allowing consumers to make food orders, and aids the caterer in managing the business.
+
+# Group Authentication
+
+## SignUp [/auth/signup]
+
+### Create New User [POST]
+
++ Request
+    + Headers
+
+            Content-Type: application/json
+    
+    + Attributes
+        - username: fola1654 (string, required)- Username
+        - password: Crimson26 (string, required) - User password
+        - role: customer (enum[string], required) - User role.
+            + Members
+                + `caterer` - admin
+                + `customer` - user
+                
+
++ Response 201 (application/json)
+    + Attributes
+        - success: true (boolean) 
+        - message: User Created (string)
+        - token: <token> (string) - The generated token
+
+
+## SignIn [/auth/login]
+### Login existing user [POST]
+
+You may login into the app this action. It takes a JSON
+object containing a username and password.
++ Request (application/json)
+    
+    + Attributes
+        - username: fola1654 (string, required)- Username
+        - password: Crimson26 (string, required) - User password
+                
+
++ Response 201 (application/json)
+    + Attributes
+        - success: true (boolean) 
+        - message: Welcome fola1654 (string)
+        - token: <token> (string) - The generated token
+
+
+# Group Meals
+
+
+## Meals  [/meals]
+
+
+### Create New Meal [POST]
+
++ Request
+    + Headers
+
+            Content-Type: application/json
+            Authorization: TOKEN
+
+    + Attributes
+        - title: Beans (string, required)
+        - description: flour, milk and sugar (string)
+        - image: <image_url> (string)
+        - price: 300 (number, required)
+        - extraIds: 1,2,3,4 (array[number]) - Meal name
+
++ Response 201 (application/json)
+    + Attributes
+        - success: true (boolean)
+        - message: Meal Created (string)
+        - meal: (object)
+            - title: Beans (string, required)
+            - description: flour, milk and sugar (string)
+            - image: <image_url> (string)
+            - price: 300 (number, required)
+            - extraIds: 1,2,3,4 (array[number]) - Meal name
+
+### Retrieve All Meals [GET]
+
++ Request
+    + Headers
+
+            Content-Type: application/json
+            Authorization: <TOKEN>
+
++ Response 200 (application/json)
+    + Attributes
+        - success: true (boolean) 
+        - message: Meals retrieved (string)
+        - meals: (array)
+            - (object)
+                - title: Pancake (string, required) - Meal title
+                - description: 1 (string) - Meal description
+                - image_url: https://app.apiary.io/bookameal17/img.jpg (string) - Meal image url
+                - price: 300 (number, required) - Meal price
+                - quantity: 1 (number)
+                - extras: 
+            - (object)
+                - title: Beans (string, required)
+                - description: flour, milk and sugar (string)
+                - image: <image_url> (string)
+                - price: 300 (number, required)
+                - extraIds: 1,2,3,4 (array[number]) - Meal name
+
+### Edit Meal [PUT /meals/{id}]
+
++ Request
+    + Headers
+
+            Content-Type: application/json
+            Authorization: <TOKEN>
+
+    + Attributes
+        - title: Beans (string, required)
+        - description: flour, milk and sugar (string)
+        - image: <image_url> (string)
+        - price: 300 (number, required)
+        - extraIds: 1,2,3,4 (array[number]) - Meal name
+
++ Parameter
+    + id: `1` - The meal Id to be editted
+    
++ Response 200 (application/json)
+    + Attributes
+        - meals (object)
+                - title: Beans (string, required)
+                - description: flour, milk and sugar (string)
+                - image: <image_url> (string)
+                - price: 300 (number, required)
+                - extraIds: 1,2,3,4 (array[number]) - Meal name
+
+### Delete Meal [DELETE /meals/{id}]
+
++ Request
+    + Headers
+
+            Content-Type: application/json
+            Authorization: <TOKEN>
+
++ Parameter
+    + id: `1` - The Meal Id to be deleted
+
++ Response 200 (application/json)
+    + Attributes
+        - meals (object)
+                - title: Beans (string, required)
+                - description: flour, milk and sugar (string)
+                - image: <image_url> (string)
+                - price: 300 (number, required)
+                - extraIds: 1,2,3,4 (array[number]) - Meal name
+                
+                
+
+# Group Menu
+
+
+## Menu  [/menu]
+
+
+### Create New Menu [POST]
+
++ Request
+    + Headers
+
+            Content-Type: application/json
+            Authorization: TOKEN
+
+    + Attributes
+        - mealIds: 1,2,3,4 (array[number]) - Meal Ids
+
++ Response 201 (application/json)
+    + Attributes
+        - success: true (boolean) 
+        - message: Meals retrieved (string)
+        - id: 2 (number)
+        - date: '2018-05-11' (string)
+        - meals: (array)
+            - (object)
+                - title: Pancake (string, required) - Meal title
+                - description: 1 (string) - Meal description
+                - image_url: https://app.apiary.io/bookameal17/img.jpg (string) - Meal image url
+                - price: 300 (number, required) - Meal price
+                - quantity: 1 (number)
+                - extras: 
+            - (object)
+                - title: Beans (string, required)
+                - description: flour, milk and sugar (string)
+                - image: <image_url> (string)
+                - price: 300 (number, required)
+                - extraIds: 1,2,3,4 (array[number]) - Meal name
+
+### Retrieve Menu [GET]
+
+
++ Request
+    + Headers
+
+            Content-Type: application/json
+            Authorization: <TOKEN>
+
++ Response 200 (application/json)
+    + Attributes
+        - success: true (boolean) 
+        - message: Meals retrieved (string)
+        - id: 2 (number)
+        - date: '2018-05-11' (string)
+        - meals: (array)
+            - (object)
+                - title: Pancake (string, required) - Meal title
+                - description: 1 (string) - Meal description
+                - image_url: https://app.apiary.io/bookameal17/img.jpg (string) - Meal image url
+                - price: 300 (number, required) - Meal price
+                - quantity: 1 (number)
+                - extras: 
+            - (object)
+                - title: Beans (string, required)
+                - description: flour, milk and sugar (string)
+                - image: <image_url> (string)
+                - price: 300 (number, required)
+                - extraIds: 1,2,3,4 (array[number]) - Meal name
+
+# Group Orders
+
+
+## Menu  [/orders]
+
+
+### Create New Order [POST]
+
++ Request
+    + Headers
+
+            Content-Type: application/json
+            Authorization: TOKEN
+
+    + Attributes
+        - mealId: 1 (number, required)
+        - address: 6, maryland anthony, lagos (string, required)
+        - extraIds: 1,2,3,4 (array[number]) - Meal Ids
+
++ Response 201 (application/json)
+    + Attributes
+        - success: true (boolean) 
+        - message: Meals retrieved (string)
+        - id: 2 (number)
+        - quantity: 3 (number) 
+        - mealId: 1 (number)
+        - totalPrice: 5650 (number)
+        - address: 6, maryland anthony, lagos (string)
+        - status: Pending (string)
+
+### Retrieve Orders [GET]
+
++ Request
+    + Headers
+
+            Content-Type: application/json
+            Authorization: <TOKEN>
+
++ Response 200 (application/json)
+    + Attributes
+        - success: true (boolean) 
+        - message: Orders retrieved (string)
+        - id: 2 (number)
+        - date: '2018-05-11' (string)
+        - orders: (array)
+            - (object)
+                - id: 2 (number)
+                - quantity: 3 (number) 
+                - mealId: 1 (number)
+                - totalPrice: 5650 (number)
+                - address: 6, maryland anthony, lagos (string)
+                - status: Pending (string)
+            - (object)
+                - id: 2 (number)
+                - quantity: 3 (number) 
+                - mealId: 1 (number)
+                - totalPrice: 5650 (number)
+                - address: 6, maryland anthony, lagos (string)
+                - status: Pending (string)
+
+
+### Edit Order [PUT /orders/{id}]
+
++ Request
+    + Headers
+
+            Content-Type: application/json
+            Authorization: <TOKEN>
+
+    + Attributes
+        - id: 2 (number)
+        - quantity: 3 (number) 
+        - mealId: 1 (number)
+        - totalPrice: 5650 (number)
+        - address: 6, maryland anthony, lagos (string)
+        - status: Pending (string)
++ Parameter
+    + id: `1` - The order Id to be editted
+    
++ Response 200 (application/json)
+    + Attributes
+        - orders (object)
+                 - id: 2 (number)
+                - quantity: 3 (number) 
+                - mealId: 1 (number)
+                - totalPrice: 5650 (number)
+                - address: 6, maryland anthony, lagos (string)
+                - status: Pending (string)
