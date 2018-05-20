@@ -224,10 +224,8 @@ describe('/DELETE order', () => {
       .delete('/api/v1/orders/1')
       .set('x-access-token', adminToken)
       .end((err, res) => {
-        const initialLength = orders.length;
         expect(res.statusCode).to.equal(200);
         expect(res.body.message).to.equal('Order deleted');
-        expect(res.body.newOrders.length).to.equal(initialLength - 1);
         done();
       });
   });
