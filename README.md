@@ -1,4 +1,4 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/bekomay26/Book-A-Meal/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/bekomay26/Book-A-Meal/test_coverage) [![Build Status](https://travis-ci.org/bekomay26/Book-A-Meal.svg?branch=ch-implement-chll2-feedback-157243679)](https://travis-ci.org/bekomay26/Book-A-Meal) [![Coverage Status](https://coveralls.io/repos/github/bekomay26/Book-A-Meal/badge.svg?branch=ch-implement-chll2-feedback-157243679)](https://coveralls.io/github/bekomay26/Book-A-Meal?branch=ch-implement-chll2-feedback-157243679)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/bekomay26/Book-A-Meal/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/bekomay26/Book-A-Meal/test_coverage) [![Build Status](https://travis-ci.org/bekomay26/Book-A-Meal.svg?branch=ft-documentation-route-157720673)](https://travis-ci.org/bekomay26/Book-A-Meal) [![Coverage Status](https://coveralls.io/repos/github/bekomay26/Book-A-Meal/badge.svg?branch=ft-documentation-route-157720673)](https://coveralls.io/github/bekomay26/Book-A-Meal?branch=ch-implement-chll2-feedback-157243679)
 # Book-A-Meal
 
 An application that allows customers to make food orders, helps the food vendor decide on what to eat and aids the caterer in managing the business.
@@ -7,7 +7,7 @@ An application that allows customers to make food orders, helps the food vendor 
 - [Book-A-Meal Customer](https://bekomay26.github.io/Book-A-Meal/UI/html/user/).
 - [Book-A-Meal Admin](https://bekomay26.github.io/Book-A-Meal/UI/html/admin/admin.html).
 - [Book-A-Meal API Endpoints on heroku](https://buuk-a-meal.herokuapp.com/api/v1/).
-
+- [Documentation](https://buuk-a-meal.herokuapp.com/api/v1/docs/).
 
 ## Features
 
