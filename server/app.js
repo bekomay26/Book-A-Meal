@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
+import path from 'path';
 import mealRouter from './routes/mealRoutes';
 import menuRouter from './routes/menuRoutes';
 import orderRouter from './routes/orderRoutes';
@@ -22,6 +23,9 @@ app.use('/api/v1/auth', authRouter);
 app.get('/', (req, res) => {
   res.send('Book-A-Meal');
 });
+
+// api documentation
+app.use('api/v1/docs', express.static(path.join(__dirname, './documentation')));
 
 app.use('/*', errorRouter);
 app.listen(port, () => {
