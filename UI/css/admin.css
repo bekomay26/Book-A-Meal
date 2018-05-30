@@ -221,7 +221,92 @@ img{
     }
     
     .dash-body{
-        width: 80%;
+        width: 100%;
         margin: auto;
     }
+
+    
+}
+
+
+
+/* Header */
+.logo{
+    float: left;
+    text-align: left;
+}
+
+a{
+    text-decoration: none;
+}
+
+ul, nav{
+    list-style: none;
+}
+.menu{
+    float: right;
+}
+.menu li{
+    /* margin: 0; */
+    text-align: center;
+}
+ul.grid{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.menu a{
+    color: inherit;
+    cursor: pointer;
+    opacity: 0.9;
+    /* margin: 10px 20px; */
+    font-family: 'Nunito', sans-serif;
+}
+h1{
+    color: #ffa200;
+    text-align: center;
+}
+h2{
+    margin-bottom: 15px;
+    font-family: 'Nunito', sans-serif;
+}
+
+.menu a:hover{
+    opacity: 1;
+    color: black;
+    border-bottom: 2px solid black; 
+}
+
+.top{
+    background-color: #ffa200;
+    /* opacity: 0.7; */
+    width: 100%;
+    z-index: 10;
+    align-items: center;
+    color: white;
+    padding: 35px 70px 20px;
+    display: flex;
+    justify-content: space-around; 
+}
+.top::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+header nav{
+    display: flex;
+}
+
+header nav li{
+    margin: 0 15px;
+}
+
+header nav li:first-child{
+    margin-left: 0;
+}
+
+header nav li:last-child{
+    margin-right: 0;
 }

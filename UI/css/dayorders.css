@@ -2,6 +2,9 @@
     box-sizing: border-box;
     font-family: 'Jua', sans-serif;
 }
+body {
+    margin: 0;
+}
 .row:nth-child(even){
     background-color: #ddd;
 }
@@ -12,8 +15,6 @@
 }
 [class*="col-"] {
     float: left;
-    padding: 15px;
-    /* border: 1px solid red; */
 }
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
@@ -51,16 +52,15 @@ img{
 .admin [class*="col-"] {
     float: left;
     padding: 0px;
-    /* border: 1px solid red; */
 }
 
-.logo{
-    width: 100px;
-    height: 100px;
+.logo h2{
+     text-align: left;
 }
+
 h2{
     text-align: center;
-    margin-top:25px;
+    margin-top:55px;
     font-size: 2em;
 }
 .fa-long-arrow-alt-left{
@@ -86,24 +86,24 @@ a{
     padding-bottom: 20px;
 }
 a:hover{
-    /* background-color: white; */
     color: red;
 }
 
-
+.stat p{
+    font-size: 0.7em;
+}
 
 .order{
     width:100%;
-    margin-top: 105px;
+    margin-top: 25px;
     border: 1px solid black;
-    border-top: none;
 }
 h1,h2{
     text-align: center;
 }
 .total-prc{
     color: Green;
-    font-size: 30px;
+    font-size: 20px;
     margin-top: 20px;
 }
 h3{
@@ -152,6 +152,76 @@ h3, p{
     height: 55px;
 }
 
+.active {
+    border-bottom: 2px solid white;
+}
+@media screen and (max-width: 799px) {
+    .active {
+        border-bottom: 1px solid white;
+    }
+    p {
+        font-size: 2vh;
+    }
+    ul, nav{
+        list-style: none;
+    }
+    .menu{
+        float: right;
+    }
+    .menu li{
+        /* margin: 0; */
+        text-align: center;
+    }
+    ul.grid{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .menu{
+        width: 100%;
+    }
+    .menu a{
+        color: inherit;
+        cursor: pointer;
+        opacity: 0.9;
+        /* margin: 10px 20px; */
+        font-family: 'Nunito', sans-serif;
+    }
+
+    .top{
+        background-color: #ffa200;
+        /* opacity: 0.7; */
+        width: 100%;
+        z-index: 10;
+        align-items: center;
+        color: white;
+        padding:10px;
+        display: flex;
+        justify-content: space-around; 
+    }
+    .top::after{
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+    header nav{
+        display: flex;
+        /* margin-bottom: 50px; */
+    }
+
+    header nav li:first-child{
+        margin-left: 0;
+    }
+
+    header nav li:last-child{
+        margin-right: 0;
+    }
+    .logo{
+        display: none;
+    }
+}
 @media(min-width: 800px){
     .order{
         width: 80%;
@@ -163,6 +233,95 @@ h3, p{
         color: Green;
         font-size: 40px;
     }
+
+     /* Header */
+     .logo{
+        float: left;
+        text-align: left;
+    }
+
+    .top h2{
+        margin: 0;
+    }
+    a{
+        text-decoration: none;
+    }
+
+    .stat p{
+        font-size: 1em;
+    }
+
+    ul, nav{
+        list-style: none;
+    }
+    .menu{
+        float: right;
+    }
+    .menu li{
+        /* margin: 0; */
+        text-align: center;
+    }
+    ul.grid{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .menu a{
+        color: inherit;
+        cursor: pointer;
+        opacity: 0.9;
+        /* margin: 10px 20px; */
+        font-family: 'Nunito', sans-serif;
+    }
+    h1{
+        color: #ffa200;
+        text-align: center;
+    }
+    h2{
+        margin-bottom: 15px;
+        font-family: 'Nunito', sans-serif;
+    }
+
+    .menu a:hover{
+        opacity: 1;
+        color: black;
+        border-bottom: 2px solid black; 
+    }
+
+    .top{
+        background-color: #ffa200;
+        /* opacity: 0.7; */
+        width: 100%;
+        z-index: 10;
+        align-items: center;
+        color: white;
+        padding: 35px 70px 20px;
+        display: flex;
+        justify-content: space-around; 
+    }
+    .top::after{
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+    header nav{
+        display: flex;
+        /* margin-bottom: 50px; */
+    }
+
+    header nav li{
+        margin: 0 15px;
+    }
+
+    header nav li:first-child{
+        margin-left: 0;
+    }
+
+    header nav li:last-child{
+        margin-right: 0;
+    }
 }
 
 @media(min-width: 1200px){
@@ -170,4 +329,7 @@ h3, p{
         width: 60%;
         /* margin: 0 auto; */
     }
+
+    
+   
 }

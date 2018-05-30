@@ -7,24 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="">
     <link rel="stylesheet" type="text/css" media="screen" href="../../css/cart.css" />
-    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/menu.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     <script src="../../js/menu.js"></script>
 </head>
 <body>
     <header class="row bigpic">
-        <!-- <div class="back-image"></div> -->
-        <div class="back-image2"></div>
-        <div class="navigate">
-            <nav>
-                <li><a href="menu.html"><img src="../../images/pl2.png"><h2>Today's Menu</h2></a></li>
-                <li><a href="index.html"><img src="../../images/pl3.png" class="logo"><h2>Book-A-Meal</h2></a></li>
-                <li><a href="#"><img src="../../images/pl2.png"><h2>My Order</h2></a></li>
-                <!-- <li><a href="#"><img src="../../images/pl2.png"><h2>Today's Menu</h2></a></li>
-                <li><a href="#"><img src="../../images/pl2.png"><h2>Today's Menu</h2></a></li> -->
+        <div class="top row">
+            <a href="index.html" class="col-8 logo"><h2>Book-A-Meal</h2></a>
+            <nav class="menu col-4">
+                <li class="col-25"><a href="menu.html">Menu</a></li>
+                <li class="col-25"><a href="cart.html">Order</a></li>
+                <li class="col-25"><a href="login.html">SignIn</a></li>
+                <li class="col-25"><a href="signup.html">Signup</a></li>
+                <li class="col-25"><a href="../admin/admin.html">Admin</a></li>
             </nav>
         </div>
-        <div id="container" class="container">
+    </header>
+    <div id="container" class="container">
+        <h1>My Orders</h1>
+        <div style="overflow-x:auto;">
             <table>
                 <thead>
                     <tr>
@@ -72,76 +74,62 @@
                 </tbody>
             </table>
         </div>
-    </header>
-    
+        
+    </div>
     <div id="modal-container" class="modal">
-        <span id="close" class="close" onclick="onClose()">&times;</span>
-        <form class="modal-form" action="" method="POST">
-            
-            <div class="form-details">
-                <div class="foodDesc">
-                    <p>Food Name</p>
-                    <p> Food Description</p>
+            <span id="close" class="close" onclick="onClose()">&times;</span>
+            <form class="modal-form" action="" method="POST">
+                <div class="col-12 image">
+                    <img src="../../images/abak_atama.Jpeg">
                 </div>
-                <div id="mealwith" class="mealwith">
-                    <h4>Goes With</h4>
-                    <div>
-                        <input type="checkbox" name="" value=""><span>Garri</span>
-                        <input type="number">
-                        <span class="foodprice">price</span>
+                <div class="form-details">
+                    
+                    <div class="foodDesc">
+                        <h2>Abak Atama Soup</h2>
                     </div>
-                    <div>
-                        <input type="checkbox" name="" value=""><span>Garri</span>
-                        <input type="number">
-                        <span class="foodprice">price</span>
+                    <div id="mealwith" class="mealwith">
+                        <div class="row">
+                            <h4 class="col-6">Goes With</h4>
+                            <h4 class="col-3">Qty</h4>
+                            <h4 class="col-3 price-head">Price</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <span>Eba</span>
+                            </div>
+                            <div class="col-3">
+                                <input type="number" class="col-3">
+                            </div>
+                            <span class="col-3 foodprice">&#x20A6;100</span>
+                        </div>
+                    </div> 
+                    <div id="mealextras" class="mealextra row">
+                        <div class="row">
+                            <h4 class="col-6">Extra</h4>
+                            <h4 class="col-3">Qty</h4>
+                            <h4 class="col-3 price-head">Price</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <span>Beef</span>
+                            </div>
+                            <div class="col-3">
+                                <input type="number" class="col-3">
+                            </div>
+                            <span class="col-3 foodprice">&#x20A6;50</span>
+                        </div>
                     </div>
-                    <div>
-                        <input type="checkbox" name="" value=""><span>Garri</span>
-                        <input type="number">
-                        <span class="foodprice">price</span>
+                    <div class ="pricetotal row">
+                        <h4 class="col-9">Total Price</h4>
+                        <h4 class="col-3 foodprice">&#x20A6;1050</h4>
                     </div>
-                    <div>
-                        <input type="checkbox" name="" value=""><span>Garri</span>
-                        <input type="number">
-                        <span class="foodprice">price</span>
-                    </div>
-                </div>
-                <div id="mealextras" class="mealextra row">
-                    <h4>On Top</h4>
-                    <div>
-                        <input type="checkbox" name="" value="">Beef
-                        <input type="number">
-                        <span class="foodprice">price</span>
+                    <div class="order row">
+                        <button>Update</button>
                     </div>
                     
-                    <div>
-                        <input type="checkbox" name="" value="">Beef
-                        <input type="number">
-                        <span class="foodprice">price</span>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="" value="">Beef
-                        <input type="number">
-                        <span class="foodprice">price</span>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="" value="">Beef
-                        <input type="number">
-                        <span class="foodprice">price</span>
-                    </div>
-                <div class ="pricetotal">
-                    <h4>Total<span>Price</span></h4>
                 </div>
-            </div>
-            
-        </form>
-    </div>
-    <ul>
-        <li><a>Atama Soup</a> &#x20A6;400</li>
-        <li>Banga Rice</li>
-        <li>Tuwo Sinkafa</li>
-        <li>Ewa Aganyin</li>
-        
-    </ul>
+                
+            </form>
+        </div>
 </body>
 </html>
