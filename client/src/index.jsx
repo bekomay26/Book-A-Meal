@@ -1,21 +1,26 @@
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, BrowserRouter } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 import routes from './routes';
-import HomePage from './components/home/HomePage';
-// import './styles/styles.css';
+import configureStore from './store/configureStore';
+import { loadMenu } from './actions/menuActions';
+import { loadOrders } from './actions/orderActions';
+// import createBrowserHistory from 'history/createBrowserHistory';
 
-const history = createBrowserHistory();
-
+// const history = createBrowserHistory();
+const store = configureStore();
+store.dispatch(loadMenu());
+store.dispatch(loadOrders());
 render(
-  // <HomePage />,
-  <Router history={history}>
-    {routes}
-  </Router>,
-  // <BrowserRouter>
+  // <Router history={history}>
   //   {routes}
-  // </BrowserRouter>,
+  // </Router>,
+  <Provider store={store}>
+    <Router>
+      {routes}
+    </Router>
+  </Provider>,
   document.getElementById('app'),
 );

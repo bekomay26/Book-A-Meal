@@ -1,0 +1,141 @@
+*{
+    margin: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+[class*="col-"] {
+    float: left;
+}
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+body{
+    font-family: 'Nunito', sans-serif;
+}
+form {
+    /* margin:50px auto; */
+    width: 300px;
+    max-width: 500px;
+    border: 3px solid #f1f1f1;
+    z-index: 10;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.form-details{
+    align-items: center;
+    padding-left: 5%;
+}
+
+input[type=text], input[type=password] {
+    width: 90%;
+    padding: 12px 20px;
+    margin: 28px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font: normal 18px 'Nunito', sans-serif;
+    border-radius: 6px;
+    
+}
+
+input[type=submit] {
+    background-color: chocolate;
+    color: white;
+    padding: 14px 20px;
+    margin: 25px 0;
+    border: none;
+    cursor: pointer;
+    width: 90%;
+    margin-top: 70px;
+    font: normal 18px 'Nunito', sans-serif;
+    border-radius: 6px;
+}
+
+input[type=submit]:hover {
+    opacity: 0.8;
+}
+
+p a{
+    color: #ffa200;
+}
+
+.userRole{
+    color: black;
+}
+
+img{
+    max-width: 100px;
+}
+
+.form{
+    background-color: rgba(255, 255, 255, 0.9);
+    margin-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+    
+    border: 1px solid #888888;
+    width: 70%;
+    border-radius: 6px;
+}
+
+.form p{
+    color: black;
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+@media screen and (max-width: 600px) {
+    /* .menu a{display: none;} */
+    .active {
+        border-bottom: 1px solid white;
+    }
+    .logo{
+        display: none;
+    }
+    .menu {
+        width: 100%;
+    }
+    .row{
+        padding: 20px 0;
+    }
+    a {
+        font-size: 2.0vh;
+        float: none;
+        display: block;
+        text-align: left;
+        margin: 0 5px;
+    }
+    .bigpic h1{
+        font-size: 8.0vh;
+    }
+    .bigpic h3{
+        font-size: 4.0vh;
+    }
+  }
+@media(min-width: 1400px){
+    .active {
+        border-bottom: 2px solid white;
+    }
+}

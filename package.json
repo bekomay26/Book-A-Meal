@@ -7,6 +7,7 @@
     "prestart": "babel-node ./server/startMessage.js",
     "start": "npm-run-all --parallel dev",
     "start:react": "babel-node tools/srcServer.js",
+    "start:full": "nodemon --exec babel-node tools/srcFull.js",
     "dev": "nodemon --exec babel-node ./server/app.js",
     "generate-mock-data": "babel-node ./server/dummyBuildScripts/generateMockData",
     "migrate": "sequelize --env=test db:migrate:undo:all && sequelize --env=test db:migrate",
@@ -54,6 +55,7 @@
     "nsp": "^3.2.1",
     "nyc": "^11.7.1",
     "open": "0.0.5",
+    "redux-immutable-state-invariant": "^2.1.0",
     "sequelize-cli": "^4.0.0",
     "style-loader": "^0.21.0",
     "webpack": "^4.8.3",
@@ -61,6 +63,7 @@
     "webpack-hot-middleware": "^2.22.2"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-core": "^6.26.3",
     "babel-polyfill": "^6.26.0",
     "babel-preset-react": "^6.24.1",
@@ -81,11 +84,16 @@
     "moment": "^2.22.1",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
+    "prop-types": "^15.6.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
     "sequelize": "^4.37.6",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "toastr": "^2.1.4"
   },
   "nodemonConfig": {
     "restartable": "rs",
@@ -93,7 +101,7 @@
     "delay": "2500",
     "env": {
       "NODE_ENV": "development",
-      "PORT": 4000
+      "PORT": 5000
     }
   },
   "engines": {
