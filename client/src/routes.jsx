@@ -20,16 +20,3 @@ const routes = (
   </div>
 );
 export default routes;
-
-// export default (
-//   <Switch>
-//     <Route exact path="/" component={HomePage} />
-//     <Route path="/login" component={SignInPage} />
-//   </Switch>
-//   // <Route path="/" component={HomePage} />
-//   // <Route path="/" component={App}>
-//   //   <IndexRoute component={HomePage} />
-//   //   <Route path="login" component={SignInPage} />
-//   //   <Route path="signup" component={SignUpPage} />
-//   // </Route>
-// );
