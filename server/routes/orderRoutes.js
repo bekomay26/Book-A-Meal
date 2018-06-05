@@ -12,6 +12,7 @@ orderRouter.route('/')
 orderRouter.route('/:id')
   .put(orderValidate.update, validateHelper.validate, OrderController.updateOrder);
 orderRouter.route('/') // this is view all orders. yet to implement retrieveuserorders
+  // .get(OrderController.retrieveOrders);
   .get(Authentication.checkAdmin, OrderController.retrieveOrders);
 orderRouter.route('/:id')
   .delete(orderValidate.delete, validateHelper.validate, OrderController.deleteOrder);
