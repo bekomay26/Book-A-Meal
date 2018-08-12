@@ -27,6 +27,16 @@ class OrderController extends Controller {
       const uniqueExtraIds = removeDuplicates(extraIds);
       let price = 0;
       const foundMeal = await db.Meal.findOne({ where: { id: mealId } });
+      if (uniqueExtraIds.length !== 0) {
+        uniqueExtraIds.every((unqExtId) => {
+          if (!Number.isInteger(unqExtId)) {
+            return res.status(422).json({
+              success: false,
+              message: 'Extra IDs must be of type Integer',
+            });
+          }
+        });
+      }
       if (foundMeal) {
         // retrieve day's menu and id
         const todaysDate = moment(new Date()).format('YYYY-MM-DD');
@@ -45,6 +55,7 @@ class OrderController extends Controller {
         const mealExtras = await db.MealExtra.findAll({ where: { mealId } });
         const mealExtrasIds = await mealExtras.map(obj => obj.extraId);
         for (let i = 0; i < uniqueExtraIds.length; i += 1) {
+          console.log(mealExtrasIds.includes(uniqueExtraIds[i]) + 'eee');
           if (mealExtrasIds.includes(uniqueExtraIds[i])) {
             const extra = await db.Extra.findOne({ where: { id: uniqueExtraIds[i] } });
             if (qtys) {

@@ -5,7 +5,7 @@ export default {
   create: [
     body('mealId')
       .isInt()
-      .withMessage('Parameter must be an integer'),
+      .withMessage('mealId must be an integer'),
     body('address')
       .trim()
       .isLength({ min: 1 }).trim()
@@ -14,9 +14,6 @@ export default {
       .withMessage('Address must be specified')
       .isLength({ min: 15, max: 255 })
       .withMessage('Text must be between 15 and 255 characters'),
-      // .matches(/^[a-z 0-9 (),.'-]+$/i)
-      // .matches(/^[a-z A-Z 0-9(),.'-]*$/i)
-      // .withMessage('Address can only contain alphanumerics and symbols .,-\'())'),
     sanitizeBody('address').trim().escape(),
   ],
   update: [
