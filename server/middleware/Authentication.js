@@ -15,7 +15,7 @@ class Authentication {
     } else {
       jwt.verify(token, process.env.JWT_SECRET || 'letsgothere', (err, decoded) => {
         if (err) {
-          res.status(403).send({ success: false, message: 'invalid token' });
+          res.status(401).send({ success: false, message: 'invalid token' });
         } else {
           req.decoded = decoded;
           next();

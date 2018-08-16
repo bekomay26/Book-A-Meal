@@ -73,11 +73,7 @@ class MenuController extends Controller {
       }
       // const dateObj = (moment(date, 'MM-DD-YYYY')).toDate();
       const dateObj = (moment(date, 'DD-MM-YYYY')).format('YYYY-MM-DD');
-      console.log(`fdhjhjdfhdfh djfhjhvdh ${dateObj}`);
-      console.log(`DatrdatrefdfdggdnDSSFDGGDG ${moment(date, 'DD-MM-YYYY').format('YYYY-MM-DD')}`);
       const foundMenu = await db.Menu.findOne({ where: { date: dateObj } });
-      // console.log(`fdhjhjdfhdfh djfhjhvdh ${foundMenu.date}`);
-      console.log(`sjgt,njnsjgjs ${foundMenu}`);
       if (foundMenu) {
         return res.status(409)
           .json({
@@ -100,9 +96,6 @@ class MenuController extends Controller {
       // Validate createdBy is an admin Id
       const newMenu = await db.Menu.create({ date: dateObj });
       newMenu.addMeals(uniqueMealIds);
-      // console.log(`fddgdg ${newMenu}`);
-      // const menuWithMeals = newMenu.getMeals();
-      // console.log(`fddgdg ${menuWithMeals}`);
       return res.status(201).json({
         success: true,
         message: 'Menu created',

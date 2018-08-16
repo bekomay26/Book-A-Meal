@@ -2,6 +2,7 @@ import Controller from './Controller';
 // import meals from '../tests/dummyData/fakeData';
 import db from '../model/index';
 import removeDuplicates from '../helpers/removeDuplicates';
+import pagination from '../helpers/pagination';
 
 /**
  * Class representing a Meal Controller.
@@ -24,7 +25,7 @@ class MealController extends Controller {
         image,
         price,
         extraIds,
-      } = await req.body;
+      } = req.body;
       const foundMeal = await db.Meal.findOne({ where: { title } });
       if (foundMeal) {
         return res.status(409).json({
@@ -170,21 +171,32 @@ class MealController extends Controller {
    * @static
    */
   static async retrieveAll(req, res) {
+    const limit = parseInt(req.query.limit, 10) || 30;
+    // const page = parseInt(req.query.page, 10) || 1;
+    // const offset = limit * (page - 1);
+    const offset = req.query.offset || 0;
     try {
-      const meals = await db.Meal.findAll({
+      const meals = await db.Meal.findAndCountAll({
+        limit,
+        offset,
+        order: [['createdAt', 'DESC']],
         include: [{
           model: db.Extra,
           through: {
             foreignKey: 'extraId',
-            attributes: ['title', 'description', 'price'],
+            attributes: [], // removes join table from response body
+            // attributes: { exclude: ['title', 'MealExtra'] },
           },
           as: 'extras',
+          // attributes: { exclude: ['title', 'MealExtra'] },
+          attributes: ['id', 'title', 'category', 'price'],
         }],
       });
       return res.status(200).json({
         success: true,
         message: 'Meals retrieved',
-        meals,
+        meals: meals.rows,
+        pagination: pagination(limit, offset, meals.count),
       });
     } catch (error) {
       return res.status(500).json({

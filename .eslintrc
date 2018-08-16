@@ -1,7 +1,6 @@
 {
     "extends": "airbnb",
     "rules": {
-        "no-param-reassign": 0,
-        "linebreak-style": ["error", "windows"]
+        // "no-param-reassign": 0
     }
 }

@@ -24,7 +24,6 @@ class AuthController extends Controller {
         address, // validate all this in validator file
       } = await req.body;
 
-      
       // const hashPassword;
       const user = await db.User
         .findOne({ where: { username } });
@@ -52,7 +51,12 @@ class AuthController extends Controller {
       return res.status(201).json({
         success: true,
         message: 'User Created',
-        newUser,
+        newUser: {
+          id: newUser.id,
+          username: newUser.username,
+          address: newUser.address,
+          role: newUser.role,
+        },
         token,
       });
     } catch (error) {

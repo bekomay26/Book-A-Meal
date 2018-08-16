@@ -26,6 +26,19 @@ An application that allows customers to make food orders, helps the food vendor 
 - View day's orders and summary
 - View month and year's summary
 
+## Built with
+* [NodeJS](https://nodejs.org/en/) - A Javascript runtime built runtime that uses an event-driven non-blocking I/O model that makes it lightweight and efficient.
+* [ExpressJS](http://expressjs.com/) - A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. This is used in this application for routing to endpoints.
+* [ReactJS](https://reactjs.org/) - 
+* [NPM](https://www.npmjs.com/) - A Node Package Dependency Manager
+
+#### Test Tools
+
+* [Mocha](https://mochajs.org/) - JavaScript Test Framework for API Tests
+* [Chai](http://chaijs.com/) - Assertion Library for Node
+* [Jest](https://jestjs.io/) - JavaScript Testing
+* [Istanbul](https://istanbul.js.org/) - Code Coverage Generator
+
 ### API Endpoints
 
 - Retrieve all Meal Options - GET http://localhost:4000/api/v1/meals
