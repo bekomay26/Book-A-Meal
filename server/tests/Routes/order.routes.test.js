@@ -23,7 +23,7 @@ describe('/POST order', () => {
     const id =
     {
       mealId: 1,
-      extraIds: ['3', 2],
+      extraIds: ['sd3s', 2],
       qtys: [2],
       address: 'fdbhxjvhxvmxhvhxvhxvhxv',
     };
