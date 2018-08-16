@@ -11,7 +11,7 @@ module.exports = {
   test: {
     username: process.env.DB_TEST_USER || 'postgres',
     password: process.env.DB_TEST_PASS || '',
-    database: process.env.DB_TEST_NAME || 'travis',
+    database: process.env.DB_TEST_NAME || 'travisDB',
     host: process.env.DB_TEST_HOST || '127.0.0.1',
     dialect: 'postgres',
   },
