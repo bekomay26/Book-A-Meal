@@ -9,8 +9,8 @@ env:
 - JWT_SECRET='letsgothere'
 
 before_script:
-- psql -c 'create database travis;' -U postgres
-- dropdb --if-exists travis && createdb travis
+- psql -c 'create database travisDB;' -U postgres
+- dropdb --if-exists travisDB && createdb travisDB
 script: npm test
 
 after_success: npm run coverage

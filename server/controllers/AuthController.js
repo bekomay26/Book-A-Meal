@@ -52,7 +52,12 @@ class AuthController extends Controller {
       return res.status(201).json({
         success: true,
         message: 'User Created',
-        newUser,
+        newUser: {
+          id: newUser.id,
+          username: newUser.username,
+          address: newUser.address,
+          role: newUser.role,
+        },
         token,
       });
     } catch (error) {

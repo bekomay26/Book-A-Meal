@@ -15,7 +15,25 @@ describe('/POST order', () => {
       .send(id)
       .end((err, res) => {
         expect(res.statusCode).to.equal(422);
-        expect(res.body.errors.mealId.msg).to.equal('Parameter must be an integer');
+        expect(res.body.errors.mealId.msg).to.equal('mealId must be an integer');
+        done();
+      });
+  });
+  it('it should not POST when an extraIds array contains a non-integer element', (done) => {
+    const id =
+    {
+      mealId: 1,
+      extraIds: ['sd3s', 2],
+      qtys: [2],
+      address: 'fdbhxjvhxvmxhvhxvhxvhxv',
+    };
+    request(app)
+      .post('/api/v1/orders')
+      .set('x-access-token', adminToken)
+      .send(id)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(422);
+        expect(res.body.message).to.equal('Extra IDs must be of type Integer');
         done();
       });
   });

@@ -2,6 +2,7 @@ import moment from 'moment';
 import Controller from './Controller';
 import db from '../model/index';
 import removeDuplicates from '../helpers/removeDuplicates';
+import pagination from '../helpers/pagination';
 
 class OrderController extends Controller {
   /**
@@ -27,6 +28,17 @@ class OrderController extends Controller {
       const uniqueExtraIds = removeDuplicates(extraIds);
       let price = 0;
       const foundMeal = await db.Meal.findOne({ where: { id: mealId } });
+      if (uniqueExtraIds.length !== 0) {
+        uniqueExtraIds.every((unqExtId) => {
+          const uExtId = parseInt(unqExtId, 10);
+          if (!Number.isInteger(uExtId)) {
+            return res.status(422).json({
+              success: false,
+              message: 'Extra IDs must be of type Integer',
+            });
+          }
+        });
+      }
       if (foundMeal) {
         // retrieve day's menu and id
         const todaysDate = moment(new Date()).format('YYYY-MM-DD');
@@ -45,7 +57,8 @@ class OrderController extends Controller {
         const mealExtras = await db.MealExtra.findAll({ where: { mealId } });
         const mealExtrasIds = await mealExtras.map(obj => obj.extraId);
         for (let i = 0; i < uniqueExtraIds.length; i += 1) {
-          if (mealExtrasIds.includes(uniqueExtraIds[i])) {
+          console.log(mealExtrasIds.includes(uniqueExtraIds[i]) + 'eee');
+          if (mealExtrasIds.includes(parseInt(uniqueExtraIds[i], 10))) {
             const extra = await db.Extra.findOne({ where: { id: uniqueExtraIds[i] } });
             if (qtys) {
               price += (extra.price * (qtys[i] || 1));
@@ -171,8 +184,13 @@ class OrderController extends Controller {
    * @static
    */
   static async retrieveOrders(req, res) {
+    const limit = parseInt(req.query.limit, 10) || 30;
+    const offset = req.query.offset || 0;
     const orders = await db.Order
-      .findAll({
+      .findAndCountAll({
+        limit,
+        offset,
+        order: [['createdAt', 'DESC']],
         include: [{
           model: db.Meal,
           attributes: ['title', 'description', 'price'],
@@ -181,6 +199,7 @@ class OrderController extends Controller {
           model: db.Extra,
           through: {
             foreignKey: 'extraId',
+            attributes: [],
           },
           attributes: ['title', 'price'],
           as: 'extras',
@@ -190,7 +209,8 @@ class OrderController extends Controller {
     res.status(200).json({
       success: true,
       message: 'Orders retrieved',
-      orders,
+      orders: orders.rows,
+      pagination: pagination(limit, offset, orders.count),
     });
   }
 

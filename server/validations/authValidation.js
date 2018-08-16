@@ -30,7 +30,7 @@ export default {
       .withMessage('Password must be at least 8 characters long'),
     body('role')
       .trim()
-      .isLength({ min: 0, max: 1})
+      .isLength({ min: 0, max: 1 })
       .withMessage('User roleId is either 0 or 1. 0 for customer, 1 for caterer'),
     sanitizeBody('username').trim().escape(),
     sanitizeBody('address').trim().escape(),
