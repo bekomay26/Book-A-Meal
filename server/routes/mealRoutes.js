@@ -11,6 +11,7 @@ mealRouter.route('/')
   .post(mealValidate.create, validateHelper.validate, MealController.createMeal);
 mealRouter.put('/:id', mealValidate.update, validateHelper.validate, MealController.updateMeal);
 mealRouter.delete('/:id', mealValidate.delete, validateHelper.validate, MealController.deleteMeal);
-mealRouter.route('/')
-  .get(MealController.retrieveAll);
+mealRouter.get('/', mealValidate.get, validateHelper.validate, MealController.retrieveAll);
+// mealRouter.route('/')
+//   .get(MealController.retrieveAll);
 export default mealRouter;

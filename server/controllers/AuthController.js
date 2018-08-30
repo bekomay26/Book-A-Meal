@@ -24,7 +24,6 @@ class AuthController extends Controller {
         address, // validate all this in validator file
       } = await req.body;
 
-      
       // const hashPassword;
       const user = await db.User
         .findOne({ where: { username } });

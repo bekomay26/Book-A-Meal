@@ -57,7 +57,6 @@ class OrderController extends Controller {
         const mealExtras = await db.MealExtra.findAll({ where: { mealId } });
         const mealExtrasIds = await mealExtras.map(obj => obj.extraId);
         for (let i = 0; i < uniqueExtraIds.length; i += 1) {
-          console.log(mealExtrasIds.includes(uniqueExtraIds[i]) + 'eee');
           if (mealExtrasIds.includes(parseInt(uniqueExtraIds[i], 10))) {
             const extra = await db.Extra.findOne({ where: { id: uniqueExtraIds[i] } });
             if (qtys) {
@@ -255,3 +254,4 @@ class OrderController extends Controller {
 }
 
 export default OrderController;
+

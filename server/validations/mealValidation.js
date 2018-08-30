@@ -1,4 +1,4 @@
-import { body, param } from 'express-validator/check';
+import { body, param, query } from 'express-validator/check';
 import { sanitizeBody } from 'express-validator/filter';
 
 export default {
@@ -72,5 +72,21 @@ export default {
     param('id')
       .isInt()
       .withMessage('Parameter must be an integer'),
+  ],
+  get: [
+    query('limit')
+      .optional()
+      .trim()
+      .isNumeric()
+      .withMessage('limit must be an integer')
+      .isInt({ min: 0 })
+      .withMessage('limit cannot be less than zero'),
+    query('offset')
+      .optional()
+      .trim()
+      .isNumeric()
+      .withMessage('limit must be an integer')
+      .isInt({ min: 0 })
+      .withMessage('limit cannot be less than zero'),
   ],
 };

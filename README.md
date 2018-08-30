@@ -36,8 +36,8 @@ An application that allows customers to make food orders, helps the food vendor 
 
 * [Mocha](https://mochajs.org/) - JavaScript Test Framework for API Tests
 * [Chai](http://chaijs.com/) - Assertion Library for Node
-* [Jest]
-* [Istanbul](https://istanbul.js.org/)
+* [Jest](https://jestjs.io/) - JavaScript Testing
+* [Istanbul](https://istanbul.js.org/) - Code Coverage Generator
 
 ### API Endpoints
 
