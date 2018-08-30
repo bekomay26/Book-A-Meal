@@ -254,3 +254,4 @@ class OrderController extends Controller {
 }
 
 export default OrderController;
+

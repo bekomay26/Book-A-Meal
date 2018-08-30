@@ -209,3 +209,4 @@ class MealController extends Controller {
 }
 
 export default MealController;
+
