@@ -10,7 +10,6 @@ import { logout } from '../../actions/authActions';
 import UserNavBar from '../common/UserNavBar';
 import styles from '../../assets/styles/menu2.css';
 import MenuList from './MenuList';
-import MenuModal from './MenuModal';
 import MenuForm from './MenuForm';
 
 class MenuPage extends Component {

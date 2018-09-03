@@ -3,13 +3,12 @@ import { reducer as toastrReducer } from 'react-redux-toastr';
 import menuReducer from './menuReducer';
 // import orderReducer from './orderReducer';
 import authReducer from './authReducer';
-// import mealReducer from './mealReducer';
-// import extraReducer from './extraReducer';
+import mealReducer from './mealReducer';
+import extraReducer from './extraReducer';
 
 const rootReducer = combineReducers({
-  menuReducer, authReducer, toastr: toastrReducer,
-  // users, menuReducer, orderReducer, authReducer,
-  // mealReducer, extraReducer, toastr: toastrReducer,
+  menuReducer, authReducer, toastr: toastrReducer, mealReducer, extraReducer,
+  // orderReducer,
 });
 
 // const rootReducers = (state, action) => {
