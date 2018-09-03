@@ -10,6 +10,10 @@ import routes from './routes';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import checkAuth from './utils/checkAuth';
 import configureStore from './store/configureStore';
+import { loadOrders } from './actions/orderActions';
+import { loadExtra } from './actions/extraActions';
+import './assets/styles/style.css';
+import './assets/styles/ui.css';
 
 const store = configureStore();
 if (localStorage.token) {
@@ -17,10 +21,10 @@ if (localStorage.token) {
   const { userRole } = checkAuth(localStorage.token);
   // store.dispatch(loginSuccess(checkAuth(localStorage.token)));
   if (userRole === 'Caterer') {
-    // store.dispatch(loadExtra());
+    store.dispatch(loadExtra());
   }
   if (userRole === 'Customer') {
-    // store.dispatch(loadOrders());
+    store.dispatch(loadOrders());
   }
 }
 render(
