@@ -1,0 +1,90 @@
+
+
+/* start */
+
+.container:before, .container:after{
+    display: table;
+    content: " ";
+    line-height: 0;
+    font-size: 0;
+    clear: both; 
+}
+
+.container {
+    width: 70%;
+    margin: 150px auto;
+    margin-bottom: 0;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 105px;
+}
+
+td, th {
+    border: 1.4px solid #ffa200;
+    text-align: left;
+    padding: 8px;
+}
+th{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+tr:nth-child(odd) {
+    background-color: white;
+ }
+
+tr:nth-child(even) {
+    background-color: rgba(255, 162, 0, 0.5);
+}
+
+th {
+    background-color: #ffa200;
+    color: black;
+}
+
+tr:hover {
+    background-color: rgba(255, 162, 0, 0.7);
+    /* opacity: 0.7; */
+    /* cursor: pointer; */
+}
+
+.fa-trash-alt{
+    /* color: red; */
+    cursor: pointer;
+}
+
+.fa-trash-alt:hover {
+    color: red;
+    background-color: white;
+    cursor: pointer;
+}
+
+@media(max-width: 1000px){
+    .container{
+        width:80%;
+        
+    }
+}
+@media(max-width: 700px){
+    .container{
+        width:100%;
+        
+    }
+}
+.container p {
+    font-size: .9em;
+    color: #777;
+    /* margin-bottom: 1.5em; */
+    font-style: italic;
+}
+/* Table */
+table{
+    margin: auto;
+}
+.edit:hover{
+    cursor: pointer;
+}

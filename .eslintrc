@@ -9,6 +9,7 @@
         "reactrouter": true
     },
     "rules": {
+        "import/no-named-as-default": "off",
         "no-param-reassign": 0
     }
 }
