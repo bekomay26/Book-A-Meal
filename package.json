@@ -19,6 +19,7 @@
     "lint": "eslint \"server/**/*.js\" app.js --fix",
     "build": "babel server/ -d build --copy-files -s",
     "start-prod": "npm run build && node ./build/app.js",
+    "start-full-prod": "npm run build && node ./build/tools/srcFull.js",
     "heroku-postbuild": "npm run build"
   },
   "repository": {
