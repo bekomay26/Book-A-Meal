@@ -1,0 +1,191 @@
+/* Tabs */
+
+.ui.pointing.secondary.menu {
+    width: 80%;
+    margin: 40px auto;
+    border-bottom: none;
+}
+
+.ui.pointing.secondary.menu .item {
+    color: #ffa200;
+    /* text-decoration: underline solid #ffa200; */
+    width: 33%;
+    /* padding: 20px 12%; */
+    display: block;
+    padding-bottom: 20px;
+    text-align: center;
+    border-bottom: 1px solid #ffa200;
+}
+
+/* View Meals */
+
+.manage-meal-tab-body tr td {
+    border: none;
+}
+
+/* Add Meal */
+.manage-meal-tab-body .ui.segment.active.tab, .manage-menu-tab-body .ui.segment.active.tab{
+    box-shadow: none;
+    margin: 1rem auto;
+    border-radius: 0;
+    border: none;
+    padding: 0;
+    /* padding: 1em 1em; */
+    /* border: 1px solid #ffa200;
+    width: 90%;
+    margin: auto;
+    height: 70vh;
+    overflow-y: auto; */
+}
+
+.add-meal-container {
+    /* border: 1px solid #ffa200; */
+    width: 90%;
+    margin: auto;
+    /* height: 70vh;
+    overflow-y: auto; */
+    padding: 0;
+}
+.ui.form.add-meal-form {
+    border: none;
+    width: 95%;
+    margin-top: 1em;
+}
+
+.ui.form.add-meal-form .field, 
+.ui.form.add-meal-form .fields {
+    margin: 5% 0;
+}
+
+.ui.grid.add-meal-form-grid {
+    margin-bottom: 20%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.ui.divided.two.grid.add-meal-form-grid .column {
+    width: 100%;
+}
+
+.ui.form.add-meal-form h4 {
+    text-align: center;
+}
+
+.ui.form .field.manage-meal-button {
+    margin: 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.ui.form .field.manage-meal-button .ui.button {
+    background: #ffa200;
+    color: white;
+    width: 100%;
+    border-radius: 0;
+    padding: 5%;
+    font-size: 3vh;
+}
+
+/* Signin */
+.authTab .ui.pointing.secondary.menu {
+    width: 100%;
+    margin: 0 auto;
+    height: 40vh;
+}
+
+.authTab .ui.segment.active.tab {
+    height: 60vh;
+    margin: 0;
+    padding: 0;
+}
+
+.authTab .ui.pointing.secondary.menu .item {
+    color: white;
+    width: 50%;
+    padding: 20px 12%;
+    border-bottom: 3px solid white;
+}
+
+.authTab .ui.pointing.secondary.menu .item.active {
+    color: #ffa200;
+    border-bottom: 3px solid #ffa200;
+}
+
+.ui.pointing.secondary.menu .item.active {
+    color: black;
+    /* text-decoration-color: black; */
+    border-bottom: 1px solid black;
+}
+
+.authTab.back-image{
+    background-image: url('../images/7.jpg');
+    background-size: cover;
+    background-color: #1A77C1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* z-index: -1; */
+}
+
+.ui.form.authForm {
+    width: 100%;
+    max-width: 500px;
+    border: none;
+}
+
+.ui.form .field {
+    margin: 10% 5%;
+}
+
+.ui.form .field.textAuth {
+    text-align: center;
+}
+
+.ui.form .field.auth-field .ui.input input, .ui.form .fields .field.auth-field .ui.input input {
+    border: none;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+}
+
+.ui.form .field.authButton {
+    margin: 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+.ui.form .field.authButton .ui.button {
+    background: #ffa200;
+    color: white;
+    width: 100%;
+    border-radius: 0;
+    padding: 5%;
+    font-size: 3vh;
+}
+
+@media screen and (min-width: 501px) {
+    .ui.form .field.authButton, .ui.form .field.manage-meal-button {
+        margin: 10% auto;
+        position: initial;
+        bottom: unset;
+    }
+    
+    .ui.form .field.authButton .ui.button, .ui.form .field.manage-meal-button .ui.button {
+        padding: 2%;
+    }
+
+    .ui.divided.two.grid.add-meal-form-grid .column {
+        width: 50%;
+    }
+
+    .manage-meal-tab-body .ui.segment.active.tab, .manage-menu-tab-body .ui.segment.active.tab {
+        width: 80%;
+    }
+
+    .add-meal-container {
+        width: 100%;
+    }
+}

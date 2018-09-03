@@ -1,0 +1,64 @@
+.admin-order-title {
+    display: inline-block;
+    width: 30%;
+    text-align: left;
+    padding-left: 1em;
+    /* margin: 1rem 5rem; */
+    color: black;
+}
+
+.admin-order-tprice {
+    display: inline-block;
+    width: 20%;
+    text-align: right;
+    /* margin: 1rem 5rem 1rem 0; */
+    color: black;
+}
+
+.admin-order-status {
+    display: inline-block;
+    width: 30%;
+    text-align: left;
+    color: black;
+    margin-left: 2.5em;
+    /* margin: 1rem 5rem 1rem 0; */
+}
+
+.admin-orders-list .accordion.ui.styled{
+    margin: auto;
+    box-shadow: none;
+    padding: 0 0.5em;
+}
+
+.ui.styled.accordion .title {
+    padding: 1.5em 1em;
+}
+
+.ant-drawer-right.ant-drawer-open .ant-drawer-content-wrapper {
+    max-width: 100%;
+}
+
+@media screen and (min-width: 533px) {
+
+    .admin-order-title {
+        text-align: left;
+        padding: 0 2em;
+    }
+
+    .admin-order-tprice {
+        width: 20%;
+        text-align: right;
+    }
+
+    .admin-order-status {
+        width: 20%;
+        text-align: left;
+        margin: 0 0 0 9rem;
+    }
+
+    .admin-orders-list {
+        overflow-y: auto;
+        height: 80vh;
+    }
+
+}

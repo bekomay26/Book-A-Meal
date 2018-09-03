@@ -1,0 +1,214 @@
+/* * {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #C4C4C4;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+[class*="col-"] {
+    float: left;
+}
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;} */
+.col-25{width:20%;}
+.col-48{width:48%;}
+
+.row.order-card {
+    /* background-color: white; */
+    background-color: beige;
+    padding: 3vw;
+    border-radius: 12px;
+    margin: 5vw;
+}
+.order-imge img{
+    width: 100%;
+    height: 30vw;
+    max-width: 100%;
+    border-radius: 0%;
+    align-self: center;
+    margin: auto;
+}
+
+.order-meal-name h2{
+    margin: 0 2vw;
+    text-align: left;
+    font-size: 6vw;
+}
+
+.order-meal-extras h3{
+    margin-left: 3vw;
+    margin-top: 1vw;
+    font-weight: normal;
+    font-size: 3vw;
+}
+
+.order-meal-info .order-meal-info-time h4, .order-addr h4{
+    font-weight: lighter;
+    margin-bottom: 10;
+    font-size: 3.5vw;
+}
+
+.order-est-del {
+    float: right;
+}
+
+.order-meal-stat-pc {
+    display: none;
+}
+
+.order-meal-prc h2 {
+    margin-top: 2vw;
+    font-size: 9vw;
+    float: right;
+}
+
+.order-meal-status span {
+    font-size: 4.5vw;
+}
+
+.order-pend {
+    color: #FFA200;
+}
+
+.order-addr {
+    margin-bottom: 3vw;
+    border-bottom: 2px solid #FFA200;
+}
+
+.order-addr h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.cust-ord-header {
+    margin: 0;
+    padding-top: 100px;
+}
+
+@media screen and (max-width: 649px) {
+    .order-meal-info {
+        margin: 2vw 0;
+    }
+
+}
+
+@media screen and (min-width: 650px) {
+    .row.order-card {
+        width: 45%;
+        float: left;
+        margin: 5vw 2vw;
+    }
+
+    .order-imge img {
+     height: 15vw;
+    }
+}
+@media screen and (min-width: 960px) {
+    .row.order-card {
+        width: auto;
+        background-color: beige;
+        /* background-color: white; */
+        padding: 0;
+        border-radius: 0;
+        margin: 1vw;
+        /* margin-bottom: 5vw; */
+    }
+    
+    .col-5.order-imge {
+        width: 10vw;
+        height: 10vw;
+    }
+
+    .order-imge img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .order-meal {
+        width: 60%
+    }
+
+    .order-meal-stat-pc {
+        display: inline;
+    }
+
+    .order-meal-name h2 {
+        margin: 0 2vw;
+        font-size: 4vw;
+    }
+
+    .order-meal-extras h3 {
+        margin-left: 2vw;
+        margin-top: 0.5vw;
+        font-weight: normal;
+        font-size: 1.5vw;
+    }
+
+    .col-12.order-addr {
+        margin-bottom: 0;
+        border-bottom: 0;
+        float: left;
+        width: 40%;
+    }
+
+    .order-meal-stat-pc {
+        display: block;
+        width: 20%;
+        float: left;
+        margin-top: 3vh;
+    }
+
+    .col-5.order-meal-prc {
+        width: 20%;
+    }
+
+    .order-meal-prc h2 {
+        font-size: 4vw;
+        margin-bottom: 0
+    }
+
+    .col-12.order-meal-info {
+        width: 45%;
+    }
+
+    .order-meal-info-time {
+        width: 45%;
+    }
+
+    .order-meal-info .order-meal-info-time h4 {
+        margin: 0 2vw;
+        font-size: 1.5vw;
+    }
+
+    .order-addr h4 {
+        font-size: 1.5vw;
+        float: right;
+    }
+
+    .col-7.order-meal-top {
+        width: 85%;
+        height: 8vw;
+    }
+
+    .order-meal-status {
+        display: none;
+    }
+}
