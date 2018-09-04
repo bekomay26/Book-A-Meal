@@ -5,6 +5,7 @@ import mealRouter from './routes/mealRoutes';
 import menuRouter from './routes/menuRoutes';
 import orderRouter from './routes/orderRoutes';
 import authRouter from './routes/authRoutes';
+import extraRouter from './routes/extraRoutes';
 import errorRouter from './routes/errorRoutes';
 
 const app = express();
@@ -17,6 +18,7 @@ app.use('/api/v1/meals', mealRouter);
 app.use('/api/v1/menu', menuRouter);
 app.use('/api/v1/orders', orderRouter);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/extras', extraRouter);
 
 
 app.get('/', (req, res) => {

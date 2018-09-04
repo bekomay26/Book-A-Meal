@@ -6,8 +6,15 @@ const orderReducer = (state = initialState.orders, action) => {
   switch (action.type) {
     case types.LOAD_ORDERS_SUCCESS:
       // return { ...state, menu: action.menu.meals };
-      // console.log(action.orders);
       return action.orders.orders;
+    case types.CREATE_ORDER_SUCCESS:
+      return [...state, Object.assign({}, action.order.newOrder)];
+    case types.UPDATE_ORDER_SUCCESS:
+    console.log(action);
+      return [...state.filter(order => order.id !== action.order.order.id),
+        Object.assign({}, action.order.order)];
+    case types.DELETE_ORDER_SUCCESS:
+      return [...state.filter(order => order.id !== action.orderId)];
     default:
       return state;
   }

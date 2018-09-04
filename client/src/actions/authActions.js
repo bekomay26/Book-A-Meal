@@ -1,5 +1,5 @@
 import axios from 'axios';
-import toastr from 'toastr';
+import { toastr } from 'react-redux-toastr';
 import * as types from './actionTypes';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import checkAuth from '../utils/checkAuth';
@@ -17,9 +17,13 @@ const loginFailure = payload => ({
  * @returns {object} action
  * @param {*} payload data
  */
-const loginSuccess = payload => ({
-  type: types.LOGIN_SUCCESS, payload,
-});
+const loginSuccess = (payload) => {
+  console.log(payload);
+  toastr.success('', `Welcome, ${payload.userName}`);
+  return {
+    type: types.LOGIN_SUCCESS, payload,
+  };
+};
 /**
  * @desc login async action creator
  * @returns {Promise} action
@@ -30,8 +34,9 @@ const login = details => (dispatch) => {
   return axios
     .post('/api/v1/auth/login', details)
     .then((res) => {
+      /* eslint-disable no-undef */
+      localStorage.setItem('token', res.data.token);
       setAuthorizationToken(res.data.token);
-      window.localStorage.setItem('token', res.data.token);
       dispatch(loginSuccess(checkAuth(res.data.token)));
     })
     .catch((error) => {
@@ -69,8 +74,8 @@ const signUp = details => (dispatch) => {
     .then((res) => {
       setAuthorizationToken(res.data.token);
       window.localStorage.setItem('token', res.data.token);
-      const userId = checkAuth(res.data.token);
-      dispatch(signUpSuccess(userId));
+      const user = checkAuth(res.data.token);
+      dispatch(signUpSuccess(user));
     })
     .catch((error) => {
       // dispatch(ajaxCallError());
@@ -84,6 +89,7 @@ const signUp = details => (dispatch) => {
  */
 const logout = () => {
   window.localStorage.removeItem('token');
+  setAuthorizationToken(false);
   return {
     type: types.LOG_OUT, payload: { userId: null },
   };

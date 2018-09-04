@@ -6,7 +6,7 @@ dotenv.config();
 
 class Authentication {
   static verifyUser(req, res, next) {
-    const token = req.body.token || req.headers['x-access-token'] || req.headers.Authorization || null;
+    const token = req.body.token || req.headers['x-access-token'] || req.query.token || null;
     if (!token) {
       res.status(401).send({
         success: false,

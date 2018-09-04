@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../actions/authActions';
-import '../../assets/styles/style.css';
+// import '../../assets/styles/style.css';
 import NavBar from '../common/NavBar';
 import '../../assets/styles/login.css';
 

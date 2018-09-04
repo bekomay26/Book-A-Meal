@@ -9,10 +9,20 @@ const menuRouter = express.Router();
 menuRouter.route('/')
   .get(MenuController.retrieveDayMenu);
 menuRouter.route('/')
+  // .post(
+  //   Authentication.verifyUser, Authentication.checkAdmin, menuValidate.createDay,
+  //   validateHelper.validate, MenuController.createDaysMenu,
+  // );
+
+  // in use
   .post(
-    Authentication.verifyUser, Authentication.checkAdmin, menuValidate.createDay,
+    Authentication.verifyUser, menuValidate.createDay,
     validateHelper.validate, MenuController.createDaysMenu,
   );
+  // .post(
+  //   menuValidate.createDay,
+  //   validateHelper.validate, MenuController.createDaysMenu,
+  // );
 menuRouter.route('/future')
   .post(
     Authentication.verifyUser, Authentication.checkAdmin, menuValidate.create,
@@ -22,5 +32,7 @@ menuRouter.route('/future')
 // menuRouter.delete('/:id', MenuController.destroy);
 // menuRouter.route('/')
 //   .get(MenuController.retrieveAll);
+
+menuRouter.delete('/:id', validateHelper.validate, MenuController.deleteMenu);
 
 export default menuRouter;

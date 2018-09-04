@@ -39,4 +39,5 @@ OrderRow.propTypes = {
     .isRequired,
 };
 
+// const OrderRowWithCSS = CSSModules(OrderRow, styles, { allowMultiple: true });
 export default OrderRow;

@@ -47,6 +47,31 @@ class ExtraController extends Controller {
       message: 'Meal deleted',
     });
   }
+
+  /**
+   * Retrieves all Meals
+   * @memberof ExtraController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
+  static async retrieveAll(req, res) {
+    try {
+      const extras = await db.Extra.findAll();
+      return res.status(200).json({
+        success: true,
+        message: 'Extras retrieved',
+        extras,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
+      });
+    }
+  }
 }
 
 export default ExtraController;

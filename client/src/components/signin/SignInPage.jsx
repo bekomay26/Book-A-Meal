@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../actions/authActions';
-import '../../assets/styles/style.css';
+// import '../../assets/styles/style.css';
 import NavBar from '../common/NavBar';
 import '../../assets/styles/login.css';
 
@@ -33,13 +33,21 @@ class SignInPage extends Component {
     this.props.login(this.state.user);
   }
   render() {
-    if (this.props.userId) {
-      return (<Redirect
-        push
-        to={{
-          pathname: '/menu',
-        }}
-      />);
+    if (this.props.isAuthenticated && this.props.isCaterer) {
+      return (
+        <Redirect push to="/meals" />
+      );
+    }
+    if (this.props.isAuthenticated) {
+      return (
+        // <Redirect to="/menu" />
+        <Redirect
+          push
+          to={{
+            pathname: '/menu',
+          }}
+        />
+      );
     }
     return (
       <div>
@@ -47,16 +55,16 @@ class SignInPage extends Component {
           <NavBar />
           <form className="form" onSubmit={this.onSubmit}>
             <div className="form-details">
-              <input id="uname" type="text" placeholder="Enter Username" />
-              <input id="pwd" type="password" placeholder="Enter Password" />
-              <div className="userRole row">
+            <input id="uname" name="username" type="text" placeholder="Enter Username" onChange={this.onUnameChange} value={this.state.user.username} />
+            <input id="pwd" name="password" type="password" placeholder="Enter Password" onChange={this.onUnameChange} value={this.state.user.password} />
+              {/* <div className="userRole row">
                 <div className="col-6">
                   <input id="role" type="radio" value="Customer" /> Customer
                 </div>
                 <div className="col-6">
                   <input id="role" type="radio" value="Caterer" /> Caterer
                 </div>
-              </div>
+              </div> */}
               <input type="submit" value="Sign In" />
             </div>
             <p>Don't have an account? <a href="signup.html">Sign up</a></p>
@@ -69,12 +77,16 @@ class SignInPage extends Component {
 
 SignInPage.defaultProps = {
   userId: undefined,
+  isAuthenticated: false,
+  isCaterer: false,
 };
 
 SignInPage.propTypes = {
   // users: PropTypes.arrayOf(PropTypes.object).isRequired,
   login: PropTypes.func.isRequired,
   userId: PropTypes.number,
+  isAuthenticated: PropTypes.bool.isRequired,
+  isCaterer: PropTypes.bool.isRequired,
 };
 
 /**
@@ -90,6 +102,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch);
  * @returns {*} store state
  */
 const mapStateToProps = state => ({
+  isAuthenticated: state.authReducer.isAuthenticated,
+  isCaterer: state.authReducer.isCaterer,
   userId: state.authReducer.userId,
   users: state.users,
 });

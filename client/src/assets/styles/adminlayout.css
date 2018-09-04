@@ -1,0 +1,26 @@
+.sidelayout .ant-layout-sider-children {
+    background-color: #380D02;
+    padding-top: 15vh;
+}
+
+.sidelayout ul.ant-menu {
+    background-color: transparent;
+}
+
+.sidelayout ul.ant-menu li {
+    background-color: transparent;
+    color: white;
+}
+
+.sidelayout ul.ant-menu img {
+    width: 14px;
+    height: 14px;
+    margin-right: 10%;
+    border-radius: 0;
+}
+
+.admin-side.navlink {
+    margin: 0;
+    text-decoration: none;
+    color: white;
+}

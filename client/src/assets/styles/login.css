@@ -1,4 +1,4 @@
-*{
+/* *{
     margin: 0px;
     margin: 0px;
     box-sizing: border-box;
@@ -25,7 +25,7 @@
 .col-9 {width: 75%;}
 .col-10 {width: 83.33%;}
 .col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
+.col-12 {width: 100%;} */
 
 body{
     font-family: 'Nunito', sans-serif;
@@ -114,9 +114,9 @@ img{
     .logo{
         display: none;
     }
-    .menu {
+    /* .menu {
         width: 100%;
-    }
+    } */
     .row{
         padding: 20px 0;
     }

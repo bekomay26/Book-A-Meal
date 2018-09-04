@@ -1,4 +1,4 @@
-import { body, param } from 'express-validator/check';
+import { body, param, query } from 'express-validator/check';
 import { sanitizeBody } from 'express-validator/filter';
 
 export default {
@@ -21,9 +21,10 @@ export default {
       .isLength({ min: 1 }).trim().withMessage('Price cannot be empty.')
       .exists()
       .withMessage('Price must be specified')
-      .isInt()
+      // .isInt()
+      .custom(value => Number.isInteger(parseInt(value, 10)))
       .withMessage('Price must be an integer decimals not allowed')
-      .custom(value => value > 200)
+      .custom(value => parseInt(value, 10) > 200)
       .withMessage('Price must not be less than 200'),
     sanitizeBody('title').trim().escape(),
     sanitizeBody('description').trim().escape(),
@@ -72,5 +73,21 @@ export default {
     param('id')
       .isInt()
       .withMessage('Parameter must be an integer'),
+  ],
+  get: [
+    query('limit')
+      .optional()
+      .trim()
+      .isNumeric()
+      .withMessage('limit must be an integer')
+      .isInt({ min: 0 })
+      .withMessage('limit cannot be less than zero'),
+    query('offset')
+      .optional()
+      .trim()
+      .isNumeric()
+      .withMessage('limit must be an integer')
+      .isInt({ min: 0 })
+      .withMessage('limit cannot be less than zero'),
   ],
 };

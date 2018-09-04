@@ -14,8 +14,18 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: 'Meals',
         key: 'id',
-      }
+      },
     },
+    // Just added
+    // availability: {
+    //   type: DataTypes.BOOLEAN,
+    //   allowNull: false,
+    //   defaultValue: true,
+    //   references: {
+    //     model: 'Meals',
+    //     key: 'id',
+    //   },
+    // },
   });
   return MenuMeal;
 };

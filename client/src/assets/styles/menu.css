@@ -1,4 +1,4 @@
-
+/* 
 * {
     box-sizing: border-box;
     font-family: 'Indie Flower', cursive;
@@ -28,7 +28,7 @@ body {
 .col-9 {width: 75%;}
 .col-10 {width: 83.33%;}
 .col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
+.col-12 {width: 100%;} */
 .col-25{width:20%;}
 
 .logo{
@@ -43,26 +43,26 @@ a{
 ul, nav{
     list-style: none;
 }
-.menu{
+/* .menu{
     float: right;
-}
-.menu li{
+} */
+/* .menu li{
     margin: 0;
     
-}
+} */
 ul.grid{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
-.menu a{
+/* .menu a{
     color: inherit;
     cursor: pointer;
     opacity: 0.9;
     margin: 10px 20px;
     font-family: 'Nunito', sans-serif;
-}
+} */
 h1{
     color: #ffa200;
     text-align: center;
@@ -72,11 +72,11 @@ h2{
     font-family: 'Nunito', sans-serif;
 }
 
-.menu a:hover{
+/* .menu a:hover{
     opacity: 1;
     color: black;
     border-bottom: 2px solid black; 
-}
+} */
 
 .navDiv{
     background-color: #ffa200;
@@ -372,29 +372,27 @@ img{
     ul, nav{
         list-style: none;
     }
-    .menu{
+    /* .menu{
         float: right;
     }
     .menu li{
-        /* margin: 0; */
         text-align: center;
-    }
+    } */
     ul.grid{
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
     }
-    .menu{
+    /* .menu{
         width: 100%;
     }
     .menu a{
         color: inherit;
         cursor: pointer;
         opacity: 0.9;
-        /* margin: 10px 20px; */
         font-family: 'Nunito', sans-serif;
-    }
+    } */
 
     .navDiv{
         background-color: #ffa200;

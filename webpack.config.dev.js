@@ -2,6 +2,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import HardSourceWebpackPlugin from 'hard-source-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
   resolve: {
@@ -24,6 +25,7 @@ export default {
     // new HardSourceWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    // new ExtractTextPlugin('style.css'),
     new HtmlWebpackPlugin({ // Create HTML file that includes references to bundled CSS and JS.
       minify: {
         removeComments: true,
@@ -57,10 +59,26 @@ export default {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true,
+              // sourceMap: true,
+              // importLoaders: 1,
+              // modules: true,
+              // localIdentName: '[name]__[local]__[hash:base64:5]',
             },
           },
         ],
+        // loader: ExtractTextPlugin.extract(
+        //   'style-loader',
+        //   combineLoaders([
+        //     {
+        //       loader: 'css-loader',
+        //       query: {
+        //         sourceMap: true,
+        //         modules: true,
+        //         localIdentName: '[name]__[local]__[hash:base64:5]',
+        //       },
+        //     },
+        //   ]),
+        // ),
       },
     ],
   },

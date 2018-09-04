@@ -1,4 +1,4 @@
-* {
+/* * {
     box-sizing: border-box;
     font-family: 'Jua', sans-serif;
 }
@@ -10,8 +10,6 @@
 }
 [class*="col-"] {
     float: left;
-    /* padding: 15px; */
-    /* border: 1px solid red; */
 }
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
@@ -24,7 +22,7 @@
 .col-9 {width: 75%;}
 .col-10 {width: 83.33%;}
 .col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
+.col-12 {width: 100%;} */
 
 body {
     margin: 0;
@@ -93,10 +91,10 @@ a:hover{
 .fa-minus-square:hover{
     color: red;
 }
-.addContainer{
+/* .addContainer{
     border-bottom: 2px solid #ffa200;
     border-top: 2px solid #ffa200;
-}
+} */
 
 
 
@@ -304,6 +302,40 @@ input[type=number]{
 .active {
     border-bottom: 2px solid white;
 }
+
+/* Add Meal */
+.extra-minus {
+    /* font-size: 20px; */
+    color: red;
+}
+.ant-upload.ant-upload-select.ant-upload-select-picture-card {
+    width: 100%;
+    height: 50vw;
+}
+
+span.ant-upload {
+    height: inherit;
+}
+
+.ant-upload img {
+    width: 100%;
+    height: inherit;
+    max-width: 100%;
+    border-radius: 0;
+    max-height: 50vw;
+}
+
+/* Meal Form */
+.ui.form .wide.field .ui.input.meal-update-price-input input[type=number] {
+    padding: 0 5px 0 5px;
+}
+
+.meal-update-price-input input[type=number]::-webkit-inner-spin-button, 
+.meal-update-price-input input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 @media screen and (max-width: 799px) {
     h2{
         margin-top: 40px;
@@ -318,45 +350,12 @@ input[type=number]{
     ul, nav{
         list-style: none;
     }
-    .menu{
-        float: right;
-    }
-    .menu li{
-        /* margin: 0; */
-        text-align: center;
-    }
+    
     ul.grid{
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-    }
-    .menu{
-        width: 100%;
-    }
-    .menu a{
-        color: inherit;
-        cursor: pointer;
-        opacity: 0.9;
-        /* margin: 10px 20px; */
-        font-family: 'Nunito', sans-serif;
-    }
-
-    .top{
-        background-color: #ffa200;
-        /* opacity: 0.7; */
-        width: 100%;
-        z-index: 10;
-        align-items: center;
-        color: white;
-        padding:10px;
-        display: flex;
-        justify-content: space-around; 
-    }
-    .top::after{
-        content: '';
-        display: block;
-        clear: both;
     }
 
     header nav{
@@ -375,6 +374,24 @@ input[type=number]{
     }
     .logo{
         display: none;
+    }
+}
+
+@media(min-width: 501px){
+    div.ant-upload.ant-upload-drag, .ant-upload.ant-upload-select.ant-upload-select-picture-card {
+        max-width: 33vw;
+        height: 228px;
+        /* height: 25vw; */
+        margin: auto;
+    }
+
+    span.ant-upload {
+        width: inherit;
+        height: inherit;
+    }
+
+    .ant-upload img {
+        max-height: 25vw;
     }
 }
 
@@ -398,9 +415,6 @@ input[type=number]{
         text-align: left;
     }
 
-    .top h2{
-        margin: 0;
-    }
     a{
         text-decoration: none;
     }
@@ -408,23 +422,11 @@ input[type=number]{
     ul, nav{
         list-style: none;
     }
-    .menu{
-        float: right;
-    }
-    .menu li{
-        text-align: center;
-    }
     ul.grid{
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-    }
-    .menu a{
-        color: inherit;
-        cursor: pointer;
-        opacity: 0.9;
-        font-family: 'Nunito', sans-serif;
     }
     h1{
         color: #ffa200;
@@ -433,28 +435,6 @@ input[type=number]{
     h2{
         margin-bottom: 15px;
         font-family: 'Nunito', sans-serif;
-    }
-
-    .menu a:hover{
-        opacity: 1;
-        color: black;
-        border-bottom: 2px solid black; 
-    }
-
-    .top{
-        background-color: #ffa200;
-        width: 100%;
-        z-index: 10;
-        align-items: center;
-        color: white;
-        padding: 35px 70px 20px;
-        display: flex;
-        justify-content: space-around; 
-    }
-    .top::after{
-        content: '';
-        display: block;
-        clear: both;
     }
 
     header nav{

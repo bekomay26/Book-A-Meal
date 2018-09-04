@@ -88,6 +88,7 @@ class AuthController extends Controller {
       }
       const payload = {
         id: foundUser.id,
+        name: foundUser.username,
         role: foundUser.role,
       };
       const token = Authentication.generateToken(payload);

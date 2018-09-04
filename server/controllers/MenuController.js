@@ -149,12 +149,56 @@ class MenuController extends Controller {
             attributes: ['title', 'description', 'price'],
           },
           as: 'meals',
+          include: [{
+            model: db.Extra,
+            through: {
+              foreignKey: 'extraId',
+            },
+            as: 'extras',
+            attributes: ['id', 'title', 'category', 'price'],
+          }],
         }],
       });
       return res.status(200).json({
         success: true,
         message: 'Menu Retrieved',
         daysMenu,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
+      });
+    }
+  }
+
+  /**
+   * Deletes an existing menu
+   * @memberof MenuController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
+  static async deleteMenu(req, res) {
+    /** delete a meal, cannot select meals of previous days on the UI.
+   * same should be done for the edit above */
+    try {
+      const id = parseInt(req.params.id, 10);
+      const menu = await db.Menu.findOne({ where: { id } });
+      if (menu) {
+        await menu.destroy({ paranoid: true });
+      } else {
+        return res.status(404).json({
+          success: false,
+          message: `Cannot find menu with id ${id}`,
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        message: 'Menu deleted',
+        menu,
       });
     } catch (error) {
       return res.status(500).json({

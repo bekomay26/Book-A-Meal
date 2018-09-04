@@ -1,4 +1,4 @@
-* {
+/* * {
     box-sizing: border-box;
     font-family: 'Jua', sans-serif;
 }
@@ -27,7 +27,7 @@ body {
 .col-9 {width: 75%;}
 .col-10 {width: 83.33%;}
 .col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
+.col-12 {width: 100%;} */
 
 body{
     background-color: white;
@@ -133,9 +133,9 @@ h3, p{
 .cancelled{
     background-color: rgba(255,0,0,0.6);
 }
-.row{
+/* .row{
     display: flex;
-}
+} */
 .complete{
     background-color: rgba(0, 255, 0, 0.6);
     /* display: flex; */
@@ -165,46 +165,27 @@ h3, p{
     ul, nav{
         list-style: none;
     }
-    .menu{
+    /* .menu{
         float: right;
     }
     .menu li{
-        /* margin: 0; */
         text-align: center;
-    }
+    } */
     ul.grid{
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
     }
-    .menu{
+    /* .menu{
         width: 100%;
     }
     .menu a{
         color: inherit;
         cursor: pointer;
         opacity: 0.9;
-        /* margin: 10px 20px; */
         font-family: 'Nunito', sans-serif;
-    }
-
-    .top{
-        background-color: #ffa200;
-        /* opacity: 0.7; */
-        width: 100%;
-        z-index: 10;
-        align-items: center;
-        color: white;
-        padding:10px;
-        display: flex;
-        justify-content: space-around; 
-    }
-    .top::after{
-        content: '';
-        display: block;
-        clear: both;
-    }
+    } */
 
     header nav{
         display: flex;
@@ -240,9 +221,6 @@ h3, p{
         text-align: left;
     }
 
-    .top h2{
-        margin: 0;
-    }
     a{
         text-decoration: none;
     }
@@ -254,26 +232,24 @@ h3, p{
     ul, nav{
         list-style: none;
     }
-    .menu{
+    /* .menu{
         float: right;
     }
     .menu li{
-        /* margin: 0; */
         text-align: center;
-    }
+    } */
     ul.grid{
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
     }
-    .menu a{
+    /* .menu a{
         color: inherit;
         cursor: pointer;
         opacity: 0.9;
-        /* margin: 10px 20px; */
         font-family: 'Nunito', sans-serif;
-    }
+    } */
     h1{
         color: #ffa200;
         text-align: center;
@@ -283,28 +259,11 @@ h3, p{
         font-family: 'Nunito', sans-serif;
     }
 
-    .menu a:hover{
+    /* .menu a:hover{
         opacity: 1;
         color: black;
         border-bottom: 2px solid black; 
-    }
-
-    .top{
-        background-color: #ffa200;
-        /* opacity: 0.7; */
-        width: 100%;
-        z-index: 10;
-        align-items: center;
-        color: white;
-        padding: 35px 70px 20px;
-        display: flex;
-        justify-content: space-around; 
-    }
-    .top::after{
-        content: '';
-        display: block;
-        clear: both;
-    }
+    } */
 
     header nav{
         display: flex;

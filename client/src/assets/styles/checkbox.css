@@ -1,0 +1,82 @@
+/* Checkbox */
+.custom-checkbox input[type=checkbox] {
+  display: none;
+}
+
+.custom-checkbox input[type=checkbox] + label {
+  display: inline-block;
+  position: relative;
+  border-radius: 40px;
+  padding: 25px 40px;
+  width: 8em;
+  background: #eeeeee;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #444;
+  cursor: pointer;
+}
+
+.custom-checkbox input[type=checkbox] + label:hover {
+  background: #e4e4e4;
+}
+
+.custom-checkbox input[type=checkbox]:checked + label {
+  background: #3ea868;
+  color: #f0f0f0;
+  animation: btn-color 0.5s ease-in-out;
+}
+
+.custom-checkbox .label-name {
+  position: absolute;
+  left: 34px;
+  top: 16px;
+  -webkit-transition-property: left;
+  -webkit-transition-duration: 1s;
+}
+
+.custom-checkbox input[type=checkbox]:checked +label span.label-name {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+}
+
+.custom-checkbox input[type=checkbox]:checked + label div.checkmark {
+  display: block;
+  fill: #f0f0f0;
+}
+
+.checkmark {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  display: none;
+  stroke-width: 4;
+  fill: #f0f0f0;
+  stroke-miterlimit: 10;
+  animation: scale 0.5s ease-in-out;
+}
+
+@keyframes scale {
+  0% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.2, 1.2, 1);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes btn-color {
+  0% {
+    background: #88d3a6;
+  }
+  50% {
+    background: #5dc386;
+  }
+  100% {
+    background: #3ea868;
+  }
+}

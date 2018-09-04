@@ -5,7 +5,6 @@ import token from '../../helpers/testToken';
 
 const adminToken = token.adminToken();
 
-/* global it, describe */
 describe('/POST order', () => {
   it('it should not POST when an invalid mealId is given', (done) => {
     const id = { mealId: 'd34' };

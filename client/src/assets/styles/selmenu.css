@@ -1,4 +1,4 @@
-* {
+/* * {
     box-sizing: border-box;
     font-family: 'Jua', sans-serif;
 }
@@ -12,8 +12,6 @@ body {
 }
 [class*="col-"] {
     float: left;
-    /* padding: 15px; */
-    /* border: 1px solid red; */
 }
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
@@ -26,7 +24,7 @@ body {
 .col-9 {width: 75%;}
 .col-10 {width: 83.33%;}
 .col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
+.col-12 {width: 100%;} */
 
 /* form */
 .admin{
@@ -54,6 +52,9 @@ h2{
     border-radius: 4px;
 }
 .fa-long-arrow-alt-left:hover{
+    color: red;
+}
+.fa-minus-square:hover{
     color: red;
 }
 a{
@@ -123,6 +124,30 @@ input[type=submit]:hover{
 .active {
     border-bottom: 2px solid white;
 }
+
+.manage-menu-tab-body form {
+    margin: 10% auto;
+}
+
+.manage-menu-tab-body .subm input {
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    background-color: #380D02;
+    color: white;
+}
+
+.manage-menu-tab-body .subm input:hover {
+    background-color: white;
+    color: #380D02;
+    border: 1px solid #380D02;
+}
+
+.sel-menu-item-price {
+    float: right;
+    margin-right: 10%;
+}
+
 @media screen and (max-width: 799px) {
     h2{
         margin-top: 40px;
@@ -137,45 +162,11 @@ input[type=submit]:hover{
     ul, nav{
         list-style: none;
     }
-    .menu{
-        float: right;
-    }
-    .menu li{
-        /* margin: 0; */
-        text-align: center;
-    }
     ul.grid{
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-    }
-    .menu{
-        width: 100%;
-    }
-    .menu a{
-        color: inherit;
-        cursor: pointer;
-        opacity: 0.9;
-        /* margin: 10px 20px; */
-        font-family: 'Nunito', sans-serif;
-    }
-
-    .top{
-        background-color: #ffa200;
-        /* opacity: 0.7; */
-        width: 100%;
-        z-index: 10;
-        align-items: center;
-        color: white;
-        padding:10px;
-        display: flex;
-        justify-content: space-around; 
-    }
-    .top::after{
-        content: '';
-        display: block;
-        clear: both;
     }
 
     header nav{
@@ -218,11 +209,6 @@ input[type=submit]:hover{
 
     /* Header */
      
-
-    .top h2{
-        margin: 0;
-        text-align: left;
-    }
     a{
         text-decoration: none;
     }
@@ -230,23 +216,11 @@ input[type=submit]:hover{
     ul, nav{
         list-style: none;
     }
-    .menu{
-        float: right;
-    }
-    .menu li{
-        text-align: center;
-    }
     ul.grid{
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-    }
-    .menu a{
-        color: inherit;
-        cursor: pointer;
-        opacity: 0.9;
-        font-family: 'Nunito', sans-serif;
     }
     h1{
         color: #ffa200;
@@ -255,28 +229,6 @@ input[type=submit]:hover{
     h2{
         margin-bottom: 15px;
         font-family: 'Nunito', sans-serif;
-    }
-
-    .menu a:hover{
-        opacity: 1;
-        color: black;
-        border-bottom: 2px solid black; 
-    }
-
-    .top{
-        background-color: #ffa200;
-        width: 100%;
-        z-index: 10;
-        align-items: center;
-        color: white;
-        padding: 35px 70px 20px;
-        display: flex;
-        justify-content: space-around; 
-    }
-    .top::after{
-        content: '';
-        display: block;
-        clear: both;
     }
 
     header nav{

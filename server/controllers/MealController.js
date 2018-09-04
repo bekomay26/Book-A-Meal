@@ -1,7 +1,11 @@
+import cloudinary from 'cloudinary';
+import dotenv from 'dotenv';
 import Controller from './Controller';
 // import meals from '../tests/dummyData/fakeData';
 import db from '../model/index';
 import removeDuplicates from '../helpers/removeDuplicates';
+
+dotenv.config();
 
 /**
  * Class representing a Meal Controller.
@@ -21,7 +25,7 @@ class MealController extends Controller {
       const {
         title,
         description,
-        image,
+        // image,
         price,
         extraIds,
       } = await req.body;
@@ -48,7 +52,19 @@ class MealController extends Controller {
           });
         }
       }
-
+      cloudinary.config({
+        cloud_name: process.env.CLOUD_NAME,
+        api_key: process.env.API_KEY,
+        api_secret: process.env.API_SECRET,
+      });
+      let image = '';
+      if (req.file && req.file.path) {
+        const uniqueImgId = `${title + price}`;
+        const output = await cloudinary.v2.uploader.upload(req.file.path, { public_id: uniqueImgId });
+        if (output) {
+          image = output.secure_url;
+        }
+      }
       // Create the meal
       const meal = await db.Meal.create({
         title,
@@ -86,8 +102,6 @@ class MealController extends Controller {
     try {
       const id = parseInt(req.params.id, 10);
       const meal = await db.Meal.findOne({ where: { id: parseInt(req.params.id, 10) } });
-      const { extraIds } = req.body;
-      const uniqueExtraIds = removeDuplicates(extraIds);
       if (req.body.title) {
         const existingMeal = await db.Meal.findOne({ where: { title: req.body.title } });
         if (existingMeal) {
@@ -97,18 +111,25 @@ class MealController extends Controller {
           });
         }
       }
+      console.log(req.body);
       if (meal) {
         meal.update({
           title: req.body.title || meal.title,
           description: req.body.description || meal.description,
           price: req.body.price || meal.price,
           image_url: req.body.image || meal.image_url,
+          // add for extras
         });
-        const mealextras = await db.MealExtra.findAll({ where: { mealId: id } });
-        for (let i = 0; i < mealextras.length; i += 1) {
-          await mealextras[i].destroy();
+
+        const { extraIds } = req.body;
+        if (extraIds) {
+          const uniqueExtraIds = removeDuplicates(extraIds);
+          const mealextras = await db.MealExtra.findAll({ where: { mealId: id } });
+          for (let i = 0; i < mealextras.length; i += 1) {
+            await mealextras[i].destroy();
+          }
+          await meal.setExtras(uniqueExtraIds, { through: db.MealExtras });
         }
-        await meal.setExtras(uniqueExtraIds, { through: db.MealExtras });
       } else {
         return res.status(404).json({
           success: false,
@@ -176,8 +197,8 @@ class MealController extends Controller {
           model: db.Extra,
           through: {
             foreignKey: 'extraId',
-            attributes: ['title', 'description', 'price'],
           },
+          attributes: ['id', 'title', 'category', 'price'],
           as: 'extras',
         }],
       });
@@ -185,6 +206,48 @@ class MealController extends Controller {
         success: true,
         message: 'Meals retrieved',
         meals,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: 'error',
+        message: error.message,
+        error,
+      });
+    }
+  }
+
+  /**
+   * Retrieve meal
+   * @memberof MealController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
+  static async retrieveById(req, res) {
+    try {
+      const id = parseInt(req.params.id, 10);
+      const meal = await db.Meal.findOne({
+        where: { id: parseInt(req.params.id, 10) },
+        include: [{
+          model: db.Extra,
+          through: {
+            foreignKey: 'extraId',
+            attributes: ['title', 'description', 'price'],
+          },
+          as: 'extras',
+        }],
+      });
+      if (!meal) {
+        return res.status(404).json({
+          success: false,
+          message: `Cannot find meal with id ${id}`,
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        message: 'meal retrieved',
+        meal,
       });
     } catch (error) {
       return res.status(500).json({
