@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import '../../assets/styles/navbar.css';
 import { Icon, Drawer } from 'antd';
-import { Sidebar, Segment, Menu, Header, Image } from 'semantic-ui-react';
+import '../../assets/styles/navbar.css';
 
-class AdminNavBar extends Component {
+export class AdminNavBar extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -39,7 +38,7 @@ class AdminNavBar extends Component {
             {/* <Icon type="menu-unfold" /> */}
           </button>
           <div className="col-6">
-            <a href="#home" className="navlogo col-5">BOOK-A-MEAL</a>
+            <Link to="/" className="navlogo col-5">BOOK-A-MEAL</Link>
           </div>
           <nav className="col-6 navgroup">
             <NavLink className={`col-3 navlink out admin-nav ${signedinVisibility}`} activeClassName="active" to="/login" onClick={(e) => { e.preventDefault(); logout(); }}>logout</NavLink>
@@ -58,8 +57,7 @@ class AdminNavBar extends Component {
           <NavLink className="col-3 show navlink" to="/meals" activeClassName="active">Meals</NavLink>
           <NavLink className="col-3 show navlink" to="/setmenu" activeClassName="active">Menu</NavLink>
           <NavLink className="col-3 show navlink" to="/adorders" activeClassName="active">Orders</NavLink>
-          <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/auth" activeClassName="active">SignIn</NavLink>
-          {/* <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/signup" activeClassName="active">SignUp</NavLink> */}
+          <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/login" activeClassName="active">SignIn</NavLink>
           <NavLink className={`col-3 navlink out ${signedinVisibility}`} activeClassName="active" to="/login" onClick={(e) => { e.preventDefault(); logout(); }}>logout</NavLink>
         </Drawer>
       </div>

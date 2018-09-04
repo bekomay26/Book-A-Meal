@@ -18,3 +18,13 @@
     margin-right: 10%;
     border-radius: 0;
 }
+
+.admin-side.navlink {
+    margin: 0;
+    text-decoration: none;
+    color: white;
+}
+
+.sidelayout ul li.ant-menu-item, .sidelayout ul li.ant-menu-submenu {
+    padding: 0;
+}

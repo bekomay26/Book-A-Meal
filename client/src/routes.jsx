@@ -11,13 +11,13 @@ import CustomerOrdersPage from './components/order/CustomerOrdersPage';
 const routes = (
   <div>
     <Switch>
-      <Route exact path="/home" component={HomePage} />
-      <Route path="/menu" component={MenuPage} />
-      <Route path="/setmenu" component={SetMenuPage} />
-      <Route path="/login" component={AuthPage} />
-      <Route path="/meals" component={ManageMealPage} />
-      <Route path="/adorders" component={AdminOrdersPage} />
-      <Route path="/orders" component={CustomerOrdersPage} />
+      <Route exact path="/" component={HomePage} />
+      <Route exact path="/menu" component={MenuPage} />
+      <Route exact path="/setmenu" component={SetMenuPage} />
+      <Route exact path="/login" component={AuthPage} />
+      <Route exact path="/meals" component={ManageMealPage} />
+      <Route exact path="/adorders" component={AdminOrdersPage} />
+      <Route exact path="/orders" component={CustomerOrdersPage} />
     </Switch>
   </div>
 );

@@ -28,9 +28,6 @@ export class AuthPage extends Component {
 
   onUnameChange(event) {
     event.preventDefault();
-    console.log(event.target.name);
-    console.log(event.target.id);
-    // if (event.target === )
     const { user } = this.state;
     const { name } = event.target;
     user[name] = event.target.value;
