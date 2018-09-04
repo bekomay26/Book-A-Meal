@@ -11,7 +11,7 @@ const updateOrderSuccess = order => (
 );
 
 const createOrderSuccess = (order) => {
-  toastr.success('Saved', 'Thank tou for ordering');
+  toastr.success('Saved', 'Thank you for ordering');
   return { type: types.CREATE_ORDER_SUCCESS, order };
 };
 

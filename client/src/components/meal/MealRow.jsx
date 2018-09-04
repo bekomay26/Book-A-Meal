@@ -11,8 +11,8 @@ const MealRow = ({ meal, selectMealEditBtn, selectMealDelBtn, mealGoesWith, meal
     extraOptIdn += 1;
     return (
       <div key={extraOptIdn - 1} data-key={extraOptIdn - 1}>
-        <div>{extraTitle}</div>
-        <div className="col-2" onClick={(event) => selected(event, type)} role='button'>bb</div>
+        <div className="col-10">{extraTitle}</div>
+        <div className="col-2"><i onClick={(event) => selected(event, type)} className="fas fa-minus extra-minus" role='button' /></div>
       </div>
     );
   };
@@ -31,7 +31,8 @@ const MealRow = ({ meal, selectMealEditBtn, selectMealDelBtn, mealGoesWith, meal
       <td>&#x20A6;{meal.price}</td>
       <td onClick={() => selectMealEditBtn(meal,goesExt,topExt)} className="edit"><i className="far fa-edit" /></td>
       <td onClick={() => selectMealDelBtn(meal)} ><i className="far fa-trash-alt remove"></i></td>
-    </tr>)
+    </tr>
+  );
 };
 
 MealRow.propTypes = {

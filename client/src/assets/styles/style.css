@@ -56,23 +56,6 @@ ul.grid{
     font-family: 'Nunito', sans-serif;
 }
 
-.top{
-    background-color: #ffa200;
-    opacity: 0.7;
-    width: 100%;
-    z-index: 10;
-    align-items: center;
-    color: white;
-    padding: 35px 70px 20px;
-    display: flex;
-    justify-content: space-around; 
-}
-.top::after{
-    content: '';
-    display: block;
-    clear: both;
-}
-
 header nav{
     display: flex;
     /* margin-bottom: 50px; */

@@ -23,22 +23,26 @@ const MealForm = ({ meal, onSave, saving, imageUrl, cardImgList, handleCardChang
   );
   const addGoes = (
     <div key={extraOptId + 1} data-key={extraOptId + 1}>
-      <select onChange={selectChange} >
+      <div className="col-10">
+        <select onChange={selectChange} >
           {goes.map(extra =>
             <option disabled={false} value={extra.title} ext-id={extra.id}>{extra.title}</option>)
           }
-      </select>
-      <div className="col-2" onClick={(event) => selected(event, 'goes')} role='button'>bb</div>
+        </select>
+      </div>
+      <div className="col-2" onClick={(event) => selected(event, 'goes')} role='button'><i className="fas fa-minus extra-minus" /></div>
     </div>
   );
   const addTop = (
     <div key={extraOptId + 1} data-key={extraOptId + 1}>
-      <select onChange={selectChange}>
-        {top.map(extra =>
-          <option ext-id={extra.id}>{extra.title}</option>)
-        }
-      </select>
-      <div className="col-2" onClick={(event) => selected(event, 'onTop')} role='button'>bb</div>
+      <div className="col-10">
+        <select onChange={selectChange}>
+          {top.map(extra =>
+            <option ext-id={extra.id}>{extra.title}</option>)
+          }
+        </select>
+      </div>
+      <div className="col-2" onClick={(event) => selected(event, 'onTop')} role='button'><i className="fas fa-minus extra-minus" /></div>
     </div>
   );
   return (

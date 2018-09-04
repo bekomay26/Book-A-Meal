@@ -24,13 +24,6 @@ export default {
   plugins: [
     // new HardSourceWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-      },
-      inject: true,
-    }),
   ],
   module: {
     rules: [

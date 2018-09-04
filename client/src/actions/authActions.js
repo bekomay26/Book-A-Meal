@@ -82,7 +82,7 @@ const signUp = details => (dispatch) => {
  */
 const logout = () => {
   window.localStorage.removeItem('token');
-  // setAuthorizationToken(false);
+  setAuthorizationToken(false);
   return {
     type: types.LOG_OUT, payload: { userId: null },
   };

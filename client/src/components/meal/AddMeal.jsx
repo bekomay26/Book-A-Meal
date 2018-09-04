@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
 import 'antd/dist/antd.css';
 import { Upload, Icon, message } from 'antd';
 import { Form, FormField, FormInput, Image, Input, Label, Grid, Select } from 'semantic-ui-react';

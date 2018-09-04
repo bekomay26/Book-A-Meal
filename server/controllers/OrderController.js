@@ -22,7 +22,7 @@ class OrderController extends Controller {
         address,
         createdById,
         cateredById,
-      } = await req.body;
+      } = req.body;
 
       // const mealIdInt = await parseInt(mealId, 10);
       const uniqueExtraIds = removeDuplicates(extraIds);
