@@ -305,8 +305,6 @@ input[type=number]{
 
 /* Add Meal */
 .extra-minus {
-    font-size: 20px;
-    margin: 8px auto;
     color: red;
 }
 .ant-upload.ant-upload-select.ant-upload-select-picture-card {
@@ -357,23 +355,6 @@ span.ant-upload {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-    }
-
-    .top{
-        background-color: #ffa200;
-        /* opacity: 0.7; */
-        width: 100%;
-        z-index: 10;
-        align-items: center;
-        color: white;
-        padding:10px;
-        display: flex;
-        justify-content: space-around; 
-    }
-    .top::after{
-        content: '';
-        display: block;
-        clear: both;
     }
 
     header nav{
@@ -433,9 +414,6 @@ span.ant-upload {
         text-align: left;
     }
 
-    .top h2{
-        margin: 0;
-    }
     a{
         text-decoration: none;
     }
@@ -456,21 +434,6 @@ span.ant-upload {
     h2{
         margin-bottom: 15px;
         font-family: 'Nunito', sans-serif;
-    }
-    .top{
-        background-color: #ffa200;
-        width: 100%;
-        z-index: 10;
-        align-items: center;
-        color: white;
-        padding: 35px 70px 20px;
-        display: flex;
-        justify-content: space-around; 
-    }
-    .top::after{
-        content: '';
-        display: block;
-        clear: both;
     }
 
     header nav{

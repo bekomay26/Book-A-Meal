@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CSSModules from 'react-css-modules';
 import '../../assets/styles/mm.css';
 
-const MealRow = ({
-  meal, selectMealEditBtn, selectMealDelBtn, mealGoesWith,
-  mealOnTop, addExtra, extraOptId, selected,
-}) => {
+const MealRow = ({ meal, selectMealEditBtn, selectMealDelBtn, mealGoesWith, mealOnTop, addExtra, extraOptId, selected }) => {
   const goes = mealGoesWith(meal.extras);
   const onTop = mealOnTop(meal.extras);
   let extraOptIdn = 0;
@@ -18,12 +16,13 @@ const MealRow = ({
       </div>
     );
   };
-
+  // console.log(goes);
   // should send only the values to be rendered not the whole div
   const goesExt = goes.map(ext =>
     xtraItem(ext.title, 'goes'));
   const topExt = onTop.map(ext =>
     xtraItem(ext.title, 'OnTop'));
+  // addExtra(y, 'goes');
 
   return (
     <tr>
@@ -47,4 +46,6 @@ MealRow.propTypes = {
   selectMealEditBtn: PropTypes.func.isRequired,
 };
 
+// const MealRowWithCSS = CSSModules(MealRow, styles, { allowMultiple: true });
+// export default (MealRowWithCSS);
 export default MealRow;

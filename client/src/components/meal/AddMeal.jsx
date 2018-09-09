@@ -1,16 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
 import 'antd/dist/antd.css';
-import { Upload, Icon, message } from 'antd';
-import { Form, FormField, FormInput, Image, Input, Label, Grid, Select } from 'semantic-ui-react';
-import GoesWithItem from './GoesWithItem';
+import { Upload, Icon } from 'antd';
+import { Form, Input, Label, Grid } from 'semantic-ui-react';
 
-const AddMeal = ({
-  onSave, meal, onChange, selectValues, selectChange, getSelectValue,
-  cardImgList, handleCardChange, imageUrl, addExtra, selected, goes,
-  top, extrasList, extrasTopList, extraOptId,
-}) => {
+const AddMeal = ({ onSave, meal, onChange, selectValues, selectChange, getSelectValue, cardImgList, handleCardChange, imageUrl, addExtra, selected, goes, top, extrasList, extrasTopList, extraOptId }) => {
+
   const { Dragger } = Upload;
   const imgUpload = {
     name: 'filename',
@@ -104,15 +99,9 @@ const AddMeal = ({
 };
 
 AddMeal.propTypes = {
-  // mealextras: PropTypes.shape({
-  //   title: PropTypes.string.isRequired,
-  //   price: PropTypes.number.isRequired,
-  // })
-  //   .isRequired,
   addExtra: PropTypes.func.isRequired,
   selected: PropTypes.func.isRequired,
   extraOptId: PropTypes.number.isRequired,
-  // addBtnClicked: PropTypes.bool.isRequired,
 };
 
 export default AddMeal;

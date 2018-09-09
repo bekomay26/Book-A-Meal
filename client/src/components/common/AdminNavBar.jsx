@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { Icon, Drawer } from 'antd';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Icon, Drawer } from 'antd';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { logout } from '../../actions/authActions';
@@ -60,6 +60,7 @@ export class AdminNavBar extends Component {
           <NavLink className="col-3 show navlink" to="/setmenu" activeClassName="active">Menu</NavLink>
           <NavLink className="col-3 show navlink" to="/adorders" activeClassName="active">Orders</NavLink>
           <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/auth" activeClassName="active">SignIn</NavLink>
+          {/* <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/signup" activeClassName="active">SignUp</NavLink> */}
           <NavLink className={`col-3 navlink out ${signedinVisibility}`} activeClassName="active" to="/login" onClick={(e) => { e.preventDefault(); this.props.logout(); }}>logout</NavLink>
         </Drawer>
       </div>
@@ -70,13 +71,11 @@ export class AdminNavBar extends Component {
 AdminNavBar.defaultProps = {
   userName: undefined,
   isAuthenticated: false,
-  isCaterer: false,
 };
 
 AdminNavBar.propTypes = {
   userName: PropTypes.string,
   isAuthenticated: PropTypes.bool,
-  isCaterer: PropTypes.bool,
   logout: PropTypes.func.isRequired,
 };
 

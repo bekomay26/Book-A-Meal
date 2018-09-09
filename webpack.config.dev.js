@@ -1,5 +1,4 @@
 import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 
 export default {
@@ -22,15 +21,7 @@ export default {
     filename: 'bundle.js',
   },
   plugins: [
-    // new HardSourceWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-      },
-      inject: true,
-    }),
   ],
   module: {
     rules: [

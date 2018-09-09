@@ -13,9 +13,9 @@ import authRouter from '../server/routes/authRoutes';
 import extraRouter from '../server/routes/extraRoutes';
 import errorRouter from '../server/routes/errorRoutes';
 
+
+const port = process.env.PORT || 5000;
 const app = express();
-const port = 4000;
-// const port = process.env.PORT || 3000;
 
 
 app.use(compression());
@@ -41,7 +41,6 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/src/index.html'));
 });
 
-// app.use('/*', errorRouter);
 app.listen(port, () => {
   console.log(`listening on port: ${port}`);
 });

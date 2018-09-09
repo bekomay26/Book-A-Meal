@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { NavLink, Redirect } from 'react-router-dom';
 import AdminNavBar from './AdminNavBar';
@@ -28,7 +27,6 @@ export class AdminLayout extends Component {
     this.setState({ isDesktop: window.innerWidth > 960 });
   }
 
-  // const AdminLayout = ({ content }) => {
   render() {
     const { isDesktop } = this.state;
     const { content, isAuthenticated, isCaterer } = this.props;
@@ -46,18 +44,13 @@ export class AdminLayout extends Component {
     }
     const desktopPage = (
       <Layout>
-        {/* <UserNavBar /> */}
-        {/* <AdminNavBar logout={this.props.logout} /> */}
         <AdminNavBar />
         <Layout className="sidelayout">
           <Sider width={200} style={{ background: '#fff' }}>
-            <Menu
-              mode="inline"
-              defaultSelectedKeys={['1']}
-              defaultOpenKeys={['sub1']}
-              style={{ height: '100%', borderRight: 0 }}
-            >
-              <SubMenu key="sub1" title={<span><img src="https://png.icons8.com/ios/80/ffffff/combo-chart.png" alt="analytics" />Dashboard</span>} />
+            <Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} style={{ height: '100%', borderRight: 0 }} >
+              <Menu.Item key="sub1">
+                <span><img src="https://png.icons8.com/ios/80/ffffff/combo-chart.png" alt="analytics" />Dashboard</span>
+              </Menu.Item>
               <SubMenu key="sub2" title={<span><img src="https://png.icons8.com/wired/80/ffffff/hamburger.png" alt="meals" />Meals</span>}>
                 <Menu.Item key="5">
                   <NavLink className="admin-side navlink" to="/meals">View Meals</NavLink>
