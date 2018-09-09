@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, Header, Label, Input, Grid } from 'semantic-ui-react';
 import { Upload, Icon } from 'antd';
 
-const MealForm = ({ meal, onSave, saving, imageUrl, cardImgList, handleCardChange, onChange, extrasList, extrasTopList, goes, top, addExtra, selectChange, selected, extraOptId   }) => {
+export const MealForm = ({ meal, onSave, saving, imageUrl, cardImgList, handleCardChange, onChange, extrasList, extrasTopList, goes, top, addExtra, selectChange, selected, extraOptId   }) => {
   console.log(meal);
   const { Dragger } = Upload;
   const imgUpload = {
@@ -22,19 +22,19 @@ const MealForm = ({ meal, onSave, saving, imageUrl, cardImgList, handleCardChang
     </div>
   );
   const addGoes = (
-    <div key={extraOptId + 1} data-key={extraOptId + 1}>
+    <div className="row" key={extraOptId + 1} data-key={extraOptId + 1}>
       <div className="col-10">
         <select onChange={selectChange} >
-          {goes.map(extra =>
-            <option disabled={false} value={extra.title} ext-id={extra.id}>{extra.title}</option>)
-          }
+            {goes.map(extra =>
+              <option disabled={false} value={extra.title} ext-id={extra.id}>{extra.title}</option>)
+            }
         </select>
       </div>
       <div className="col-2" onClick={(event) => selected(event, 'goes')} role='button'><i className="fas fa-minus extra-minus" /></div>
     </div>
   );
   const addTop = (
-    <div key={extraOptId + 1} data-key={extraOptId + 1}>
+    <div className="row" key={extraOptId + 1} data-key={extraOptId + 1}>
       <div className="col-10">
         <select onChange={selectChange}>
           {top.map(extra =>
@@ -78,7 +78,7 @@ const MealForm = ({ meal, onSave, saving, imageUrl, cardImgList, handleCardChang
             </Input>
           </Form.Field>
         </Form.Group>
-        <Form.TextArea name="description" onChange={event => onChange(event)} value={meal.description || ''} label="Description" placeholder="Tell us more about the food..." />
+        <Form.TextArea name="description" onChange={onChange} value={meal.description || ''} label="Description" placeholder="Tell us more about the food..." />
         <Grid className="add-meal-form-grid" columns={2} divided>
           <Grid.Row>
             <Grid.Column>

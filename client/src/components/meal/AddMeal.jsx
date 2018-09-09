@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CSSModules from 'react-css-modules';
 import 'antd/dist/antd.css';
 import { Upload, Icon, message } from 'antd';
 import { Form, FormField, FormInput, Image, Input, Label, Grid, Select } from 'semantic-ui-react';
@@ -28,22 +29,26 @@ const AddMeal = ({ onSave, meal, onChange, selectValues, selectChange, getSelect
 
   let x;
   const addGoes = (
-    <div key={extraOptId} data-key={extraOptId}>
-      <select onChange={selectChange} >
-          {goes.map(extra =>
-            <option disabled={false} value={extra.title} ext-id={extra.id}>{extra.title}</option>)
-          }
-      </select>
+    <div key={extraOptId} data-key={extraOptId} className="row">
+      <div className="col-10">
+        <select onChange={selectChange} >
+            {goes.map(extra =>
+              <option disabled={false} value={extra.title} ext-id={extra.id}>{extra.title}</option>)
+            }
+        </select>
+      </div>
       <div className="col-2" onClick={(event) => selected(event, 'goes')} role='button'><i className="fas fa-minus extra-minus" /></div>
     </div>
   );
 
   const topOptions = top.map(extra => <option value={extra.title} ext-id={extra.id}>{extra.title}</option>);
   const addTop = (
-    <div key={extraOptId} data-key={extraOptId}>
-      <select onChange={selectChange} placeholder="Toppings">
-        {topOptions}
-      </select>
+    <div key={extraOptId} data-key={extraOptId} className="row">
+      <div className="col-10">
+        <select onChange={selectChange} placeholder="Toppings">
+          {topOptions}
+        </select>
+      </div>
       <div className="col-2" onClick={(event) => selected(event, 'onTop')} role='button'><i className="fas fa-minus extra-minus" /></div>
     </div>
   );
@@ -65,14 +70,14 @@ const AddMeal = ({ onSave, meal, onChange, selectValues, selectChange, getSelect
           </Form.Field>
           <Form.Field width={6}>
             <label>Price</label>
-            <Input name="price" onChange={event => onChange(event)} value={meal.price || ''} labelPosition="right" type="number" placeholder="Amount">
+            <Input name="price" onChange={onChange} value={meal.price || ''} labelPosition="right" type="number" placeholder="Amount">
               <Label basic>$</Label>
               <input />
               <Label>.00</Label>
             </Input>
           </Form.Field>
         </Form.Group>
-        <Form.TextArea name="description" onChange={event => onChange(event)} value={meal.description || ''} label="Description" placeholder="Tell us more about the food..." />
+        <Form.TextArea name="description" onChange={onChange} value={meal.description || ''} label="Description" placeholder="Tell us more about the food..." />
         <Grid className="add-meal-form-grid" columns={2} divided>
           <Grid.Row>
             <Grid.Column>
@@ -81,7 +86,7 @@ const AddMeal = ({ onSave, meal, onChange, selectValues, selectChange, getSelect
                 extrasList.map(extraOption =>
                   extraOption)
               }
-              <div style={{ textAlign: 'center', fontSize: '20px' }}><i className="far fa-plus-square" onClick={() => addExtra(addGoes, 'goes')} role="button" /></div>
+              <div style={{ textAlign: 'center', fontSize: '20px' }}><i className="far fa-plus-square" tabIndex="0" onKeyPress={() => addExtra(addGoes, 'goes')} onClick={() => addExtra(addGoes, 'goes')} role="button" /></div>
             </Grid.Column>
             <Grid.Column>
               <h4>Extras</h4>

@@ -12,7 +12,7 @@ import styles from '../../assets/styles/menu2.css';
 import MenuList from './MenuList';
 import MenuForm from './MenuForm';
 
-class MenuPage extends Component {
+export class MenuPage extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -52,7 +52,9 @@ class MenuPage extends Component {
   }
 
   updatePredicate() {
-    this.setState({ isDesktop: window.innerWidth > 960 });
+    this.setState({
+      isDesktop: window.innerWidth > 960
+    });
   }
 
   async myMeal (currentMeal) {
@@ -62,7 +64,7 @@ class MenuPage extends Component {
 
     const newExtraStatus = [];
     // edit extra arrangement wrong
-    currentMeal.extras.forEach((ext) => newExtraStatus.push({ isChecked: false, qty: 1, extra: ext, key: ext.id } ));
+    currentMeal.extras.forEach((ext) => newExtraStatus.push({ isChecked: false, qty: 1, extra: ext, key: ext.id, price: ext.price } ));
     await this.setState({ extraStatus: newExtraStatus });
   }
 
@@ -79,10 +81,8 @@ class MenuPage extends Component {
     let extraQtys = [];
     extrasInfo.forEach(ext => extraIds.push(ext.extra.id));
     extrasInfo.forEach(ext => extraQtys.push(ext.qty));
-    // console.log(this.state.meal.id);
-    // console.log(extraIds);
-    // console.log(extraQtys);
     this.setState({ saving: true });
+    console.log('bgbfere');
     await this.props.saveOrder({
       mealId: this.state.meal.id,
       extraIds,
@@ -95,7 +95,6 @@ class MenuPage extends Component {
 
   redirect() {
     this.setState({ saving: false });
-    this.context.router.push('/cart');
   }
 
   // onSelect() {
@@ -104,11 +103,11 @@ class MenuPage extends Component {
 
   onClose() {
     this.clearExtrasFields();
-    document.getElementById("modal-container").style.display ="none";
+    document.getElementById('modal-container').style.display = 'none';
   }
   goesWith(mealExtras) {
     if (mealExtras !== undefined) {
-      
+      // console.log(mealExtras);
       return mealExtras.filter(extra => extra.category === 'GoesWith');
     } else
       return []
@@ -128,7 +127,6 @@ class MenuPage extends Component {
   }
 
   onQtyChange(event, key, extraPrice) {
-    // console.log(key);
     const status = this.state.extraStatus;
     const extStatPosition = status.findIndex(extraStat => extraStat.key === key);
     status[extStatPosition].qty = parseInt(event.target.value, 10);
@@ -149,12 +147,12 @@ class MenuPage extends Component {
     const selectedExt = this.state.selectedExtras;
     const extStatPosition = checked.findIndex(extraStat => extraStat.key === key);
     let totalMealPrice = this.state.totalPrice;
-    console.log(checked);
     if (checked[extStatPosition].isChecked === false) {
       selectedExt.push(extra);
       totalMealPrice += (extra.price * extraQuantity); // If checked, add extra price
     } else {
-      selectedExt.splice(extStatPosition, 1);
+      const selectedExtPosition = selectedExt.findIndex(extraStat => extraStat.key === key);
+      selectedExt.splice(selectedExtPosition, 1);
       totalMealPrice -= (extra.price * extraQuantity); // If unchecked, sub extra price
     }
     // checked[key].isChecked = !checked[key].isChecked;
@@ -228,17 +226,17 @@ class MenuPage extends Component {
   render() {
     // const { menu } = this.state;
     const { menu } = this.props;
-    const { logout } = this.props;
+    const { userName } = this.props;
     const { isDesktop } = this.state;
     const { isAuthenticated } = this.props;
 
     // Work on
     // const goeswith = mealExtras => mealExtras.filter(extra => extra.category === 'GoesWith');
-    const extras = mealExtras => mealExtras.filter(extra => extra.category === 'OnTop');
+    // const extras = mealExtras => mealExtras.filter(extra => extra.category === 'OnTop');
     // const meaa = menu.pop();
     return (
       <div>
-        <UserNavBar logout={logout} isAuthenticated={isAuthenticated} userName visibleSideBar />
+        <UserNavBar logout={this.props.logout} isAuthenticated={isAuthenticated} userName={userName} visibleSideBar />
         <div id="container" className="menu-page-container">
           {isDesktop ? (
             <h1>Today's Menu</h1>) : null
@@ -297,6 +295,7 @@ MenuPage.propTypes = {
   saveOrder: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
+  userName: PropTypes.string,
   // meal: PropTypes.shape({
   //   id: PropTypes.number.isRequired,
   //   title: PropTypes.string.isRequired,
@@ -312,26 +311,22 @@ MenuPage.propTypes = {
  * @param {*} dispatch dispatch
  * @returns {*} action to be dispatched
  */
-const mapDispatchToProps = dispatch => bindActionCreators(
-  {
-    loadMenu,
-    saveOrder,
-    logout,
-  }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({
+  loadMenu,
+  saveOrder,
+  logout,
+}, dispatch);
 
 /**
  * @desc maps state to props;
  * @param {*} state store state
  * @returns {*} store state
  */
-const mapStateToProps = (state, ownProps) => {
-  // const mealId = ownProps.params.id;
-  return ({
-    menu: state.menuReducer,
-    isAuthenticated: state.authReducer.isAuthenticated,
-    userName: state.authReducer.userName,
-  });
-};
+const mapStateToProps = state => ({
+  menu: state.menuReducer,
+  isAuthenticated: state.authReducer.isAuthenticated,
+  userName: state.authReducer.userName,
+});
 
 const MenuPageWithCSS = CSSModules(MenuPage, styles);
 export default connect(mapStateToProps, mapDispatchToProps)(MenuPageWithCSS);

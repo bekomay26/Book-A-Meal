@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toastr } from 'react-redux-toastr';
 import * as types from './actionTypes';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import checkAuth from '../utils/checkAuth';
@@ -16,15 +17,19 @@ const loginFailure = payload => ({
  * @returns {object} action
  * @param {*} payload data
  */
-const loginSuccess = payload => ({
-  type: types.LOGIN_SUCCESS, payload,
-});
+const loginSuccess = (payload) => {
+  toastr.success('', `Welcome, ${payload.userName}`);
+  return {
+    type: types.LOGIN_SUCCESS, payload,
+  };
+};
 /**
  * @desc login async action creator
  * @returns {Promise} action
  * @param {*} details data
  */
-const login = details => (dispatch) => {
+const login = details => dispatch => (
+  // dispatch(beginAjaxCall());
   axios
     .post('/api/v1/auth/login', details)
     .then((res) => {
@@ -37,8 +42,8 @@ const login = details => (dispatch) => {
       // dispatch(ajaxCallError());
       dispatch(loginFailure(error.response.data));
       throw (error);
-    });
-};
+    })
+);
 
 /**
  * @desc signUpFaliure action creator
@@ -62,7 +67,8 @@ const signUpSuccess = payload => ({
  * @returns {Promise} action
  */
 const signUp = details => (dispatch) => {
-  axios
+  // dispatch(beginAjaxCall());
+  return axios
     .post('/api/v1/auth/signup', details)
     .then((res) => {
       setAuthorizationToken(res.data.token);

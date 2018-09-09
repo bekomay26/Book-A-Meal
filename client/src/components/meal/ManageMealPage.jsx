@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Tab } from 'semantic-ui-react';
-import { Drawer } from 'antd';
+import Swal from 'sweetalert2';
+import { Drawer, Pagination } from 'antd';
 import { loadMeal, saveMeal, deleteMeal, updateMeal } from '../../actions/mealActions';
 import { loadExtra } from '../../actions/extraActions';
 import '../../assets/styles/mm.css';
@@ -12,8 +13,9 @@ import AddMeal from './AddMeal';
 import AddExtra from './AddExtra';
 import AdminLayout from '../common/AdminLayout';
 import MealForm from './MealForm';
+// import Access from '../common/Access';
 
-class ManageMealPage extends Component {
+export class ManageMealPage extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
@@ -30,11 +32,12 @@ class ManageMealPage extends Component {
     this.mealGoesWith = this.mealGoesWith.bind(this);
     this.addExtrasOnEdit = this.addExtrasOnEdit.bind(this);
     this.onSelectMealDelBtn = this.onSelectMealDelBtn.bind(this);
-    this.onHandleExtraChange = this.onHandleExtraChange.bind(this);
-    this.onSaveExtra = this.onSaveExtra.bind(this);
+    // this.onHandleExtraChange = this.onHandleExtraChange.bind(this);
+    // this.onSaveExtra = this.onSaveExtra.bind(this);
     this.getBase64 = this.getBase64.bind(this);
     this.showDrawer = this.showDrawer.bind(this);
     this.onCloseDrawer = this.onCloseDrawer.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
     // this.clearExtrasFields = this.clearExtrasFields.bind(this);
     // this.getSelectValue = this.getSelectValue.bind(this);
     this.state = {
@@ -46,6 +49,10 @@ class ManageMealPage extends Component {
       selectValues: [],
       cardImgList: [],
       visible: false,
+      currentPage: 1,
+      totalPages: 0,
+      pageNumber: 0,
+      pageCount: 0,
       // value: [],
       // goes: [],
       // top: [],
@@ -53,8 +60,8 @@ class ManageMealPage extends Component {
   }
   componentDidMount() {
     this.props.loadMeal();
-    console.log(this.state.meals);
-    console.log(this.state.meal);
+    // console.log(this.props.extras);
+    // this.setState({ totalPages: this.props.pagination.totalPages });
   }
   // componentDidMount() {
   //   if (this.state.addBtnClicked !== false) {
@@ -73,10 +80,10 @@ class ManageMealPage extends Component {
     let { meal } = this.state;
     meal.extraIds = extraIds;
     this.setState({ meal });
-    // console.log(this.state.meal);
+    console.log(this.state.meal);
     this.props.saveMeal(this.state.meal);
   }
-  
+
   onUpdate(e) {
     e.preventDefault();
     let { updatedMeal } = this.state;
@@ -90,6 +97,7 @@ class ManageMealPage extends Component {
       ));
       updatedMeal.extraIds = extraIds;
     }
+    // this.setState({ updatedMeal, meal: updatedMeal });
     this.setState({ updatedMeal });
     console.log(this.state.updatedMeal);
     this.props.updateMeal(this.state.updatedMeal);
@@ -99,9 +107,8 @@ class ManageMealPage extends Component {
     const x = this.state.extrasList;
     const y = this.state.extrasTopList;
     const newExtraOptId = this.state.extraOptId + 1;
-
+    console.log(this.state.selectValues);
     const newSelectedList = this.state.selectValues;
-    // console.log(this.state.selectValues);
 
     if (type === 'goes') {
       newSelectedList.push({
@@ -115,6 +122,7 @@ class ManageMealPage extends Component {
         extrasList: x,
         extraOptId: newExtraOptId,
       });
+      console.log(newSelectedList);
     } else {
       newSelectedList.push({
         key: this.state.extraOptId.toString(),
@@ -127,8 +135,10 @@ class ManageMealPage extends Component {
         extrasTopList: y,
         extraOptId: newExtraOptId,
       });
+      console.log(newSelectedList);
     }
 
+    console.log(this.state.selectValues);
     // this.setState({
     //   addBtnClicked: true,
     // });
@@ -139,10 +149,13 @@ class ManageMealPage extends Component {
     // console.log(event.target.parentNode.getAttribute('data-key'));
     // console.log(this.state.extrasList[0]);
     // event.target.parentNode.removeNode;
+    console.log(this.state.selectValues);
     const keyValue = event.target.parentNode.getAttribute('data-key');
     const newSelectedList = this.state.selectValues.filter(ext => ext.key !== keyValue);
+    console.log(newSelectedList);
     if (type === 'goes') {
       const newExtrasList = this.state.extrasList.filter(ext => ext.key !== keyValue);
+      console.log(newExtrasList);
       this.setState({
         selectValues: newSelectedList,
         extrasList: newExtrasList,
@@ -154,7 +167,7 @@ class ManageMealPage extends Component {
         extrasTopList: newExtrasList,
       });
     }
-    // console.log(this.state.selectValues);
+    console.log(this.state.selectValues);
   }
 
   // in progress, disable option if already selected
@@ -168,10 +181,13 @@ class ManageMealPage extends Component {
 
   onTop() {
     const { extras } = this.props;
+    // console.log(this.props.extras);
+    // console.log(this.props.meals);
+    let newExt;
     if (extras !== undefined) {
-      return extras.filter(extra => extra.category === 'OnTop');
+      newExt = extras.filter(extra => extra.category === 'OnTop');
     }
-    return [];
+    return newExt;
   }
 
   onSelectMealEditBtn(currentMeal, goes, top) {
@@ -198,17 +214,50 @@ class ManageMealPage extends Component {
     });
   }
 
+  async onSelectMealDelBtn(meal) {
+    try {
+      console.log('kakakaka'); // comments for test
+      const willDelete = await Swal({
+        title: 'Are you sure?',
+        text: 'You will not be able to retrieve the meal',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, keep it',
+      });
+      console.log('lololol');
+      if (willDelete.value) {
+        console.log('my name is ');
+        console.log(meal);
+        this.setState({ meal });
+        // this.props.deleteMeal(this.state.meal.id);
+        this.props.deleteMeal(meal.id);
+        // this.setState({ meal });
+      } else if (willDelete.dismiss === Swal.DismissReason.cancel) {
+        console.log('gjlkghgshgkhgshgkngnf');
+        Swal(
+          'Cancelled',
+          'Your meal is safe :)',
+          'error',
+        );
+      }
+    } catch (error) {
+      console.log('blah blah bla ablah');
+      if (error) {
+        Swal('Oh noes!', 'The request failed!', 'error');
+      } else {
+        Swal.close();
+      }
+    }
+    // this.setState({ meal: {} });
+  }
+
   showDrawer() {
     this.setState({
       visible: true,
     });
   }
 
-  async onSelectMealDelBtn(meal) {
-    await this.setState({ meal });
-    this.props.deleteMeal(this.state.meal.id);
-    // this.setState({ meal: {} });
-  }
 
   getBase64(img, callback) {
     const reader = new FileReader();
@@ -217,7 +266,7 @@ class ManageMealPage extends Component {
   };
 
   handleCardChange(info) {
-    console.log("file list id change", info);
+    // console.log("file list id change", info);
     this.getBase64(info.file.originFileObj, imageUrl => this.setState({
       imageUrl,
     }));
@@ -226,8 +275,9 @@ class ManageMealPage extends Component {
     // Updatemealstate
     let { meal } = this.state;
     meal.filename = info.file.originFileObj;
-    return this.setState({ meal });
-    console.log(this.state.meal);
+    this.setState({ meal });
+    // return this.setState({ meal });
+    // console.log(this.state.meal);
   }
 
   clearExtrasFields() {
@@ -249,7 +299,7 @@ class ManageMealPage extends Component {
       });
     } else {
       extraOpts.forEach(ext => y.push(ext));
-      console.log(y);
+      // console.log(y);
       this.setState({
         extrasTopList: y,
         extraOptId: newExtraOptId,
@@ -284,58 +334,74 @@ class ManageMealPage extends Component {
       
       // console.log(meal[field]);
     }
-    return this.setState({ meal, updatedMeal });
+    this.setState({ meal, updatedMeal });
+    // return this.setState({ meal, updatedMeal });
+  }
+
+  /**
+   * loads limited meals into into the state
+   */
+  handlePageChange(pageNum) {
+    // console.log(this.props.pagination.totalPages);
+    const limit = 10;
+    const offset = (pageNum - 1) * limit;
+    // console.log(offset);
+    this.props.loadMeal(limit, offset);
+    this.setState({
+      currentPage: pageNum,
+    });
   }
 
   async handleSelectChange(event) {
-    const keyValue = event.target.parentNode.getAttribute('data-key');
+    const keyValue = event.target.parentNode.parentNode.getAttribute('data-key');
     const newSelectedList = this.state.selectValues.filter(sel => sel.key !== keyValue);
     const selIndex = event.target.selectedIndex;
-    const selId = parseInt(event.target.childNodes[selIndex].getAttribute('ext-id'), 10);
-    console.log(event.target.childNodes);
-    console.log(event.target.childNodes[selIndex]);
+    const selId = parseInt((event.target.childNodes[selIndex]).getAttribute('ext-id'), 10);
     newSelectedList.push({ key: keyValue, selectValue: event.target.value, id: selId });
+    console.log(newSelectedList);
     await this.setState({ selectValues: newSelectedList });
     // this.forceUpdate();
     // check asyncronou setstate then state
-    console.log(this.state.selectValues);
+    // console.log(this.state.selectValues);
   }
 
   goesWith() {
     const { extras } = this.props;
-    if (extras !== undefined) {
-      return extras.filter(extra => extra.category === 'GoesWith');
-    }
-    return [];
+    // if (extras !== undefined) {
+    return extras.filter(extra => extra.category === 'GoesWith');
+    // }
+    // return [];
   }
 
   mealGoesWith(mealExtras) {
-    if (mealExtras !== undefined) {
+    // console.log(mealExtras.length);
+    if (mealExtras.length > 0) {
       // console.log(mealExtras.filter(extra => extra.category === 'GoesWith'));
       return mealExtras.filter(extra => extra.category === 'GoesWith');
     }
     return [];
   }
   mealOnTop(mealExtras) {
-    if (mealExtras !== undefined)
+    if (mealExtras.length > 0)
       return mealExtras.filter(extra => extra.category === 'OnTop');
     else
       return []
   }
 
-  onHandleExtraChange() {
-    event.preventDefault();
-    // To Do
-  }
+  // onHandleExtraChange() {
+  //   event.preventDefault();
+  //   // To Do
+  // }
 
-  onSaveExtra() {
-    event.preventDefault();
-    // To Do
-  }
+  // onSaveExtra() {
+  //   event.preventDefault();
+  //   // To Do
+  // }
 
 
   render() {
-    const { meals } = this.props;
+    const meals = [...this.props.meals];
+    // const { meals } = this.props;
     const panes = [
       {
         menuItem: 'View Meals',
@@ -352,6 +418,8 @@ class ManageMealPage extends Component {
               selected={this.onSelectDeleteBtn}
               extrasList={this.state.extrasList}
             />
+            <Pagination className="paginate-btn" current={this.state.currentPage} onChange={this.handlePageChange} total={this.props.pagination.totalCount} />;
+            {/* <Pagination current={this.state.currentPage} onChange={this.onChangePage} total={this.state.totalPages} /> */}
           </Tab.Pane>
         ),
       },
@@ -411,8 +479,8 @@ class ManageMealPage extends Component {
             onChange={this.updateMealState}
             extrasList={this.state.extrasList}
             extrasTopList={this.state.extrasTopList}
-            goes={this.props.extras.filter(extra => extra.category === 'GoesWith')}
             top={this.onTop()}
+            goes={this.props.extras.filter(extra => extra.category === 'GoesWith')}
             selectChange={this.handleSelectChange}
             addExtra={this.onSelectAddBtn}
             selected={this.onSelectDeleteBtn}
@@ -427,7 +495,7 @@ class ManageMealPage extends Component {
       </div>
     );
     return (
-      <AdminLayout content={pageContent} />
+      <AdminLayout content={pageContent} page="Manage meals" />
     );
   }
 }
@@ -435,16 +503,16 @@ class ManageMealPage extends Component {
 
 ManageMealPage.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.object).isRequired,
-  extras: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // extras: PropTypes.arrayOf(PropTypes.object).isRequired,
   saveMeal: PropTypes.func.isRequired,
   deleteMeal: PropTypes.func.isRequired,
-  meal: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    extras: PropTypes.shape.isRequired,
-  }),
+  // meal: PropTypes.shape({
+  //   id: PropTypes.number.isRequired,
+  //   title: PropTypes.string.isRequired,
+  //   description: PropTypes.string.isRequired,
+  //   price: PropTypes.number.isRequired,
+  //   extras: PropTypes.shape.isRequired,
+  // }),
   // addBtnClicked: PropTypes.bool.isRequired,
 };
 
@@ -453,7 +521,9 @@ ManageMealPage.propTypes = {
  * @param {*} dispatch dispatch
  * @returns {*} action to be dispatched
  */
-const mapDispatchToProps = dispatch => bindActionCreators({ loadMeal, saveMeal, deleteMeal, updateMeal, loadExtra }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({
+  loadMeal, saveMeal, deleteMeal, updateMeal, loadExtra,
+}, dispatch);
 
 /**
  * @desc maps state to props;
@@ -461,8 +531,9 @@ const mapDispatchToProps = dispatch => bindActionCreators({ loadMeal, saveMeal, 
  * @returns {*} store state
  */
 const mapStateToProps = state => ({
-  meals: state.mealReducer,
-  extras: state.extraReducer,
+  meals: state.mealReducer.meals,
+  pagination: state.mealReducer.pagination,
+  extras: state.extraReducer.extras,
   // addBtnClicked: state.addBtnClicked,
 });
 
