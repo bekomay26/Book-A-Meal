@@ -37,7 +37,6 @@ export class AuthPage extends Component {
     event.preventDefault();
     const userDetails = { username: this.state.user.uname, password: this.state.user.pwd };
     this.props.login(userDetails);
-    // this.props.login(this.state.user);
   }
   onSave(event) {
     event.preventDefault();
@@ -51,13 +50,7 @@ export class AuthPage extends Component {
     }
     if (this.props.isAuthenticated) {
       return (
-        // <Redirect to="/menu" />
-        <Redirect
-          push
-          to={{
-            pathname: '/menu',
-          }}
-        />
+        <Redirect to="/menu" />
       );
     }
     const panes = [
@@ -102,7 +95,6 @@ AuthPage.defaultProps = {
 };
 
 AuthPage.propTypes = {
-  // users: PropTypes.arrayOf(PropTypes.object).isRequired,
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   isCaterer: PropTypes.bool,
@@ -124,6 +116,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({ login, signUp }, dis
 const mapStateToProps = state => ({
   isAuthenticated: state.authReducer.isAuthenticated,
   isCaterer: state.authReducer.isCaterer,
+  userId: state.authReducer.userId,
   users: state.users,
 });
 

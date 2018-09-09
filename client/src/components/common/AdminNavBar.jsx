@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Icon, Drawer } from 'antd';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Icon, Drawer } from 'antd';
+import { bindActionCreators } from 'redux';
+import { logout } from '../../actions/authActions';
 import '../../assets/styles/navbar.css';
 
 export class AdminNavBar extends Component {
@@ -21,7 +23,7 @@ export class AdminNavBar extends Component {
   handleSidebarHide() { this.setState({ visibleSideBar: false }); }
   render() {
     const { userName } = this.props;
-    const { logout } = this.props;
+    // const { logout } = this.props;
     const { isAuthenticated } = this.props;
     const { visibleSideBar } = this.state;
     let navlinkVisibility = 'show';
@@ -38,10 +40,10 @@ export class AdminNavBar extends Component {
             {/* <Icon type="menu-unfold" /> */}
           </button>
           <div className="col-6">
-            <Link to="/" className="navlogo col-5">BOOK-A-MEAL</Link>
+            <a href="#home" className="navlogo col-5">BOOK-A-MEAL</a>
           </div>
           <nav className="col-6 navgroup">
-            <NavLink className={`col-3 navlink out admin-nav ${signedinVisibility}`} activeClassName="active" to="/login" onClick={(e) => { e.preventDefault(); logout(); }}>logout</NavLink>
+            <NavLink className={`col-3 navlink out admin-nav ${signedinVisibility}`} activeClassName="active" to="/login" onClick={(e) => { e.preventDefault(); this.props.logout(); }}>logout</NavLink>
             <li className={`col-5 navlink admin-nav ${signedinVisibility}`}>{<span><Icon type="user" />{userName}</span>}</li>
           </nav>
         </div>
@@ -57,8 +59,9 @@ export class AdminNavBar extends Component {
           <NavLink className="col-3 show navlink" to="/meals" activeClassName="active">Meals</NavLink>
           <NavLink className="col-3 show navlink" to="/setmenu" activeClassName="active">Menu</NavLink>
           <NavLink className="col-3 show navlink" to="/adorders" activeClassName="active">Orders</NavLink>
-          <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/login" activeClassName="active">SignIn</NavLink>
-          <NavLink className={`col-3 navlink out ${signedinVisibility}`} activeClassName="active" to="/login" onClick={(e) => { e.preventDefault(); logout(); }}>logout</NavLink>
+          <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/auth" activeClassName="active">SignIn</NavLink>
+          {/* <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/signup" activeClassName="active">SignUp</NavLink> */}
+          <NavLink className={`col-3 navlink out ${signedinVisibility}`} activeClassName="active" to="/login" onClick={(e) => { e.preventDefault(); this.props.logout(); }}>logout</NavLink>
         </Drawer>
       </div>
     );
@@ -68,16 +71,20 @@ export class AdminNavBar extends Component {
 AdminNavBar.defaultProps = {
   userName: undefined,
   isAuthenticated: false,
-  isCaterer: false,
 };
 
 AdminNavBar.propTypes = {
   userName: PropTypes.string,
   isAuthenticated: PropTypes.bool,
-  isCaterer: PropTypes.bool,
   logout: PropTypes.func.isRequired,
 };
 
+/**
+ * @desc maps dispatch to props;
+ * @param {*} dispatch dispatch
+ * @returns {*} action to be dispatched
+ */
+const mapDispatchToProps = dispatch => bindActionCreators({ logout }, dispatch);
 
 /**
  * @desc maps state to props;
@@ -90,4 +97,4 @@ const mapStateToProps = state => ({
   userName: state.authReducer.userName,
 });
 
-export default connect(mapStateToProps)(AdminNavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminNavBar);

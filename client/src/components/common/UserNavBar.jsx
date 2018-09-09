@@ -1,11 +1,32 @@
+// import React from 'react';
+// import { Link, NavLink } from 'react-router-dom';
+
+// const NavBar = () => (
+//   <div>
+//     <div className="back-image" />
+//     <div className="top row">
+//       <Link to="/h" className="col-8 logo"><h2>Book-A-Meal</h2></Link>
+//       <nav className="menu col-4">
+//         <li className="col-3"><NavLink to="/menu" activeClassName="active">Menu</NavLink></li>
+//         <li className="col-3"><NavLink to="/cart" activeClassName="active">Order</NavLink></li>
+//         <li className="col-3"><NavLink to="/login" activeClassName="active">SignIn</NavLink></li>
+//         <li className="col-3"><NavLink to="/signup" activeClassName="active">Signup</NavLink></li>
+//       </nav>
+//     </div>
+//   </div>
+// );
+// export default NavBar;
+
+
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Drawer } from 'antd';
 import '../../assets/styles/navbar.css';
+import { Icon, Drawer } from 'antd';
+import { Sidebar, Segment, Menu, Header, Image } from 'semantic-ui-react';
 
-class UserNavBar extends Component {
+export class UserNavBar extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -35,15 +56,17 @@ class UserNavBar extends Component {
         <div className="topnav row user-top" id="myTopnav">
           <button className="icon" onClick={this.openSideNav}>
             <i className="fa fa-bars" />
+            {/* <Icon type="menu-unfold" /> */}
           </button>
           <div className="col-6">
-            <Link to="/" className="navlogo col-5">Book-A-Meal</Link>
+            <a href="#home" className="navlogo col-5">BOOK-A-MEAL</a>
           </div>
           <nav className="col-6 navgroup">
             <li className={`col-3 navlink ${signedinVisibility}`}>{userName}</li>
             <NavLink className="col-3 show navlink" to="/menu" activeClassName="active">Menu</NavLink>
             <NavLink className="col-3 show navlink" to="/orders" activeClassName="active">Order</NavLink>
-            <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/login" activeClassName="active">Login</NavLink>
+            <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/auth" activeClassName="active">SignIn</NavLink>
+            {/* <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/signup" activeClassName="active">SignUp</NavLink> */}
             <NavLink className={`col-3 navlink out ${signedinVisibility}`} activeClassName="active" to="/login" onClick={(e) => { e.preventDefault(); logout(); }}>logout</NavLink>
           </nav>
         </div>
@@ -67,13 +90,11 @@ class UserNavBar extends Component {
 UserNavBar.defaultProps = {
   userName: undefined,
   isAuthenticated: false,
-  isCaterer: false,
 };
 
 UserNavBar.propTypes = {
   userName: PropTypes.string,
   isAuthenticated: PropTypes.bool,
-  isCaterer: PropTypes.bool,
   logout: PropTypes.func.isRequired,
 };
 

@@ -24,7 +24,3 @@
     text-decoration: none;
     color: white;
 }
-
-.sidelayout ul li.ant-menu-item, .sidelayout ul li.ant-menu-submenu {
-    padding: 0;
-}

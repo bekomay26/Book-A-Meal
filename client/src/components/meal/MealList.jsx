@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
 import '../../assets/styles/mm.css';
 import MealRow from './MealRow';
 
 
-const MealList = ({ meals, selectMealEditBtn, selectMealDelBtn, mealGoesWith, mealOnTop, addExtra, extraOptId, selected }) => (
+const MealList = ({
+  meals, selectMealEditBtn, selectMealDelBtn, mealGoesWith,
+  mealOnTop, addExtra, extraOptId, selected,
+}) => (
   <div style={{ overflowX: 'auto' }}>
     <table>
       <thead>
@@ -30,7 +32,6 @@ const MealList = ({ meals, selectMealEditBtn, selectMealDelBtn, mealGoesWith, me
             extraOptId={extraOptId}
             selected={selected}
             selectMealDelBtn={selectMealDelBtn}
-            // clearExtrasFields={clearExtrasFields}
           />))
         }
       </tbody>
@@ -39,11 +40,7 @@ const MealList = ({ meals, selectMealEditBtn, selectMealDelBtn, mealGoesWith, me
 );
 
 MealList.propTypes = {
-  meals: PropTypes.arrayOf(PropTypes.shape).isRequired,
   selectMealEditBtn: PropTypes.func.isRequired,
-  // clearExtrasFields: PropTypes.func.isRequired,
 };
 
-// const MealListWithCSS = CSSModules(MealList, styles, { allowMultiple: true });
-// export default (MealListWithCSS);
 export default MealList;

@@ -3,7 +3,6 @@
     width: 30%;
     text-align: left;
     padding-left: 1em;
-    /* margin: 1rem 5rem; */
     color: black;
 }
 
@@ -11,7 +10,6 @@
     display: inline-block;
     width: 20%;
     text-align: right;
-    /* margin: 1rem 5rem 1rem 0; */
     color: black;
 }
 
@@ -21,7 +19,6 @@
     text-align: left;
     color: black;
     margin-left: 2.5em;
-    /* margin: 1rem 5rem 1rem 0; */
 }
 
 .admin-orders-list .accordion.ui.styled{
@@ -30,12 +27,40 @@
     padding: 0 0.5em;
 }
 
+.admin-orders-list .accordion.ui.styled .admin-order-accord-head{
+    background-color: #380D02;
+}
+
+.admin-orders-list .accordion.ui.styled .admin-order-accord-head .admin-order-title,
+.admin-orders-list .accordion.ui.styled .admin-order-accord-head .admin-order-tprice,
+.admin-orders-list .accordion.ui.styled .admin-order-accord-head .admin-order-status
+{
+    color: white;
+}
+
 .ui.styled.accordion .title {
     padding: 1.5em 1em;
 }
 
 .ant-drawer-right.ant-drawer-open .ant-drawer-content-wrapper {
     max-width: 100%;
+}
+
+.admin-order-exp-info {
+    margin-left: 10%;
+}
+
+.admin-order-extras p {
+    display: inline;
+}
+
+.admin-order-extras p span {
+    font-weight: 800;
+}
+
+.admin-order-base, .admin-order-extras, .admin-order-compl-btn,
+.admin-order-date-ord, .admin-order-date-compl {
+    padding-bottom: 10px;
 }
 
 @media screen and (min-width: 533px) {
@@ -57,7 +82,6 @@
     }
 
     .admin-orders-list {
-        overflow-y: auto;
         height: 80vh;
     }
 

@@ -8,7 +8,7 @@ import extraReducer from './extraReducer';
 import * as types from '../actions/actionTypes';
 
 const rootReducer = combineReducers({
-  menuReducer, authReducer, toastr: toastrReducer, mealReducer, extraReducer, orderReducer,
+  menuReducer, orderReducer, authReducer, mealReducer, extraReducer, toastr: toastrReducer,
 });
 
 const rootReducers = (state, action) => {

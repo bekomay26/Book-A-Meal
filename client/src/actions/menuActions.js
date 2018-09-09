@@ -14,7 +14,7 @@ const createMenuSuccess = menu => (
  * @returns {promise} action
  * @param {*} payload data
  */
-const loadMenu = () => (dispatch) => {
+const loadMenu = () => dispatch => (
   axios
     .get('api/v1/menu')
     .then((menu) => {
@@ -23,21 +23,20 @@ const loadMenu = () => (dispatch) => {
     .catch((err) => {
       // toastr.error(err.response.data.message);
       throw (err);
-    });
-};
+    })
+);
 
-const saveDayMenu = mealIds => (dispatch) => {
+const saveDayMenu = mealIds => dispatch => (
   axios
     .post('api/v1/menu', mealIds)
     .then((savedMenu) => {
-      // meal.id ? dispatch(updateMealSuccess(savedMeal)) : dispatch(createMealSuccess(savedMeal));
       dispatch(createMenuSuccess(savedMenu.data));
     })
     .catch((err) => {
       toastr.error(err.response.data.message);
       throw (err);
-    });
-};
+    })
+);
 
 export { loadMenuSuccess, loadMenu, createMenuSuccess, saveDayMenu };
 

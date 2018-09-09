@@ -1,57 +1,56 @@
 import axios from 'axios';
+import { toastr } from 'react-redux-toastr';
 import * as types from './actionTypes';
 
-const loadMealSuccess = meals => (
-  { type: types.LOAD_MEAL_SUCCESS, meals }
-);
+const loadMealSuccess = data => ({
+  type: types.LOAD_MEAL_SUCCESS,
+  meals: data.meals,
+  pagination: data.pagination,
+});
 
-const createMealSuccess = meal => (
-  { type: types.CREATE_MEAL_SUCCESS, meal }
-);
+const createMealSuccess = (meal) => {
+  toastr.success('', `${meal.title} Created`);
+  return { type: types.CREATE_MEAL_SUCCESS, meal };
+};
 
-const updateMealSuccess = meal => (
-  { type: types.UPDATE_MEAL_SUCCESS, meal }
-);
+const updateMealSuccess = (meal) => {
+  toastr.success('', `${meal.title} Updated`);
+  return { type: types.UPDATE_MEAL_SUCCESS, meal };
+};
 
-const deleteMealSuccess = mealId => (
-  { type: types.DELETE_MEAL_SUCCESS, mealId }
-);
-
-const loadOneMealSuccess = meal => (
-  { type: types.LOAD_ONE_MEAL_SUCCESS, meal }
-);
+const deleteMealSuccess = (mealId) => {
+  toastr.success('Meal deleted');
+  return { type: types.DELETE_MEAL_SUCCESS, mealId };
+};
 
 /**
  * @desc async getdocument action creator
  * @returns {promise} action
  * @param {*} payload data
  */
-const loadMeal = () => (dispatch) => {
+const loadMeal = (limit = 10, offset = 0) => dispatch => (
   axios
-    .get('api/v1/meals')
+    .get(`api/v1/meals?limit=${limit}&offset=${offset}`)
     .then((meals) => {
       dispatch(loadMealSuccess(meals.data));
     })
     .catch((err) => {
       throw (err);
-    });
-};
+    })
+);
 
 const saveMeal = meal => (dispatch) => {
-  // console.log(meal.title);
   const formData = new FormData();
   formData.set('title', meal.title);
   formData.set('price', meal.price);
+  formData.set('description', meal.description);
   meal.extraIds.forEach((element) => {
     formData.append('extraIds', element);
   });
-  // formData.append('extraIds', meal.extraIds);
   formData.append('image', meal.filename);
-  // const config = { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } };
   return axios
     .post('api/v1/meals', formData)
     .then((savedMeal) => {
-      // meal.id ? dispatch(updateMealSuccess(savedMeal)) : dispatch(createMealSuccess(savedMeal));
       dispatch(createMealSuccess(savedMeal.data));
     })
     .catch((err) => {
@@ -74,19 +73,6 @@ const updateMeal = meal => (dispatch) => {
       }
     }
   }
-  console.log(formData.getAll('extraIds'));
-  // fields.forEach((field) => {
-  //   if (field !== 'id') {
-  //     if (field === 'extraIds') {
-  //       meal.extraIds.forEach((element) => {
-  //         formData.append('extraIds', element);
-  //       });
-  //     } else {
-  //       console.log(field);
-  //       formData.set(field, meal[field]);
-  //     }
-  //   }
-  // });
   return axios
     .put(`api/v1/meals/${meal.id}`, formData)
     .then((updatedMeal) => {
@@ -97,7 +83,7 @@ const updateMeal = meal => (dispatch) => {
     });
 };
 
-const deleteMeal = mealId => (dispatch) => {
+const deleteMeal = mealId => dispatch => (
   axios
     .delete(`api/v1/meals/${mealId}`)
     .then(() => {
@@ -105,24 +91,8 @@ const deleteMeal = mealId => (dispatch) => {
     })
     .catch((err) => {
       throw (err);
-    });
-};
-
-/**
- * @desc async getdocument action creator
- * @returns {promise} action
- * @param {*} payload data
- */
-const loadOneMeal = mealId => (dispatch) => {
-  axios
-    .get(`api/v1/meals/${mealId}`)
-    .then((meal) => {
-      dispatch(loadOneMealSuccess(meal.data));
     })
-    .catch((err) => {
-      throw (err);
-    });
-};
+);
 
 export {
   loadMealSuccess,
@@ -132,6 +102,5 @@ export {
   saveMeal,
   deleteMeal,
   updateMeal,
-  loadOneMeal,
 };
 

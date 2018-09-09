@@ -17,6 +17,7 @@ const MealRow = ({ meal, selectMealEditBtn, selectMealDelBtn, mealGoesWith, meal
     );
   };
   // console.log(goes);
+  // should send only the values to be rendered not the whole div
   const goesExt = goes.map(ext =>
     xtraItem(ext.title, 'goes'));
   const topExt = onTop.map(ext =>
@@ -31,8 +32,7 @@ const MealRow = ({ meal, selectMealEditBtn, selectMealDelBtn, mealGoesWith, meal
       <td>&#x20A6;{meal.price}</td>
       <td onClick={() => selectMealEditBtn(meal,goesExt,topExt)} className="edit"><i className="far fa-edit" /></td>
       <td onClick={() => selectMealDelBtn(meal)} ><i className="far fa-trash-alt remove"></i></td>
-    </tr>
-  );
+    </tr>)
 };
 
 MealRow.propTypes = {

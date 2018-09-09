@@ -1,7 +1,18 @@
 export default{
-  meals: [],
+  meals: {
+    meals: [],
+    errors: {},
+    pagination: {},
+  },
   ameal: {},
   menu: [],
-  orders: [],
-  extras: [],
+  orders: {
+    orders: [],
+    errors: {},
+    pagination: {},
+  },
+  extras: {
+    extras: [],
+  },
+  // pagination: {},
 };

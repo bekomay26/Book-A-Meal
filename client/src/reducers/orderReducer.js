@@ -5,7 +5,11 @@ import initialState from './initialState';
 const orderReducer = (state = initialState.orders, action) => {
   switch (action.type) {
     case types.LOAD_ORDERS_SUCCESS:
-      return action.orders.orders;
+      return {
+        ...state,
+        orders: action.orders,
+        pagination: action.pagination,
+      };
     case types.CREATE_ORDER_SUCCESS:
       return [...state, Object.assign({}, action.order.newOrder)];
     case types.UPDATE_ORDER_SUCCESS:
