@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 import { Drawer } from 'antd';
-import { loadOrders, updateOrder } from '../../actions/orderActions';
+import { loadOrders, updateOrder, deleteOrder } from '../../actions/orderActions';
 import { loadMeal } from '../../actions/mealActions';
+import { logout } from '../../actions/authActions';
 import UserNavBar from '../common/UserNavBar';
 import '../../assets/styles/myorders.css';
 import CustomerOrdersList from './CustomerOrdersList';
 import OrderForm from './OrderForm';
 
-class CustomerOrdersPage extends Component {
+export class CustomerOrdersPage extends Component {
   constructor(props, context) {
     super(props, context);
     // this.props.loadMeal();
@@ -40,35 +42,41 @@ class CustomerOrdersPage extends Component {
     this.onCloseDrawer = this.onCloseDrawer.bind(this);
     this.extraOrdered = this.extraOrdered.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.cancelOrder = this.cancelOrder.bind(this);
   }
 
   componentDidMount() {
     this.props.loadMeal();
-    this.props.loadOrders();
+    this.props.loadOrders(40, 0);
     this.updatePredicate();
     window.addEventListener('resize', this.updatePredicate);
     // setTimeout(() => {
     //   this.props.loadMeal();
     // }, 5000);
-    console.log(this.state.meals);
-    console.log(this.props.meal);
+    // console.log(this.state.meals);
+    // console.log(this.props.meal);
   }
 
-  onCloseDrawer() {
+  async onCloseDrawer() {
     if (!this.state.saving) {
       const x = document.getElementsByClassName('checkbox');
       const y = document.getElementsByClassName('menu-modalextra-qty');
-      console.log(y);
+      // console.log(y);
       for (let i = 0; i < x.length; i += 1) {
         setTimeout(() => {
         // console.log(x[i].querySelector("input[type='checkbox']").checked);
           if (x[i].querySelector("input[type='checkbox']").checked) {
           // console.log(x[i].querySelector("input[type='checkbox']").checked);
-            console.log(y[i].value);
+            // console.log(y[i].value);
             y[i].value = 1;
             x[i].querySelector("input[type='checkbox']").parentElement.click();
           }
         }, 1000);
+        // console.log(x[i].querySelector("input[type='checkbox']").checked);
+        // if (await x[i].querySelector("input[type='checkbox']").checked) {
+        //   y[i].value = 1;
+        //   await x[i].querySelector("input[type='checkbox']").parentElement.click();
+        // }
       }
       this.setState({
         visible: false,
@@ -81,7 +89,10 @@ class CustomerOrdersPage extends Component {
   }
 
   myOrder (currentOrder) {
+    // console.log(this.props.meal);
+    // console.log(currentOrder);
     const currMeal = this.props.meal.find( meal => meal.id === currentOrder.mealId);
+    // console.log(currMeal);
     this.setState({ meal: currMeal });
     this.showDrawer();
     this.setState({ orderMeal: currentOrder.Meal, basePrice: currentOrder.Meal.price, totalPrice: currentOrder.Meal.price, order: currentOrder});
@@ -90,21 +101,24 @@ class CustomerOrdersPage extends Component {
       newExtraStatus.push({ isChecked: false, qty: 1, extra: ext, key: ext.id } );
       const ordered = currentOrder.extras.find( (extr) => extr.OrderExtra.extraId === ext.id);
       // const ordered = currentOrder.extras.find( (extr) => extr.title === ext.title);
-      if(ordered) {
+      if (ordered) {
         var x = document.getElementsByClassName(`extra-${ordered.OrderExtra.extraId}`);
         setTimeout(() => {
           const cb =(x[0].getElementsByClassName("checkbox")[0].querySelector("input[type='checkbox']"));
           cb.parentElement.click();
           x[0].getElementsByClassName('menu-modalextra-qty-grid')[0].firstChild.value = ordered.OrderExtra.quantity;
-          const event = new Event('input', { bubbles: true })
-          x[0].getElementsByClassName('menu-modalextra-qty-grid')[0].firstChild.dispatchEvent(event)
-          console.log(x[0].getElementsByClassName('menu-modalextra-qty-grid')[0].firstChild);
+          const event = new Event('input', { bubbles: true });
+          x[0].getElementsByClassName('menu-modalextra-qty-grid')[0].firstChild.dispatchEvent(event);
+          // console.log(x[0].getElementsByClassName('menu-modalextra-qty-grid')[0].firstChild);
         }, 1000);
       }
     });
     this.setState({ extraStatus: newExtraStatus });
   }
 
+  cancelOrder(orderId) {
+    this.props.deleteOrder(orderId);
+  }
   // async onSave(e) {
   //   e.preventDefault();
   //   const extrasInfo = this.state.extraStatus.filter(extra => extra.isChecked === true);
@@ -141,7 +155,7 @@ class CustomerOrdersPage extends Component {
     });
     // console.log(this.state.saving);
     this.onCloseDrawer();
-    this.redirect();
+    // this.redirect();
   }
 
   goesWith(mealExtras) {
@@ -192,7 +206,8 @@ class CustomerOrdersPage extends Component {
       selectedExt.push(extra);
       totalMealPrice += (extra.price * extraQuantity); // If checked, add extra price
     } else {
-      selectedExt.splice(extStatPosition, 1);
+      const selectedExtPosition = selectedExt.findIndex(extraStat => extraStat.key === key);
+      selectedExt.splice(selectedExtPosition, 1);
       totalMealPrice -= (extra.price * extraQuantity); // If unchecked, sub extra price
     }
     // checked[key].isChecked = !checked[key].isChecked;
@@ -207,22 +222,33 @@ class CustomerOrdersPage extends Component {
   }
 
   extraOrdered(extra) {
-    order.extras.includes(extra);
+    // order.extras.includes(extra);
   }
 
   render() {
-    const { orders, meal } = this.props;
+    const { orders, userName } = this.props;
     const { isDesktop } = this.state;
+    const { isAuthenticated } = this.props;
+    if (!isAuthenticated) {
+      return (
+        // <Redirect push to="/login" />
+        <Redirect to={{
+          pathname: '/login',
+          state: { from: 'orders' },
+        }}
+        />
+      );
+    }
     return (
       <div>
-        <UserNavBar />
+        <UserNavBar logout={this.props.logout} isAuthenticated={isAuthenticated} userName={userName} visibleSideBar />
         <div className="cust-ord-header">
           {isDesktop ? (
             <h2>My Orders</h2>) : null
           }
           
         </div>
-        <CustomerOrdersList orders={orders} selected={this.myOrder} />
+        <CustomerOrdersList orders={orders} selected={this.myOrder} cancelOrder={this.cancelOrder} />
         <Drawer
           title="My Order"
           width={400}
@@ -257,9 +283,18 @@ class CustomerOrdersPage extends Component {
   }
 }
 
+CustomerOrdersPage.defaultProps = {
+  userName: undefined,
+  isAuthenticated: false,
+};
+
 CustomerOrdersPage.propTypes = {
   orders: PropTypes.arrayOf(PropTypes.object).isRequired,
   loadOrders: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+  userName: PropTypes.string,
+  deleteOrder: PropTypes.func.isRequired,
 };
 
 /**
@@ -267,16 +302,21 @@ CustomerOrdersPage.propTypes = {
  * @param {*} dispatch dispatch
  * @returns {*} action to be dispatched
  */
-const mapDispatchToProps = dispatch => bindActionCreators({ loadOrders, updateOrder, loadMeal }, dispatch);
+export const mapDispatchToProps = dispatch => bindActionCreators({
+  loadOrders, updateOrder, loadMeal, logout, deleteOrder,
+}, dispatch);
 
 /**
  * @desc maps state to props;
  * @param {*} state store state
  * @returns {*} store state
  */
-const mapStateToProps = state => ({
-  orders: state.orderReducer,
-  meal: state.mealReducer,
+export const mapStateToProps = state => ({
+  orders: state.orderReducer.orders,
+  pagination: state.orderReducer.pagination,
+  meal: state.mealReducer.meals,
+  isAuthenticated: state.authReducer.isAuthenticated,
+  userName: state.authReducer.userName,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerOrdersPage);

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input, Label, Grid, Select } from 'semantic-ui-react';
+import { Form, Input, Label, Select } from 'semantic-ui-react';
 
 
 const AddExtra = ({ onSave, onHandleChange }) => {
   return (
 
-    <div id="addContainer" className="add-meal-container">
+    <div id="addExtraContainer" className="add-meal-container">
       <Form className="add-meal-form" onSubmit={onSave}>
         <Form.Group>
           <Form.Field control={Input} label="Extra Title" placeholder="Title" width={10} />
@@ -27,7 +27,8 @@ const AddExtra = ({ onSave, onHandleChange }) => {
 };
 
 AddExtra.propTypes = {
-
+  onSave: PropTypes.func.isRequired,
+  onHandleChange: PropTypes.func.isRequired,
 };
 
 export default AddExtra;

@@ -1,30 +1,15 @@
-// import React from 'react';
-// import { Link, NavLink } from 'react-router-dom';
-
-// const NavBar = () => (
-//   <div>
-//     <div className="back-image" />
-//     <div className="top row">
-//       <Link to="/h" className="col-8 logo"><h2>Book-A-Meal</h2></Link>
-//       <nav className="menu col-4">
-//         <li className="col-3"><NavLink to="/menu" activeClassName="active">Menu</NavLink></li>
-//         <li className="col-3"><NavLink to="/cart" activeClassName="active">Order</NavLink></li>
-//         <li className="col-3"><NavLink to="/login" activeClassName="active">SignIn</NavLink></li>
-//         <li className="col-3"><NavLink to="/signup" activeClassName="active">Signup</NavLink></li>
-//       </nav>
-//     </div>
-//   </div>
-// );
-// export default NavBar;
-
-
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { logout } from '../../actions/authActions';
 
 class NavBar extends Component {
-
+  constructor(props, context) {
+    super(props, context);
+    this.state = {};
+  }
   render() {
     let navlinkVisibility = 'show';
     let signedinVisibility = 'hide';
@@ -32,33 +17,41 @@ class NavBar extends Component {
       navlinkVisibility = 'hide';
       signedinVisibility = 'show';
     }
-    return (<div>
-    <div className="back-image" />
-    <div className="top row">
-      <Link to="/h" className="col-8 logo"><h2>Book-A-Meal</h2></Link>
-      <nav className="menu col-4">
-        <li className={`col-3 ${signedinVisibility}`}><NavLink to="/signup" activeClassName="active">{this.props.userId}</NavLink></li>
-        <li className="col-3"><NavLink to="/menu" activeClassName="active">Menu</NavLink></li>
-        <li className="col-3"><NavLink to="/myorders" activeClassName="active">Order</NavLink></li>
-        <li className={`col-3 ${navlinkVisibility}`}><NavLink to="/login" activeClassName="active">SignIn</NavLink></li>
-        <li className={`col-3 ${navlinkVisibility}`}><NavLink to="/signup" activeClassName="active">Signup</NavLink></li>
-        <li className={`col-3 ${signedinVisibility}`}><NavLink to="/signup">Logout</NavLink></li>
-      </nav>
-    </div>
-  </div>)
+    return (
+      <div>
+        <div className="back-image" />
+        <div className="top row home-nav">
+          <Link href="/" to="/" className="col-8 logo"><h2>Book-A-Meal</h2></Link>
+          <nav className="menu col-4">
+            <li className={`col-3 ${signedinVisibility}`}>{this.props.userName}</li>
+            <li className="col-3"><NavLink to="/menu" activeClassName="active">Menu</NavLink></li>
+            <li className="col-3"><NavLink to="/orders" activeClassName="active">Order</NavLink></li>
+            <li className={`col-3 ${navlinkVisibility}`}><NavLink to="/login" activeClassName="active">Login</NavLink></li>
+            <li className={`col-3 ${signedinVisibility}`}><NavLink to="/login" onClick={(e) => { e.preventDefault(); this.props.logout(); }}>Logout</NavLink></li>
+          </nav>
+        </div>
+      </div>);
   }
-};
+}
 
 NavBar.defaultProps = {
-  userId: undefined,
+  userName: undefined,
   isAuthenticated: false,
 };
 
 NavBar.propTypes = {
-  userId: PropTypes.number,
-  isAuthenticated: PropTypes.bool.isRequired,
+  userName: PropTypes.string,
+  isAuthenticated: PropTypes.bool,
+  logout: PropTypes.func.isRequired,
 };
 
+
+/**
+ * @desc maps dispatch to props;
+ * @param {*} dispatch dispatch
+ * @returns {*} action to be dispatched
+ */
+const mapDispatchToProps = dispatch => bindActionCreators({ logout }, dispatch);
 
 /**
  * @desc maps state to props;
@@ -68,7 +61,7 @@ NavBar.propTypes = {
 const mapStateToProps = state => ({
   isAuthenticated: state.authReducer.isAuthenticated,
   isCaterer: state.authReducer.isCaterer,
-  userId: state.authReducer.userId,
+  userName: state.authReducer.userName,
 });
 
-export default connect(mapStateToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

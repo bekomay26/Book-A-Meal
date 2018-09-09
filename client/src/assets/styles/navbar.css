@@ -32,7 +32,37 @@ body {
 .col-25{width:20%;}
 .col-48{width:48%;}
 
+/* Home Nav */
 
+.top{
+    background-color: transparent;
+    opacity: 0.7;
+    width: 100%;
+    z-index: 10;
+    align-items: center;
+    color: white;
+    padding: 35px 70px 20px;
+    display: flex;
+    justify-content: space-around; 
+}
+.top::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.top a.logo {
+    margin-top: 10px;
+}
+
+.top a.logo h2 {
+    text-shadow: 2px 5px 5px black;
+    color: white;
+}
+
+.home-nav a {
+    text-shadow: 2px 1px 2px black;
+}
 /* NAV BAR */
 .logo{
     float: left;
@@ -180,6 +210,25 @@ ul, nav{
 }
 
 @media screen and (max-width: 600px) {
+    .top.home-nav a.logo {
+        display: block;
+        margin-top: 10px;
+        font-size: 3vw;
+        width: 35%
+    }
+
+    .top.home-nav .menu {
+        width: 60%;
+    }
+
+    .top.home-nav .menu li.col-3 {
+        margin: 0 5px;
+    }
+
+    .top.home-nav .menu li.col-3 a {
+        margin-top: unset;
+    }
+    
     .topnav navlogo {
         display: none;
     }
@@ -278,4 +327,8 @@ ul, nav{
        font-size: 1.8vw;
     }
 
+    .top h2{
+        margin: 0;
+        text-align: left;
+    }
 }

@@ -39,7 +39,6 @@ body{
 }
 a{
     text-decoration: none;
-    /* font-size: 5.0vh; */
 }
 
 ul, nav{
@@ -56,26 +55,8 @@ ul.grid{
     font-family: 'Nunito', sans-serif;
 }
 
-.top{
-    background-color: #ffa200;
-    opacity: 0.7;
-    width: 100%;
-    z-index: 10;
-    align-items: center;
-    color: white;
-    padding: 35px 70px 20px;
-    display: flex;
-    justify-content: space-around; 
-}
-.top::after{
-    content: '';
-    display: block;
-    clear: both;
-}
-
 header nav{
     display: flex;
-    /* margin-bottom: 50px; */
 }
 
 header nav li{
@@ -103,7 +84,7 @@ BIG PICTURE
 }
 
 .bigpic .back-image{
-    background-image: url('../images/7.jpg');
+    background-image: url('https://res.cloudinary.com/dffiyhgto/image/upload/v1536473500/back2.jpg');
     background-size: cover;
     background-color: #1A77C1;
     position: absolute;
@@ -131,43 +112,28 @@ BIG PICTURE
     text-shadow: 3px 3px black;
     padding-top: 50px;
     margin-top: 100px;
-    /* margin-bottom: 15px; */
-    
+    color: wheat;
 }
 
 .bigpic h3{
     font: normal 28px 'Arial', sans-serif;
-    /* margin-bottom: 40px; */
     color: aliceblue;
 }
 
-
-/* .menu .icon {
-    display: none;
-} */
 @media screen and (max-width: 600px) {
-    /* .menu a{display: none;} */
     .logo{
         display: none;
     }
-    /* .menu {
-        width: 100%;
-    } */
+
     .row{
         padding: 20px 0;
     }
-    /* .menu li a {
-        font-size: 2.0vh;
-        float: none;
-        display: block;
-        text-align: left;
-        margin: 0 5px;
-    } */
+
     .bigpic h1{
         font-size: 8.0vh;
     }
     .bigpic h3{
-        font-size: 4.0vh;
+        font-size: 2.0vh;
     }
     .active {
         border-bottom: 1px solid white;

@@ -1,10 +1,15 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 
+// const menuReducer = (state = { menu: [] }, action) => {
 const mealReducer = (state = initialState.meals, action) => {
   switch (action.type) {
     case types.LOAD_MEAL_SUCCESS:
-      return action.meals.meals;
+      return {
+        ...state,
+        meals: action.meals,
+        pagination: action.pagination,
+      };
     case types.CREATE_MEAL_SUCCESS:
       return [...state, Object.assign({}, action.meal.meal)];
     case types.UPDATE_MEAL_SUCCESS:

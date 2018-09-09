@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
 import '../../assets/styles/mm.css';
 
-const MealRow = ({ meal, selectMealEditBtn, selectMealDelBtn, mealGoesWith, mealOnTop, addExtra, extraOptId, selected }) => {
+const MealRow = ({
+  meal, selectMealEditBtn, selectMealDelBtn, mealGoesWith,
+  mealOnTop, addExtra, extraOptId, selected,
+}) => {
   const goes = mealGoesWith(meal.extras);
   const onTop = mealOnTop(meal.extras);
   let extraOptIdn = 0;
@@ -11,17 +13,17 @@ const MealRow = ({ meal, selectMealEditBtn, selectMealDelBtn, mealGoesWith, meal
     extraOptIdn += 1;
     return (
       <div key={extraOptIdn - 1} data-key={extraOptIdn - 1}>
-        <div>{extraTitle}</div>
-        <div className="col-2" onClick={(event) => selected(event, type)} role='button'>bb</div>
+        <div className="col-10">{extraTitle}</div>
+        <div className="col-2"><i onClick={(event) => selected(event, type)} className="fas fa-minus extra-minus" role='button' /></div>
       </div>
     );
   };
-  // console.log(goes);
+
+  // should send only the values to be rendered not the whole div
   const goesExt = goes.map(ext =>
     xtraItem(ext.title, 'goes'));
   const topExt = onTop.map(ext =>
     xtraItem(ext.title, 'OnTop'));
-  // addExtra(y, 'goes');
 
   return (
     <tr>
@@ -45,6 +47,4 @@ MealRow.propTypes = {
   selectMealEditBtn: PropTypes.func.isRequired,
 };
 
-// const MealRowWithCSS = CSSModules(MealRow, styles, { allowMultiple: true });
-// export default (MealRowWithCSS);
 export default MealRow;
