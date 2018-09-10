@@ -6,8 +6,8 @@
 .custom-checkbox input[type=checkbox] + label {
   display: inline-block;
   position: relative;
-  border-radius: 40px;
-  padding: 25px 40px;
+  border-radius: 10px;
+  padding: 20px 40px;
   width: 8em;
   background: #eeeeee;
   font-family: Arial, Helvetica, sans-serif;
@@ -28,7 +28,7 @@
 .custom-checkbox .label-name {
   position: absolute;
   left: 34px;
-  top: 16px;
+  top: 10px;
   -webkit-transition-property: left;
   -webkit-transition-duration: 1s;
 }
@@ -36,7 +36,7 @@
 .custom-checkbox input[type=checkbox]:checked +label span.label-name {
   position: absolute;
   left: 16px;
-  top: 16px;
+  top: 8px;
 }
 
 .custom-checkbox input[type=checkbox]:checked + label div.checkmark {

@@ -5,8 +5,8 @@ import '../../assets/styles/mm.css';
 import MealRow from './MealRow';
 
 
-const MealList = ({ meals, selectMealEditBtn, selectMealDelBtn, mealGoesWith, mealOnTop, addExtra, extraOptId, selected }) => (
-  <div style={{ overflowX: 'auto' }}>
+const MealList = ({ meals, selectMealEditBtn, selectMealDelBtn, mealGoesWith, mealOnTop, addExtra, extraOptId, selected }) => {
+  return(<div style={{ overflowX: 'auto' }}>
     <table>
       <thead>
         <tr>
@@ -35,11 +35,11 @@ const MealList = ({ meals, selectMealEditBtn, selectMealDelBtn, mealGoesWith, me
         }
       </tbody>
     </table>
-  </div>
-);
+  </div>)
+};
 
 MealList.propTypes = {
-  meals: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  // meals: PropTypes.arrayOf(PropTypes.shape).isRequired,
   selectMealEditBtn: PropTypes.func.isRequired,
   // clearExtrasFields: PropTypes.func.isRequired,
 };

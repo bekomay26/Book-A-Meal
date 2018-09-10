@@ -120,14 +120,13 @@
 }
 
 .authTab.back-image{
-    background-image: url('../images/7.jpg');
+    background-image: url('https://res.cloudinary.com/dffiyhgto/image/upload/v1536473517/back3.jpg');
     background-size: cover;
     background-color: #1A77C1;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    /* z-index: -1; */
 }
 
 .ui.form.authForm {
@@ -164,6 +163,26 @@
     border-radius: 0;
     padding: 5%;
     font-size: 3vh;
+}
+
+ul.ant-pagination.paginate-btn {
+    margin-top: 30px;
+    text-align: center;
+}
+
+ul.paginate-btn li:nth-child(even) {
+    background-color: white;
+}
+
+ul.paginate-btn li a, ul.paginate-btn li {
+    margin: 0;
+    padding: 0;
+    color: black;
+    font-size: 14px;
+}
+
+ul.paginate-btn li {
+    margin-right: 8px;
 }
 
 @media screen and (min-width: 501px) {

@@ -1,10 +1,37 @@
 * {
     box-sizing: border-box;
 }
+/* 
+body {
+    margin: 0;
+    background-color: #C4C4C4;
+}
 
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+[class*="col-"] {
+    float: left;
+}
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;} */
 .col-1-2 {width: 12%;}
 .col-25{width:20%;}
 .col-48{width:48%;}
+
 /* Home Nav */
 
 .top{
@@ -18,7 +45,6 @@
     display: flex;
     justify-content: space-around; 
 }
-
 .top::after{
     content: '';
     display: block;
@@ -34,6 +60,9 @@
     color: white;
 }
 
+.home-nav a {
+    text-shadow: 2px 1px 2px black;
+}
 /* NAV BAR */
 .logo{
     float: left;
@@ -104,10 +133,6 @@ ul, nav{
 
 .topnav .icon {
     display: none;
-}
-
-nav.col-6.navgroup {
-    display: block;
 }
 
 .sidenav {
@@ -185,11 +210,29 @@ nav.col-6.navgroup {
 }
 
 @media screen and (max-width: 600px) {
+    .top.home-nav a.logo {
+        display: block;
+        margin-top: 10px;
+        font-size: 3vw;
+        width: 35%
+    }
+
+    .top.home-nav .menu {
+        width: 60%;
+    }
+
+    .top.home-nav .menu li.col-3 {
+        margin: 0 5px;
+    }
+
+    .top.home-nav .menu li.col-3 a {
+        margin-top: unset;
+    }
+    
     .topnav navlogo {
         display: none;
     }
     .topnav a:not(.active), .topnav li {display: none;}
-
     .topnav button.icon {
         float: left;
         display: block;
@@ -198,6 +241,14 @@ nav.col-6.navgroup {
         color: #f2f2f2;
         margin-left: 3vw;
     }
+
+    /* .topnav .active {
+        background-color: transparent;
+        color: white;
+        margin-left: 35vw;
+        font-size: 6.5vw;
+        padding: 1vw 1.5vw;
+    } */
 
     .col-6.navgroup {
         width: 75%;
@@ -280,5 +331,4 @@ nav.col-6.navgroup {
         margin: 0;
         text-align: left;
     }
-
 }

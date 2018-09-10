@@ -4,3 +4,105 @@
   width: 95%;
   margin-top: 1em;
 }
+
+.filter-date-pick-start {
+  width: 90%;
+  float: left;
+}
+
+.filter-date-pick-end {
+  width: 90%;
+  float: right;
+}
+
+.filter-cancelled .custom-checkbox, .filter-pending .custom-checkbox, .filter-completed .custom-checkbox {
+  width: 90%;
+}
+
+.filter-pending .custom-checkbox {
+  margin: auto;
+}
+
+.filter-completed .custom-checkbox {
+  float: right;
+}
+
+/* Checkbox overwrite default */
+.filter-cancelled .custom-checkbox input[type=checkbox]:checked + label {
+  background: #A10000;
+  color: #f0f0f0;
+  animation: btn-color-cancelled 0.5s ease-in-out;
+}
+
+.ui.form .field.filterOrderButton {
+  margin: 0;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+.ui.form .field.filterOrderButton .ui.button {
+  background: #380D02;
+  color: white;
+  width: 100%;
+  border-radius: 0;
+  padding: 5%;
+  font-size: 3vh;
+}
+
+@media screen and (min-width: 401px) {
+  .ui.form .field.filterOrderButton {
+    left: calc(100% - 400px);
+    width: 400px;
+    bottom: 0;
+    position: fixed;
+  }
+}
+
+@keyframes btn-color-cancelled {
+  0% {
+    background: #FF0000;
+  }
+  50% {
+    background: #FA0000;
+  }
+  100% {
+    background: #A10000;
+  }
+}
+
+.filter-pending .custom-checkbox input[type=checkbox]:checked + label {
+  background: #FF990D;
+  color: #f0f0f0;
+  animation: btn-color-cancelled 0.5s ease-in-out;
+}
+
+@keyframes btn-color-cancelled {
+  0% {
+    background: #FFC069;
+  }
+  50% {
+    background: #FFAF40;
+  }
+  100% {
+    background: #FF990D;
+  }
+}
+
+.custom-checkbox .checkmark{
+  width: 20%;
+  top: 8px;
+  right: 8px;
+  height: unset;
+  line-height: unset;
+}
+
+.filter-title-label, .filter-price-label, .filter-date-label,
+.filter-status-label {
+
+}
+
+.filter-meal-name, .filter-date-pick, .filter-price-slider, .filter-status {
+  margin-bottom: 10%;
+}
