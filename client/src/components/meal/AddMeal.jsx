@@ -77,7 +77,7 @@ const AddMeal = ({ onSave, meal, onChange, selectValues, selectChange, getSelect
             </Input>
           </Form.Field>
         </Form.Group>
-        <Form.TextArea name="description" onChange={onChange} value={meal.description || ''} label="Description" placeholder="Tell us more about the food..." />
+        <Form.TextArea className="add-meal-textarea" name="description" onChange={onChange} value={meal.description || ''} label="Description" placeholder="Tell us more about the food..." />
         <Grid className="add-meal-form-grid" columns={2} divided>
           <Grid.Row>
             <Grid.Column>

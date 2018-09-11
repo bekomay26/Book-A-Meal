@@ -3,7 +3,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import 'antd/dist/antd.css';
-import jwt from 'jsonwebtoken';
 import { BrowserRouter as Router, browserHistory } from 'react-router-dom';
 import ReduxToastr from 'react-redux-toastr';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
