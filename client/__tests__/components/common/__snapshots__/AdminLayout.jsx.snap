@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Admin Layout Component should render admin layout component correctly 1`] = `
+<div>
+  <Adapter>
+    <Connect(AdminNavBar) />
+    <Adapter
+      className="sidelayout"
+    >
+      <Sider
+        collapsedWidth={80}
+        collapsible={false}
+        defaultCollapsed={false}
+        prefixCls="ant-layout-sider"
+        reverseArrow={false}
+        style={
+          Object {
+            "background": "#fff",
+          }
+        }
+        theme="dark"
+        width={200}
+      >
+        <Menu
+          className=""
+          defaultOpenKeys={
+            Array [
+              "sub1",
+            ]
+          }
+          defaultSelectedKeys={
+            Array [
+              "1",
+            ]
+          }
+          focusable={false}
+          mode="inline"
+          prefixCls="ant-menu"
+          style={
+            Object {
+              "borderRight": 0,
+              "height": "100%",
+            }
+          }
+          theme="light"
+        >
+          <SubMenu
+            key="sub1"
+            title={
+              <span>
+                <img
+                  alt="analytics"
+                  src="https://png.icons8.com/ios/80/ffffff/combo-chart.png"
+                />
+                Dashboard
+              </span>
+            }
+          />
+          <SubMenu
+            key="sub2"
+            title={
+              <span>
+                <img
+                  alt="meals"
+                  src="https://png.icons8.com/wired/80/ffffff/hamburger.png"
+                />
+                Meals
+              </span>
+            }
+          >
+            <MenuItem
+              key="5"
+            >
+              <NavLink
+                activeClassName="active"
+                ariaCurrent="true"
+                className="admin-side navlink"
+                to="/meals"
+              >
+                View Meals
+              </NavLink>
+            </MenuItem>
+            <MenuItem
+              key="6"
+            >
+              Add Meal
+            </MenuItem>
+            <MenuItem
+              key="7"
+            >
+              Add Extra
+            </MenuItem>
+          </SubMenu>
+          <SubMenu
+            key="sub3"
+            title={
+              <span>
+                <img
+                  alt="orders"
+                  src="https://png.icons8.com/ios/80/ffffff/checked-truck.png"
+                />
+                <NavLink
+                  activeClassName="active"
+                  ariaCurrent="true"
+                  className="admin-side navlink"
+                  to="/adorders"
+                >
+                  Orders
+                </NavLink>
+              </span>
+            }
+          />
+          <SubMenu
+            key="sub4"
+            title={
+              <span>
+                <img
+                  alt="menu"
+                  src="https://png.icons8.com/ios/80/ffffff/restaurant-menu.png"
+                />
+                Menu
+              </span>
+            }
+          >
+            <MenuItem
+              key="9"
+            >
+              <NavLink
+                activeClassName="active"
+                ariaCurrent="true"
+                className="admin-side navlink"
+                to="/setmenu"
+              >
+                 
+                <div
+                  onClick={[Function]}
+                >
+                   Set Menu
+                </div>
+              </NavLink>
+            </MenuItem>
+            <MenuItem
+              key="10"
+              onClick={
+                <Redirect
+                  push={true}
+                  to="/setmenu"
+                />
+              }
+            >
+              Edit Menu
+            </MenuItem>
+            <MenuItem
+              key="11"
+              onClick={[Function]}
+            >
+              Menu History
+            </MenuItem>
+          </SubMenu>
+        </Menu>
+      </Sider>
+      <Adapter
+        style={
+          Object {
+            "padding": "0 24px 24px",
+          }
+        }
+      >
+        <Breadcrumb
+          prefixCls="ant-breadcrumb"
+          separator="/"
+          style={
+            Object {
+              "margin": "16px 0",
+            }
+          }
+        >
+          <BreadcrumbItem
+            prefixCls="ant-breadcrumb"
+            separator="/"
+          >
+            Admin
+          </BreadcrumbItem>
+          <BreadcrumbItem
+            prefixCls="ant-breadcrumb"
+            separator="/"
+          />
+        </Breadcrumb>
+        <Adapter
+          style={
+            Object {
+              "background": "#fff",
+              "margin": 0,
+              "maxHeight": 650,
+              "minHeight": 650,
+              "overflow": "auto",
+              "padding": 24,
+            }
+          }
+        />
+      </Adapter>
+    </Adapter>
+  </Adapter>
+</div>
+`;

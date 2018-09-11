@@ -3,6 +3,8 @@ import { Op } from 'sequelize';
 import Controller from './Controller';
 import db from '../model/index';
 import removeDuplicates from '../helpers/removeDuplicates';
+import { isArray } from 'util';
+import pagination from '../helpers/pagination';
 
 class OrderController extends Controller {
   /**
@@ -64,7 +66,7 @@ class OrderController extends Controller {
             mealId,
             totalPrice: price,
             address,
-            createdById,
+            createdById: req.decoded.id,
             cateredById,
             status: 'Pending',
           });
@@ -231,9 +233,14 @@ class OrderController extends Controller {
    */
   static async retrieveOrders(req, res) {
     const userRole = req.decoded.role;
+    const limit = parseInt(req.query.limit, 10) || 10;
+    const offset = parseInt(req.query.offset, 10) || 0;
     if (userRole === 'Caterer') {
       const orders = await db.Order
-        .findAll({
+        .findAndCountAll({
+          limit,
+          offset,
+          distinct: true,
           include: [{
             model: db.Meal,
             attributes: ['title', 'description', 'price', 'image_url'],
@@ -251,12 +258,16 @@ class OrderController extends Controller {
       res.status(200).json({
         success: true,
         message: 'Orders retrieved',
-        orders,
+        orders: orders.rows,
+        pagination: pagination(limit, offset, orders.count),
       });
     }
     if (userRole === 'Customer') {
       const orders = await db.Order
-        .findAll({
+        .findAndCountAll({
+          limit,
+          offset,
+          distinct: true,
           where: {
             createdById: req.decoded.id,
           },
@@ -278,10 +289,62 @@ class OrderController extends Controller {
       res.status(200).json({
         success: true,
         message: 'My Orders retrieved',
-        orders,
+        orders: orders.rows,
+        pagination: pagination(limit, offset, orders.count),
       });
     }
   }
+
+  // add this and protect the above retrieve orders
+  // /**
+  //  * Retrieve order by id
+  //  * @memberof OrderController
+  //  * @param {object} req
+  //  * @param {object} res
+  //  * @returns {(json)}JSON object
+  //  * @static
+  //  */
+  // static async retrieveById(req, res) {
+  //   const limit = parseInt(req.query.limit, 10) || 10;
+  //   const offset = parseInt(req.query.offset, 10) || 0;
+  //   try {
+  //     const orders = await db.Order
+  //       .findAndCountAll({
+  //         limit,
+  //         offset,
+  //         distinct: true,
+  //         where: {
+  //           createdById: req.decoded.id,
+  //         },
+  //         include: [{
+  //           model: db.Meal,
+  //           attributes: ['title', 'description', 'price', 'image_url'],
+  //         },
+  //         {
+  //           model: db.Extra,
+  //           through: {
+  //             foreignKey: 'extraId',
+  //           },
+  //           attributes: ['title', 'price'],
+  //           as: 'extras',
+  //         },
+  //         ],
+  //         order: [['createdAt', 'DESC']],
+  //       });
+  //     res.status(200).json({
+  //       success: true,
+  //       message: 'My Orders retrieved',
+  //       orders: orders.rows,
+  //       pagination: pagination(limit, offset, orders.count),
+  //     });
+  //   } catch (error) {
+  //     return res.status(500).json({
+  //       success: 'error',
+  //       message: error.message,
+  //       error,
+  //     });
+  //   }
+  // }
 
   /**
    * Filter Orders
@@ -293,12 +356,17 @@ class OrderController extends Controller {
    */
   static async filterOrders(req, res) {
     const {
+      mealTitle,
       fromDate,
       toDate,
-      statuses,
       totalPrice,
       priceOperation,
     } = req.query;
+    let { statuses } = req.query;
+    // validate first
+    if (!isArray(statuses) && statuses) {
+      statuses = [statuses];
+    }
     if (fromDate.length > 0 && !(moment(fromDate, ['DD-MM-YYYY', 'YYYY-MM-DD']).isValid())) {
       return res.status(422).json({
         success: false,
@@ -311,29 +379,47 @@ class OrderController extends Controller {
         message: 'Input a valid date',
       });
     }
-    const symbol = priceOperation || 'great';
-    const tPrice = totalPrice || 0;
-    let startDate = fromDate ? (moment(fromDate, 'DD-MM-YYYY')).format('YYYY-MM-DD') : null;
-    let endDate = toDate ? (moment(toDate, 'DD-MM-YYYY')).format('YYYY-MM-DD') : null;
+    // const symbol = priceOperation || 'great';
+    const tPrice = totalPrice || [0, 5000];
+    // const tPrice = totalPrice || 0;
+    let startDate = fromDate;
+    let endDate = toDate;
+    if (!moment(fromDate, 'YYYY-MM-DD').isValid()) {
+      startDate = fromDate ? (moment(fromDate, 'DD-MM-YYYY')).format('YYYY-MM-DD') : null;
+      endDate = toDate ? (moment(toDate, 'DD-MM-YYYY')).format('YYYY-MM-DD') : null;
+    }
     if (startDate === null) {
       startDate = moment('30-01-2018', 'DD-MM-YYYY').format('YYYY-MM-DD');
     }
     if (endDate === null) {
       endDate = moment(new Date()).format('YYYY-MM-DD');
     }
-    let operand;
-    if (symbol === 'great') {
-      operand = 'gt';
-    } else if (symbol === 'less') {
-      operand = 'lt';
-    } else if (symbol === 'equal') {
-      operand = 'eq';
-    } else if (symbol === 'between') {
-      operand = 'between';
-    }
-    // queryObj[[Op.and]] = [Op.and];
+    // let operand;
+    // if (symbol === 'great') {
+    //   operand = 'gt';
+    // } else if (symbol === 'less') {
+    //   operand = 'lt';
+    // } else if (symbol === 'equal') {
+    //   operand = 'eq';
+    // } else if (symbol === 'between') {
+    //   operand = 'between';
+    // }
+    // operand = 'between';
+    const mealName = `%${mealTitle}%`;
+    // let mealName;
+    // if (mealTitle) {
+    //   mealName = `%${mealTitle}%`;
+    // } else {
+    //   mealName = null;
+    // }
+    const limit = parseInt(req.query.limit, 10) || 10;
+    const offset = parseInt(req.query.offset, 10) || 0;
+
     const orders = await db.Order
-      .findAll({
+      .findAndCountAll({
+        limit,
+        offset,
+        distinct: true,
         where: {
           [Op.and]: [
             (
@@ -354,17 +440,38 @@ class OrderController extends Controller {
             (
               [{
                 totalPrice: {
-                  [Op[operand]]: tPrice,
+                  // [Op[operand]]: tPrice,
+                  [Op.between]: [tPrice[0], tPrice[1]],
                 },
               }]
             ),
           ],
         },
+        include: [{
+          model: db.Meal,
+          attributes: ['title', 'description', 'price', 'image_url'],
+          where: {
+            title: {
+              [Op.like]: mealName,
+            },
+          },
+        },
+        {
+          model: db.Extra,
+          through: {
+            foreignKey: 'extraId',
+          },
+          attributes: ['title', 'price'],
+          as: 'extras',
+        },
+        ],
+        order: [['createdAt', 'DESC']],
       });
     res.status(200).json({
       success: true,
-      message: 'Orders retrieved',
-      orders,
+      message: 'Filtered Orders retrieved',
+      orders: orders.rows,
+      pagination: pagination(limit, offset, orders.count),
     });
   }
 
@@ -405,6 +512,23 @@ class OrderController extends Controller {
   //   });
   // }
 
+  
+
+  // if (foundOrder) {
+  //   foundOrder.update({
+  //     status,
+  //   });
+  //   return res.status(200).json({
+  //     success: true,
+  //     message: 'Order Status Updated',
+  //     order: foundOrder,
+  //   });
+  // }
+  // return res.status(404).json({
+  //   success: false,
+  //   message: `Cannot find order with id ${id}`,
+  // });
+
   /**
    * Deletes an existing Order
    * @memberof OrderController
@@ -413,7 +537,49 @@ class OrderController extends Controller {
    * @returns {(json)}JSON object
    * @static
    */
+  // rename to cancel order
   static async deleteOrder(req, res) {
+    const currentTime = moment.tz(new Date(), 'America/Danmarkshavn');
+    const id = parseInt(req.params.id, 10);
+    const orderOpt = await db.Order
+      .findOne({ where: { id: parseInt(req.params.id, 10) } });
+
+    if (orderOpt) {
+      const creaTime = moment.tz(orderOpt.createdAt, 'America/Danmarkshavn');
+      // const e = moment(creaTime).fromNow();
+      const timeElapsed = (moment.duration(currentTime.diff(creaTime))).asMinutes();
+      if (timeElapsed < 15) {
+        await orderOpt.update({
+          status: 'Cancelled',
+        });
+        res.status(200).json({
+          success: true,
+          message: 'Order deleted',
+        });
+      } else {
+        return res.status(400)
+          .json({
+            success: false,
+            message: 'You cannot delete an order after 15 Minutes',
+          });
+      }
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: `Cannot find order with id ${id}`,
+      });
+    }
+  }
+
+  /**
+   * Deletes an existing Order
+   * @memberof OrderController
+   * @param {object} req
+   * @param {object} res
+   * @returns {(json)}JSON object
+   * @static
+   */
+  static async adminDeleteOrder(req, res) {
     const currentTime = moment.tz(new Date(), 'America/Danmarkshavn');
     const id = parseInt(req.params.id, 10);
     const orderOpt = await db.Order

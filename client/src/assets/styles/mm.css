@@ -498,3 +498,30 @@ span.ant-upload {
         margin: 0 auto;
     }
 }
+
+
+/* Edit meal */
+
+.ui.form.add-meal-form.update-form 
+.ant-upload.ant-upload-drag {
+    padding: 0;
+}
+
+.ui.form.add-meal-form.update-form 
+.ant-upload-drag-container img.menu-meal-img,
+.ui.form.add-meal-form.update-form .ant-upload-drag-container img{
+    z-index: -1;
+    position: static;
+    opacity: 0.6;
+    max-height: 226px;
+}
+
+.ui.form.add-meal-form.update-form 
+.ant-upload-drag-container i.anticon.anticon-plus {
+    z-index: 5;
+    position: absolute;
+    margin-left: 45%;
+    margin-top: 30%;
+    color: black;
+    font-weight: 800;
+}

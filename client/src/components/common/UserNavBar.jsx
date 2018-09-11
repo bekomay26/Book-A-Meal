@@ -64,7 +64,7 @@ export class UserNavBar extends Component {
           <nav className="col-6 navgroup">
             <li className={`col-3 navlink ${signedinVisibility}`}>{userName}</li>
             <NavLink className="col-3 show navlink" to="/menu" activeClassName="active">Menu</NavLink>
-            <NavLink className="col-3 show navlink" to="/myorders" activeClassName="active">Order</NavLink>
+            <NavLink className="col-3 show navlink" to="/orders" activeClassName="active">Order</NavLink>
             <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/auth" activeClassName="active">SignIn</NavLink>
             {/* <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/signup" activeClassName="active">SignUp</NavLink> */}
             <NavLink className={`col-3 navlink out ${signedinVisibility}`} activeClassName="active" to="/login" onClick={(e) => { e.preventDefault(); logout(); }}>logout</NavLink>

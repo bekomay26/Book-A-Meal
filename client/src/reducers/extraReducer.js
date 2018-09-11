@@ -6,7 +6,11 @@ const extraReducer = (state = initialState.extras, action) => {
   switch (action.type) {
     case types.LOAD_EXTRA_SUCCESS:
       // return { ...state, menu: action.menu.extras };
-      return action.extras.extras;
+      return {
+        ...state,
+        extras: action.extras,
+      };
+      // return action.extras.extras;
     default:
       return state;
   }

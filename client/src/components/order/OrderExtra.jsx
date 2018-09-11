@@ -5,9 +5,10 @@ import styles from '../../assets/styles/menu2.css';
 import { Checkbox, Grid, Image } from 'semantic-ui-react';
 
 const OrderExtra = ({ extra, onQtyChange, extraStatus, handleChecked, indexKey }) => {
+  const extStatPosition = extraStatus.findIndex(extraStat => extraStat.key === extra.id);
   let extraQty = 1;
-  if (extraStatus[extra.id] !== undefined) {
-    extraQty = extraStatus[extra.id].qty;
+  if (extraStatus[extStatPosition] !== undefined) {
+    extraQty = extraStatus[extStatPosition].qty;
   } else {
     extraQty = 1;
   }
@@ -29,6 +30,7 @@ const OrderExtra = ({ extra, onQtyChange, extraStatus, handleChecked, indexKey }
             className="col-3 menu-modalextra-qty"
             onInput={(event) => onQtyChange(event, extra.id, extra.price)}
             defaultValue={1}
+            min={1}
           />
         </Grid.Column>
         <Grid.Column width={4}>

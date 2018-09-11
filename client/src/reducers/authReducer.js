@@ -6,7 +6,6 @@ const token = window.localStorage.getItem('token');
 const authReducer = (state = checkAuth(token), action) => {
   switch (action.type) {
     case types.LOGIN_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         isAuthenticated: true,

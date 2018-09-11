@@ -2,30 +2,36 @@ import axios from 'axios';
 import { toastr } from 'react-redux-toastr';
 import * as types from './actionTypes';
 
-const loadOrdersSuccess = orders => (
-  { type: types.LOAD_ORDERS_SUCCESS, orders }
+const loadOrdersSuccess = data => (
+  {
+    type: types.LOAD_ORDERS_SUCCESS,
+    orders: data.orders,
+    pagination: data.pagination,
+  }
 );
 
-const updateOrderSuccess = order => (
-  { type: types.UPDATE_ORDER_SUCCESS, order }
-);
+const updateOrderSuccess = (order) => {
+  toastr.success('Saved', 'Order successfully updated');
+  return { type: types.UPDATE_ORDER_SUCCESS, order };
+};
 
 const createOrderSuccess = (order) => {
-  toastr.success('Saved', 'Thank tou for ordering');
+  toastr.success('Saved', 'Thank you for ordering');
   return { type: types.CREATE_ORDER_SUCCESS, order };
 };
 
-const deleteOrderSuccess = orderId => (
-  { type: types.DELETE_ORDER_SUCCESS, orderId }
-);
+const deleteOrderSuccess = (orderId) => {
+  toastr.success('Order deleted');
+  return { type: types.DELETE_ORDER_SUCCESS, orderId };
+};
 /**
  * @desc async getdocument action creator
  * @returns {promise} action
  * @param {*} payload data
  */
-const loadOrders = () => (dispatch) => {
+const loadOrders = (limit = 10, offset = 0) => dispatch => (
   axios
-    .get('api/v1/orders')
+    .get(`api/v1/orders?limit=${limit}&offset=${offset}`)
     .then((orders) => {
       // console.log(`gggggg ${loadOrdersSuccess(orders)}`);
       dispatch(loadOrdersSuccess(orders.data));
@@ -33,8 +39,27 @@ const loadOrders = () => (dispatch) => {
     .catch((err) => {
       // toastr.error(err.response.data.message);
       throw (err);
-    });
-};
+    })
+);
+
+/**
+ * @desc async getdocument action creator
+ * @returns {promise} action
+ * @param {*} payload data
+ */
+const filterOrders = (filterQuery, limit = 10, offset = 0) => dispatch => (
+  // .get(`api/v1/orders/filter?statuses=${comp}&statuses=${pend}&fromDate=${start}&toDate=${end}&mealTitle=${name}`)
+  axios
+    .get(`api/v1/orders/filter?${filterQuery}&limit=${limit}&offset=${offset}`)
+    .then((orders) => {
+      // console.log(`gggggg ${loadOrdersSuccess(orders)}`);
+      dispatch(loadOrdersSuccess(orders.data));
+    })
+    .catch((err) => {
+      // toastr.error(err.response.data.message);
+      throw (err);
+    })
+  );
 
 const saveOrder = order => (dispatch) => {
   return axios
@@ -80,7 +105,7 @@ const updateOrder = order => (dispatch) => {
 };
 
 
-const deleteOrder = orderId => (dispatch) => {
+const deleteOrder = orderId => dispatch => (
   axios
     .delete(`api/v1/orders/${orderId}`)
     .then(() => {
@@ -88,8 +113,11 @@ const deleteOrder = orderId => (dispatch) => {
     })
     .catch((err) => {
       throw (err);
-    });
-};
+    })
+);
 
-export { loadOrdersSuccess, createOrderSuccess, deleteOrderSuccess, loadOrders, saveOrder, updateOrder, deleteOrder };
+export {
+  loadOrdersSuccess, createOrderSuccess, deleteOrderSuccess, updateOrderSuccess,
+  loadOrders, saveOrder, updateOrder, deleteOrder, filterOrders,
+};
 

@@ -4,8 +4,14 @@ import CSSModules from 'react-css-modules';
 import '../../assets/styles/mm.css';
 
 const MealRow = ({ meal, selectMealEditBtn, selectMealDelBtn, mealGoesWith, mealOnTop, addExtra, extraOptId, selected }) => {
-  const goes = mealGoesWith(meal.extras);
-  const onTop = mealOnTop(meal.extras);
+  console.log("meeeeee");
+  console.log(meal);
+  let goes = [];
+  let onTop = [];
+  if (meal.extras) {
+    goes = mealGoesWith(meal.extras);
+    onTop = mealOnTop(meal.extras);
+  }
   let extraOptIdn = 0;
   const xtraItem = (extraTitle, type) => {
     extraOptIdn += 1;
@@ -17,6 +23,7 @@ const MealRow = ({ meal, selectMealEditBtn, selectMealDelBtn, mealGoesWith, meal
     );
   };
   // console.log(goes);
+  // should send only the values to be rendered not the whole div
   const goesExt = goes.map(ext =>
     xtraItem(ext.title, 'goes'));
   const topExt = onTop.map(ext =>
