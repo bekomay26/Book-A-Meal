@@ -305,6 +305,7 @@ input[type=number]{
 
 /* Add Meal */
 .extra-minus {
+    /* font-size: 20px; */
     color: red;
 }
 .ant-upload.ant-upload-select.ant-upload-select-picture-card {
@@ -496,4 +497,32 @@ span.ant-upload {
         width: 60%;
         margin: 0 auto;
     }
+}
+
+
+/* Edit meal */
+
+.ui.form.add-meal-form.update-form .ant-upload.ant-upload-drag,
+.ui.form.add-meal-form.update-form .ant-upload.ant-upload-drag 
+.ant-upload-btn {
+    padding: 0;
+}
+
+.ui.form.add-meal-form.update-form 
+.ant-upload-drag-container img.menu-meal-img,
+.ui.form.add-meal-form.update-form .ant-upload-drag-container img{
+    z-index: -1;
+    position: static;
+    opacity: 0.6;
+    max-height: 226px;
+}
+
+.ui.form.add-meal-form.update-form 
+.ant-upload-drag-container i.anticon.anticon-plus {
+    z-index: 5;
+    position: absolute;
+    margin-left: 45%;
+    margin-top: 30%;
+    color: black;
+    font-weight: 800;
 }

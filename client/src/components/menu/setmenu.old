@@ -1,0 +1,132 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import CSSModules from 'react-css-modules';
+import { loadMeal } from '../../actions/mealActions';
+import { saveDayMenu } from '../../actions/menuActions';
+import NavBar from '../common/NavBar';
+import '../../assets/styles/selmenu.css';
+// import cx from 'classnames'
+
+class SetMenuPage extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      mealIds: [],
+    };
+    this.onSelect = this.onSelect.bind(this);
+    this.onSave = this.onSave.bind(this);
+    // this.myMeal = this.myMeal.bind(this);
+    // this.goesWith = this.goesWith.bind(this);
+    // this.onTop = this.onTop.bind(this);
+  }
+
+  // onSelect(e, meal) {
+  //   console.log('dsffs');
+  //   if (e.target.tagName === 'LI') {
+  //     e.target.classList.toggle('checked');
+  //   }
+  // }
+
+  onSelect(e, meal) {
+    if (e.target.tagName === 'LI') {
+      // e.target.classList.toggle('selmenu__checked__23Wh7');
+      e.target.classList.toggle('checked');
+      this.state.mealIds.push(meal.id);
+      console.log(this.state.mealIds);
+    }
+  }
+  onSave() {
+    console.log({ mealIds: this.state.mealIds });
+    this.props.saveDayMenu({ mealIds: this.state.mealIds });
+    // console.log({ mealI});
+  }
+
+  render() {
+    const { meals } = this.props;
+    return (
+      <div>
+        <NavBar />
+        <h2>Manage Menu</h2>
+        <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+        <form>
+          <div className="other-checks row">
+            <div className="col-4 add-date">
+              <input type="date" placeholder="Date" />
+              <input type="button" value="Add date" />
+            </div>
+            <div className="col-5 added-dates">
+              <div className="date-added row">
+                <p className="col-5">11/09/2018</p>
+                <div className="col-7">
+                  <i className="fa-minus-square remove" />
+                </div>
+              </div>
+              <div className="date-added row">
+                <p className="col-5">11/09/2018</p>
+                <div className="col-7">
+                  <i className="fa-minus-square remove" />
+                </div>
+              </div>
+            </div>
+            <div className="col-2 subm">
+              <input type="submit" value="Save Menu" onClick={this.onSave} />
+            </div>
+          </div>
+          <div className="menu-items">
+            {/* <ul id="todayslist" onClick={this.onSelect}> */}
+            <ul id="todayslist">
+              {
+                meals.map(meal =>
+                  <li  onClick={(event) => this.onSelect(event, meal)}>{meal.title}</li>)
+                }
+            </ul>
+          </div>
+        </form>
+      </div>
+    );
+  }
+}
+
+SetMenuPage.propTypes = {
+  meals: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  // menu: PropTypes.shape({
+  //   success: PropTypes.bool.isRequired,
+  //   message: PropTypes.string.isRequired,
+  //   meals: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  // })
+  //   .isRequired,
+  loadMeal: PropTypes.func.isRequired,
+  saveDayMenu: PropTypes.func.isRequired,
+  // meal: PropTypes.shape({
+  //   id: PropTypes.number.isRequired,
+  //   title: PropTypes.string.isRequired,
+  //   description: PropTypes.string.isRequired,
+  //   price: PropTypes.number.isRequired,
+  //   extras: PropTypes.shape.isRequired,
+  // })
+  //   .isRequired,
+};
+
+/**
+ * @desc maps dispatch to props;
+ * @param {*} dispatch dispatch
+ * @returns {*} action to be dispatched
+ */
+const mapDispatchToProps = dispatch => bindActionCreators({ loadMeal, saveDayMenu }, dispatch);
+
+/**
+ * @desc maps state to props;
+ * @param {*} state store state
+ * @returns {*} store state
+ */
+const mapStateToProps = (state, ownProps) => {
+  // const mealId = ownProps.params.id;
+  return ({
+    meals: state.mealReducer,
+  });
+};
+
+// const SetMenuPageWithCSS = CSSModules(SetMenuPage, styles, { allowMultiple: true });
+export default connect(mapStateToProps, mapDispatchToProps)(SetMenuPage);

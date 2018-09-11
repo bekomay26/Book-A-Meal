@@ -1,6 +1,5 @@
 import React from 'react';
 import NavBar from '../common/NavBar';
-// import '../../assets/styles/style.css';
 
 const HomePage = () => (
   <div>

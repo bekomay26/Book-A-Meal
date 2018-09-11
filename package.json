@@ -22,7 +22,9 @@
     "build:client": "webpack --config webpack.config.prod.js ",
     "start-prod": "npm run build && node ./build/app.js",
     "start-full-prod": "babel-node ./tools/srcFull.js",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "e2e-setup": "selenium-standalone install  --config=./selenium.config.js",
+    "test:e2e": "NODE_ENV=test nightwatch"
   },
   "repository": {
     "type": "git",

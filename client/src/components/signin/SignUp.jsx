@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input } from 'semantic-ui-react';
+import CSSModules from 'react-css-modules';
+import { Upload, Icon, message } from 'antd';
+import { Form, FormField, FormInput, Image, Input, Label, Grid, Select } from 'semantic-ui-react';
 
 
 const SignUp = ({ onValChange, passValue, unameValue, onSave }) => {

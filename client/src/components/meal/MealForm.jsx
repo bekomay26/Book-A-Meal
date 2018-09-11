@@ -30,7 +30,7 @@ export const MealForm = ({ meal, onSave, saving, imageUrl, cardImgList, handleCa
             }
         </select>
       </div>
-      <div className="col-2" onClick={(event) => selected(event, 'goes')} role='button'><i className="fas fa-minus extra-minus" /></div>
+      <button className="col-2 icon-btn" onClick={event => selected(event, 'goes')}><i className="fas fa-minus extra-minus" /></button>
     </div>
   );
   const addTop = (
@@ -42,12 +42,12 @@ export const MealForm = ({ meal, onSave, saving, imageUrl, cardImgList, handleCa
           }
         </select>
       </div>
-      <div className="col-2" onClick={(event) => selected(event, 'onTop')} role='button'><i className="fas fa-minus extra-minus" /></div>
+      <button className="col-2 icon-btn" onClick={event => selected(event, 'goes')}><i className="fas fa-minus extra-minus" /></button>
     </div>
   );
   return (
     <div>
-      <Form className="add-meal-form" onSubmit={onSave}>
+      <Form className="add-meal-form update-form" onSubmit={onSave}>
         <Dragger {...imgUpload}>
           {/* {cardImgList.length >= 1 ? null : uploadButton} */}
           {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
@@ -78,7 +78,7 @@ export const MealForm = ({ meal, onSave, saving, imageUrl, cardImgList, handleCa
             </Input>
           </Form.Field>
         </Form.Group>
-        <Form.TextArea name="description" onChange={onChange} value={meal.description || ''} label="Description" placeholder="Tell us more about the food..." />
+        <Form.TextArea className="update-textarea" name="description" onChange={onChange} value={meal.description || ''} label="Description" placeholder="Tell us more about the food..." />
         <Grid className="add-meal-form-grid" columns={2} divided>
           <Grid.Row>
             <Grid.Column>

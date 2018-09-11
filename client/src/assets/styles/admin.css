@@ -232,6 +232,28 @@ h2{
     font-family: 'Nunito', sans-serif;
 }
 
+/* .menu a:hover{
+    opacity: 1;
+    color: black;
+    border-bottom: 2px solid black; 
+} */
+
+.top{
+    background-color: #ffa200;
+    width: 100%;
+    z-index: 10;
+    align-items: center;
+    color: white;
+    padding: 35px 70px 20px;
+    display: flex;
+    justify-content: space-around; 
+}
+.top::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
 header nav{
     display: flex;
 }

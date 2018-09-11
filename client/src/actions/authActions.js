@@ -66,9 +66,9 @@ const signUpSuccess = payload => ({
  * @param {*} details
  * @returns {Promise} action
  */
-const signUp = details => (dispatch) => {
+const signUp = details => dispatch => (
   // dispatch(beginAjaxCall());
-  return axios
+  axios
     .post('/api/v1/auth/signup', details)
     .then((res) => {
       setAuthorizationToken(res.data.token);
@@ -80,8 +80,8 @@ const signUp = details => (dispatch) => {
       // dispatch(ajaxCallError());
       dispatch(signUpFailure(error.response.data));
       throw (error);
-    });
-};
+    })
+);
 /**
  * @desc logout action creator
  * @returns {object} action
