@@ -69,7 +69,9 @@ export class AdminLayout extends Component {
               </SubMenu>
               <Menu.Item key="sub3">
                 <span><img src="https://png.icons8.com/ios/80/ffffff/checked-truck.png" alt="orders" />
-                <NavLink className="admin-side navlink" to="/adorders">Orders</NavLink></span></Menu.Item>
+                  <NavLink className="admin-side navlink" to="/adorders">Orders</NavLink>
+                </span>
+              </Menu.Item>
               <SubMenu key="sub4" title={<span><img src="https://png.icons8.com/ios/80/ffffff/restaurant-menu.png" alt="menu" />Menu</span>}>
                 <Menu.Item key="9">
                   <NavLink className="admin-side navlink" to="/setmenu"> <div onClick={() => { this.props.redirectTo(3); }}> Set Menu</div></NavLink>

@@ -120,7 +120,7 @@
 }
 
 .authTab.back-image{
-    background-image: url('https://res.cloudinary.com/dffiyhgto/image/upload/v1536473517/back3.jpg');
+    /* background-image: url('https://res.cloudinary.com/dffiyhgto/image/upload/v1536473517/back3.jpg'); */
     background-size: cover;
     background-color: #1A77C1;
     position: absolute;
@@ -207,4 +207,17 @@ ul.paginate-btn li {
     .add-meal-container {
         width: 100%;
     }
+}
+
+/* Icon button */
+.icon-btn {
+    padding: 0;
+    border: none;
+    color: transparent;
+    /* margin-left: 5px; */
+}
+
+.icon-btn::selection, .icon-btn i::selection {
+    background: transparent;
+    color: #1A77C1;
 }

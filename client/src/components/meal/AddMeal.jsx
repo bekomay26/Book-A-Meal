@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
 import 'antd/dist/antd.css';
 import { Upload, Icon, message } from 'antd';
-import { Form, FormField, FormInput, Image, Input, Label, Grid, Select } from 'semantic-ui-react';
+import { Form, FormField, FormInput, Image, Input, Label, Grid } from 'semantic-ui-react';
 import GoesWithItem from './GoesWithItem';
 
-const AddMeal = ({ onSave, meal, onChange, selectValues, selectChange, getSelectValue, cardImgList, handleCardChange, imageUrl, addExtra, selected, goes, top, extrasList, extrasTopList, extraOptId }) => {
+const AddMeal = ({
+  onSave, meal, onChange, selectValues, selectChange, getSelectValue,
+  cardImgList, handleCardChange, imageUrl, addExtra, selected, goes,
+  top, extrasList, extrasTopList, extraOptId,
+}) => {
   // let add;
   // let extrasList = [];
   // const extId = getSelectValue(extraOptId - 1);
@@ -32,9 +36,9 @@ const AddMeal = ({ onSave, meal, onChange, selectValues, selectChange, getSelect
     <div key={extraOptId} data-key={extraOptId} className="row">
       <div className="col-10">
         <select onChange={selectChange} >
-            {goes.map(extra =>
-              <option disabled={false} value={extra.title} ext-id={extra.id}>{extra.title}</option>)
-            }
+          {goes.map(extra =>
+            <option disabled={false} value={extra.title} ext-id={extra.id}>{extra.title}</option>)
+          }
         </select>
       </div>
       <div className="col-2" onClick={(event) => selected(event, 'goes')} role='button'><i className="fas fa-minus extra-minus" /></div>
@@ -49,7 +53,10 @@ const AddMeal = ({ onSave, meal, onChange, selectValues, selectChange, getSelect
           {topOptions}
         </select>
       </div>
-      <div className="col-2" onClick={(event) => selected(event, 'onTop')} role='button'><i className="fas fa-minus extra-minus" /></div>
+      {/* <div className="col-2" onClick={(event) => selected(event, 'onTop')} role='button'><i className="fas fa-minus extra-minus" /></div> */}
+      <div className="col-2" style={{ textAlign: 'center', fontSize: '20px' }} onClick={(event) => selected(event, 'onTop')} role='button'>
+        <i className="fas fa-minus extra-minus" />
+      </div>
     </div>
   );
 

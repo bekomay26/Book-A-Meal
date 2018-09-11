@@ -1,0 +1,36 @@
+import React from 'react';
+import CSSModules from 'react-css-modules';
+import PropTypes from 'prop-types';
+import styles from '../../assets/styles/menu2.css';
+import { Checkbox } from 'semantic-ui-react';
+
+const MealExtra = ({ extra, onQtyChange, extraStatus, handleChecked, indexKey }) => {
+  let extraQty = 1;
+  if (extraStatus[indexKey] !== undefined) {
+    extraQty = extraStatus[indexKey].qty;
+  } else {
+    extraQty = 1;
+  }
+  return (<div>
+    <div className="row">
+      <div className="col-6">
+        <input type="checkbox" name="" value="" onChange={(event) => handleChecked(event, indexKey, extra)} /><span>{extra.title}</span>
+      </div>
+      <div className="col-3">
+        <input type="number" className="col-3" onInput={(event) => onQtyChange(event, indexKey)} defaultValue={1} />
+      </div>
+      <span className="col-3 foodprice">&#x20A6;{extra.price * extraQty}</span>
+    </div>
+  </div>)
+};
+
+MealExtra.propTypes = {
+  extra: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  })
+    .isRequired,
+};
+
+// export default CSSModules(MealExtra, styles, { allowMultiple: true });
+export default MealExtra;

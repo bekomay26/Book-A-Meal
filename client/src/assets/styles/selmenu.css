@@ -208,7 +208,7 @@ input[type=submit]:hover{
 @media(min-width: 800px){
 
     /* Header */
-
+     
     a{
         text-decoration: none;
     }

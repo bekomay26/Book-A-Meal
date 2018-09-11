@@ -1,7 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+// import App from './components/App';
 import HomePage from './components/home/HomePage';
-import AuthPage from './components/auth/AuthPage';
+import AuthPage from './components/signin/AuthPage';
+import SignInPage from './components/signin/SignInPage';
+import SignUpPage from './components/signup/SignUpPage';
 import MenuPage from './components/menu/MenuPage';
 import ManageMealPage from './components/meal/ManageMealPage';
 import SetMenuPage from './components/menu/SetMenuPage';
@@ -14,6 +17,8 @@ const routes = (
   <div>
     <Switch>
       <Route exact path="/" component={HomePage} />
+      <Route exact path="/signin" component={SignInPage} />
+      <Route exact path="/signup" component={SignUpPage} />
       <Route exact path="/menu" component={MenuPage} />
       <Route exact path="/menu:id" component={MenuPage} />
       <Route exact path="/setmenu" component={SetMenuPage} />

@@ -1,0 +1,235 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Drawer } from 'antd';
+import CSSModules from 'react-css-modules';
+import { loadMenu } from '../../actions/menuActions';
+import { saveOrder } from '../../actions/orderActions';
+import { logout } from '../../actions/authActions';
+import UserNavBar from '../common/UserNavBar';
+import styles from '../../assets/styles/menu2.css';
+import MenuList from './MenuList';
+import MenuModal from './MenuModal';
+
+class MenuPage extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      // meal: Object.assign({}, this.props.meal),
+      meal: {},
+      extraQty: 1,
+      extraStatus: [],
+      selectedExtras: [],
+      saving: false,
+      totalPrice: 0,
+    };
+    // this.onSelect = this.onSelect.bind(this);
+    this.onSave = this.onSave.bind(this);
+    this.onClose = this.onClose.bind(this);
+    this.myMeal = this.myMeal.bind(this);
+    this.goesWith = this.goesWith.bind(this);
+    this.onTop = this.onTop.bind(this);
+    this.onQtyChange = this.onQtyChange.bind(this);
+    this.handleChecked = this.handleChecked.bind(this);
+  }
+
+  async myMeal (currentMeal) {
+    document.getElementById("modal-container").style.display ="block";
+    // this.setState({meal:this.props.meal});
+    this.setState({ meal: currentMeal, totalPrice: currentMeal.price });
+    console.log(`select ${currentMeal.title}`);
+
+    const newExtraStatus = [];
+    // edit extra arrangement wrong
+    currentMeal.extras.forEach((ext) => newExtraStatus.push({ isChecked: false, qty: 1, extra: ext} ));
+    await this.setState({ extraStatus: newExtraStatus });
+    console.log(this.state.extraStatus);
+    // return currentMeal;
+  }
+
+  onOpen() {
+    console.log(this.state.meal.price);
+    this.setState({ totalPrice: this.state.meal.price });
+  }
+
+  async onSave(e) {
+    e.preventDefault();
+    const extrasInfo = this.state.extraStatus.filter(extra => extra.isChecked === true);
+    let extraIds = [];
+    let extraQtys = [];
+    extrasInfo.forEach(ext => extraIds.push(ext.extra.id));
+    extrasInfo.forEach(ext => extraQtys.push(ext.qty));
+    // console.log(this.state.meal.id);
+    // console.log(extraIds);
+    // console.log(extraQtys);
+    this.setState({ saving: true });
+    await this.props.saveOrder({
+      mealId: this.state.meal.id,
+      extraIds,
+      qtys: extraQtys,
+      address: 'dsffsfgfsfvfsvfjysvfbgctf',
+    });
+    this.onClose();
+    this.redirect();
+  }
+
+  redirect() {
+    this.setState({ saving: false });
+    this.context.router.push('/cart');
+  }
+
+  // onSelect() {
+  //   document.getElementById("modal-container").style.display ="block";
+  // }
+
+  onClose() {
+    this.clearExtrasFields();
+    document.getElementById("modal-container").style.display ="none";
+  }
+  goesWith(mealExtras) {
+    if (mealExtras !== undefined) {
+      
+      return mealExtras.filter(extra => extra.category === 'GoesWith');
+    } else
+      return []
+  }
+  onTop(mealExtras) {
+    if (mealExtras !== undefined)
+      return mealExtras.filter(extra => extra.category === 'OnTop');
+    else
+      return []
+  }
+
+  clearExtrasFields() {
+    this.setState({
+      extraStatus: [],
+      meal: {},
+    });
+  }
+
+  onQtyChange(event, key) {
+    // this.setState({ extraQty: parseInt(event.target.value, 10) });
+    const status = this.state.extraStatus;
+    status[key].qty = parseInt(event.target.value, 10);
+    this.setState({ extraStatus: status });
+    console.log(this.state.extraStatus);
+  }
+
+  handleChecked(event, key, extra, extraQuantity) {
+    let checked = this.state.extraStatus;
+    let selectedExt = this.state.selectedExtras;
+    let totalMealPrice = this.state.totalPrice;
+    if (checked[key].isChecked === false) {
+      selectedExt.push(extra);
+      totalMealPrice += (extra.price * extraQuantity); // If checked, add extra price
+    } else {
+      selectedExt.splice(key, 1);
+      totalMealPrice -= (extra.price * extraQuantity); // If unchecked, sub extra price
+    }
+    checked[key].isChecked = !checked[key].isChecked;
+    this.setState({ extraStatus: checked, selectedExtras: selectedExt, totalPrice: totalMealPrice });
+    // console.log(this.state.extraStatus);
+    // console.log(this.state.selectedExtras);
+    console.log(totalMealPrice);
+  }
+
+  /**
+   * @desc runs before component mounts
+   * @memberof DocumentView
+   * @returns {*} has no return value;
+   */
+  // componentWillMount() {
+  //   this.props.loadMenu().then(() => {
+  //     this.setState({
+  //       menu: this.props.menu,
+  //     });
+  //   });
+  // }
+  render() {
+    // const { menu } = this.state;
+    const { menu } = this.props;
+    const { logout } = this.props;
+
+    // Work on
+    // const goeswith = mealExtras => mealExtras.filter(extra => extra.category === 'GoesWith');
+    const extras = mealExtras => mealExtras.filter(extra => extra.category === 'OnTop');
+    // const meaa = menu.pop();
+    console.log(`fdfdcvm,fdf ${menu}`);
+    return (
+      <div>
+        <UserNavBar logout={logout} />
+        <div id="container" className="container">
+          <h1>Today's Menu</h1>
+          {/* <div>
+          {menu}
+          </div> */}
+
+          <MenuList meals={menu} selected={this.myMeal} />
+          {/* get meal from state or something */}
+          <MenuModal
+            meal={this.state.meal}
+            goesWith={this.goesWith}
+            extras={this.onTop}
+            onQtyChange={this.onQtyChange}
+            extraStatus={this.state.extraStatus}
+            handleChecked={this.handleChecked}
+            totalMealPrice={this.state.totalPrice}
+            onSave={this.onSave}
+            onClose={this.onClose}
+            saving={this.state.saving}
+          />
+          {/* <MenuModal meal={this.state.meal} /> */}
+        </div>
+      </div>
+    );
+  }
+}
+
+MenuPage.propTypes = {
+  menu: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  // menu: PropTypes.shape({
+  //   success: PropTypes.bool.isRequired,
+  //   message: PropTypes.string.isRequired,
+  //   meals: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  // })
+  //   .isRequired,
+  loadMenu: PropTypes.func.isRequired,
+  saveOrder: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
+  // meal: PropTypes.shape({
+  //   id: PropTypes.number.isRequired,
+  //   title: PropTypes.string.isRequired,
+  //   description: PropTypes.string.isRequired,
+  //   price: PropTypes.number.isRequired,
+  //   extras: PropTypes.shape.isRequired,
+  // })
+  //   .isRequired,
+};
+
+/**
+ * @desc maps dispatch to props;
+ * @param {*} dispatch dispatch
+ * @returns {*} action to be dispatched
+ */
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    loadMenu,
+    saveOrder,
+    logout,
+  }, dispatch);
+
+/**
+ * @desc maps state to props;
+ * @param {*} state store state
+ * @returns {*} store state
+ */
+const mapStateToProps = (state, ownProps) => {
+  // const mealId = ownProps.params.id;
+  return ({
+    menu: state.menuReducer,
+  });
+};
+
+const MenuPageWithCSS = CSSModules(MenuPage, styles);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuPageWithCSS);

@@ -30,7 +30,7 @@ export const MealForm = ({ meal, onSave, saving, imageUrl, cardImgList, handleCa
             }
         </select>
       </div>
-      <div className="col-2" onClick={(event) => selected(event, 'goes')} role='button'><i className="fas fa-minus extra-minus" /></div>
+      <button className="col-2 icon-btn" onClick={event => selected(event, 'goes')}><i className="fas fa-minus extra-minus" /></button>
     </div>
   );
   const addTop = (
@@ -42,7 +42,7 @@ export const MealForm = ({ meal, onSave, saving, imageUrl, cardImgList, handleCa
           }
         </select>
       </div>
-      <div className="col-2" onClick={(event) => selected(event, 'onTop')} role='button'><i className="fas fa-minus extra-minus" /></div>
+      <button className="col-2 icon-btn" onClick={event => selected(event, 'goes')}><i className="fas fa-minus extra-minus" /></button>
     </div>
   );
   return (
