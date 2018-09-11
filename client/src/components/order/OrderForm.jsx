@@ -4,7 +4,10 @@ import { Form, Header } from 'semantic-ui-react';
 import OrderExtra from './OrderExtra';
 
 
-const OrderForm = ({ order, meal, orderedMeal, goesWith, extras, onQtyChange, extraStatus, handleChecked, totalMealPrice, onSave, onClose, saving }) => {
+const OrderForm = ({
+  order, meal, orderedMeal, goesWith, extras, onQtyChange, extraStatus,
+  handleChecked, totalMealPrice, onSave, onClose, saving
+}) => {
   const goes = goesWith(meal.extras);
   const goesLength = goes.length;
   const extr = extras(meal.extras);

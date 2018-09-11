@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Accordion, Icon, Checkbox, Button, Form } from 'semantic-ui-react';
+import { Accordion, Icon, Button } from 'semantic-ui-react';
 import { Drawer, Pagination } from 'antd';
 import { loadOrders, updateOrder, filterOrders } from '../../actions/orderActions';
-import UserNavBar from '../common/UserNavBar';
 import '../../assets/styles/adminorders.css';
-import AdminLayout from '../common/AdminLayout';
+import AdminLayoutConnect from '../common/AdminLayout';
 import FilterOrders from './FilterOrders';
 
 export class AdminOrdersPage extends Component {
@@ -92,7 +91,7 @@ export class AdminOrdersPage extends Component {
     const { order } = titleProps;
     const { activeIndex } = this.state;
     const newIndex = activeIndex === index ? -1 : index;
-    this.setState({ activeIndex: newIndex, order: order });
+    this.setState({ activeIndex: newIndex, order });
   }
 
   updateOrderStatus() {
@@ -111,13 +110,6 @@ export class AdminOrdersPage extends Component {
     filterObj[field] = event.target.value;
   }
 
-  
-  // getOrders() {
-  //   if (this.state.orders) {
-  //     return this.state.orders;
-  //   }
-  //   return this.props.orders;
-  // }
 
   handlePageChange(pageNum) {
     const limit = 10;
@@ -230,7 +222,7 @@ export class AdminOrdersPage extends Component {
       </div>
     );
     return (
-      <AdminLayout content={pageContent} page="Orders" />
+      <AdminLayoutConnect content={pageContent} page="Orders" />
     );
   }
 }

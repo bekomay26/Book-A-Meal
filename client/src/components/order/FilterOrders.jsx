@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Header } from 'semantic-ui-react';
-import { DatePicker, Slider, Checkbox, Radio, Input } from 'antd';
-import OrderExtra from './OrderExtra';
+import { Form } from 'semantic-ui-react';
+import { DatePicker, Slider, Input } from 'antd';
 import '../../assets/styles/filter.css';
 import CustomCheckbox from '../common/CustomCheckbox';
 
 const FilterOrders = ({ saving, onSubmit }) => {
-
   // const { RangePicker } = DatePicker;
   const marks = {
     0: '0',
@@ -60,6 +58,11 @@ const FilterOrders = ({ saving, onSubmit }) => {
 
 FilterOrders.propTypes = {
 
+};
+
+FilterOrders.propTypes = {
+  saving: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default FilterOrders;

@@ -30,14 +30,9 @@ const OrderRow = ({ order }) => (
 
 OrderRow.propTypes = {
   order: PropTypes.shape({
-    // user: PropTypes.shape.isRequired,
-
-    // Meal: PropTypes.shape.isRequired,
-    // extra: PropTypes.array.isRequired,
     totalPrice: PropTypes.number.isRequired,
   })
     .isRequired,
 };
 
-// const OrderRowWithCSS = CSSModules(OrderRow, styles, { allowMultiple: true });
 export default OrderRow;
