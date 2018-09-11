@@ -3,12 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import { Tab } from 'semantic-ui-react';
 import { login, signUp } from '../../actions/authActions';
-// import '../../assets/styles/style.css';
-// import NavBar from '../common/NavBar';
 import '../../assets/styles/login.css';
 import SignIn from './SignIn';
-import { Tab } from 'semantic-ui-react';
 import SignUp from './SignUp';
 
 export class AuthPage extends Component {
@@ -30,9 +28,6 @@ export class AuthPage extends Component {
 
   onUnameChange(event) {
     event.preventDefault();
-    console.log(event.target.name);
-    console.log(event.target.id);
-    // if (event.target === )
     const { user } = this.state;
     const { name } = event.target;
     user[name] = event.target.value;
@@ -42,7 +37,6 @@ export class AuthPage extends Component {
     event.preventDefault();
     const userDetails = { username: this.state.user.uname, password: this.state.user.pwd };
     this.props.login(userDetails);
-    // this.props.login(this.state.user);
   }
   onSave(event) {
     event.preventDefault();
@@ -57,12 +51,6 @@ export class AuthPage extends Component {
     if (this.props.isAuthenticated) {
       return (
         <Redirect to="/menu" />
-        // <Redirect
-        //   push
-        //   to={{
-        //     pathname: '/menu',
-        //   }}
-        // />
       );
     }
     const panes = [
@@ -95,7 +83,6 @@ export class AuthPage extends Component {
     ];
     return (
       <div>
-          {/* <NavBar /> */}
         <Tab className="authTab back-image" menu={{ secondary: true, pointing: true }} panes={panes} />
       </div>
     );
@@ -103,15 +90,12 @@ export class AuthPage extends Component {
 }
 
 AuthPage.defaultProps = {
-  userId: undefined,
   isAuthenticated: false,
   isCaterer: false,
 };
 
 AuthPage.propTypes = {
-  // users: PropTypes.arrayOf(PropTypes.object).isRequired,
   login: PropTypes.func.isRequired,
-  userId: PropTypes.number,
   isAuthenticated: PropTypes.bool,
   isCaterer: PropTypes.bool,
   signUp: PropTypes.func.isRequired,

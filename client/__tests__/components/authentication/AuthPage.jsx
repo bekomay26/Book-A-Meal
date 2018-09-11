@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { AuthPage } from '../../../src/components/signin/AuthPage';
+import { AuthPage } from '../../../src/components/auth/AuthPage';
 
 // import jsdom from 'jsdom';
 // const doc = jsdom.jsdom('<!doctype html><html><body></body></html>')

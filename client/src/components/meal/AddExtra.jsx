@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input, Label, Grid, Select } from 'semantic-ui-react';
+import { Form, Input, Label, Select } from 'semantic-ui-react';
 
 
-const AddExtra = ({ onSave, onHandleChange }) => {
+const AddExtra = ({ onSave }) => {
   return (
 
     <div id="addExtraContainer" className="add-meal-container">
@@ -27,9 +27,7 @@ const AddExtra = ({ onSave, onHandleChange }) => {
 };
 
 AddExtra.propTypes = {
-
+  onSave: PropTypes.func.isRequired,
 };
 
-// const AddMealWithCSS = CSSModules(AddMeal, styles, { allowMultiple: true });
-// export default (AddMealWithCSS);
 export default AddExtra;

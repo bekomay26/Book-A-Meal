@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Accordion, Icon, Checkbox, Button, Form } from 'semantic-ui-react';
+import { Accordion, Icon, Button } from 'semantic-ui-react';
 import { Drawer, Pagination } from 'antd';
 import { loadOrders, updateOrder, filterOrders } from '../../actions/orderActions';
-import UserNavBar from '../common/UserNavBar';
 import '../../assets/styles/adminorders.css';
 import AdminLayout from '../common/AdminLayout';
 import FilterOrders from './FilterOrders';
@@ -31,7 +30,6 @@ export class AdminOrdersPage extends Component {
     this.updateFilterInputState = this.updateFilterInputState.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
-    // this.getOrders = this.getOrders.bind(this);
   }
 
   componentDidMount() {
@@ -39,9 +37,7 @@ export class AdminOrdersPage extends Component {
   }
 
   onSubmit() {
-    // const filterForm = document.getElementById('filter-form');
     const mealName = document.getElementById('meal-name').value; // trim value
-    // console.log(mealName);
     const range = document.getElementsByClassName('ant-slider-handle-1')[0].getAttribute('aria-valuenow');
     const range2 = document.getElementsByClassName('ant-slider-handle-2')[0].getAttribute('aria-valuenow');
     const start = document.getElementById('start-date').getElementsByClassName('ant-calendar-picker-input')[0].value;
@@ -62,8 +58,6 @@ export class AdminOrdersPage extends Component {
     }
     this.props.filterOrders(queryString);
     this.setState({ filtered: true, queryString });
-    // console.log(mealName, start, end, canc, pend, compl, range, range2);
-    // console.log(queryString);
   }
 
   onCloseDrawer() {
@@ -75,13 +69,11 @@ export class AdminOrdersPage extends Component {
   getStatuscolor(status) {
     let statusColor;
     if (status === 'Pending') {
-      statusColor = "orange"
-    }
-    else if (status === 'Completed') {
-      statusColor = "green"
-    }
-    else if (status === 'Cancelled') {
-      statusColor = "red"
+      statusColor = 'orange';
+    } else if (status === 'Completed') {
+      statusColor = 'green';
+    } else if (status === 'Cancelled') {
+      statusColor = 'red';
     }
     return statusColor;
   }
@@ -92,11 +84,10 @@ export class AdminOrdersPage extends Component {
     const { order } = titleProps;
     const { activeIndex } = this.state;
     const newIndex = activeIndex === index ? -1 : index;
-    this.setState({ activeIndex: newIndex, order: order });
+    this.setState({ activeIndex: newIndex, order });
   }
 
   updateOrderStatus() {
-    // event.preventDefault();
     const { order } = this.state;
     order.status = 'Completed';
     this.setState({ order });
@@ -106,23 +97,13 @@ export class AdminOrdersPage extends Component {
   // Not sure if method is still necessary
   updateFilterInputState(event) {
     const field = event.target.name;
-    // console.log(field);
     const filterObj = Object.assign({}, this.state.filterObj);
     filterObj[field] = event.target.value;
   }
 
-  
-  // getOrders() {
-  //   if (this.state.orders) {
-  //     return this.state.orders;
-  //   }
-  //   return this.props.orders;
-  // }
-
   handlePageChange(pageNum) {
     const limit = 10;
     const offset = (pageNum - 1) * limit;
-    // console.log(offset);
     if (this.state.filtered) {
       this.props.filterOrders(this.state.queryString, limit, offset);
     } else {
@@ -148,17 +129,13 @@ export class AdminOrdersPage extends Component {
   }
 
   render() {
-    // console.log(this.props.orders);
-    // console.log(this.state.orders);
     const { activeIndex } = this.state;
-    // const { menu } = this.state;
     const { orders } = this.props;
-    // const orders = this.getOrders();
     const pageContent = (
       <div className="admin-orders-list">
         <div
           onClick={this.showDrawer}
-          onKeyPress="onKeyPress"
+          onKeyPress={this.showDrawer}
           role="button"
           tabIndex="0"
         >
@@ -171,8 +148,7 @@ export class AdminOrdersPage extends Component {
             <div className="admin-order-status">Status</div>
           </Accordion.Title>
           {orders.map((order, index) => (
-            // <div style={{ borderTop: `2px solid ${this.getStatuscolor(order.status)}` }} >
-            <div>
+            <div key={order.id}>
               <Accordion.Title
                 active={activeIndex === index}
                 index={index}
@@ -190,15 +166,15 @@ export class AdminOrdersPage extends Component {
                 <div className="admin-order-exp-info">
                   <div className="admin-order-base">Base Price: <span>{order.Meal.price}</span></div>
                   <div className="admin-order-extras">
-                    Extras: {order.extras.map(extra =>
-                      <p>{extra.title} <span>x{extra.OrderExtra.quantity}</span></p>)
+                    Extras: {order.extras.map(extra => (
+                      <p key={order.id + extra.price}>
+                        {extra.title} <span>x{extra.OrderExtra.quantity} </span>
+                      </p>))
                     }
                   </div>
                   <div className="admin-order-date-ord">Date ordered: {order.createdAt} </div>
                   {this.renderCompleteButton(order)}
                 </div>
-                {/* <Button content="Complete" color="green" onClick={this.updateOrderStatus} /> */}
-                {/* <Checkbox toggle defaultChecked /> */}
               </Accordion.Content>
             </div>
         ))}
@@ -238,11 +214,11 @@ export class AdminOrdersPage extends Component {
 AdminOrdersPage.propTypes = {
   orders: PropTypes.arrayOf(PropTypes.object).isRequired,
   pagination: PropTypes.shape({
-    limit: PropTypes.number.isRequired,
-    offset: PropTypes.number.isRequired,
-    totalCount: PropTypes.number.isRequired,
-    totalPages: PropTypes.number.isRequired,
-    pageNum: PropTypes.number.isRequired,
+    limit: PropTypes.number,
+    offset: PropTypes.number,
+    totalCount: PropTypes.number,
+    totalPages: PropTypes.number,
+    pageNum: PropTypes.number,
   }).isRequired,
   loadOrders: PropTypes.func.isRequired,
   updateOrder: PropTypes.func.isRequired,

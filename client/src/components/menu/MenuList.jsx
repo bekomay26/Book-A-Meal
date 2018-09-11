@@ -6,7 +6,7 @@ import MenuItem from './MenuItem';
 const MenuList = ({ meals, selected }) => (
   <div>
     {meals.map(meal =>
-      <MenuItem meal={meal} selected={selected} />)
+      <MenuItem key={meal.id} meal={meal} selected={selected} />)
     }
   </div>
 );

@@ -18,16 +18,17 @@ import './assets/styles/style.css';
 import './assets/styles/ui.css';
 
 const store = configureStore();
-store.dispatch(loadMenu());
 if (localStorage.token) {
   setAuthorizationToken(localStorage.token);
   const { userRole } = checkAuth(localStorage.token);
   store.dispatch(loginSuccess(checkAuth(localStorage.token)));
   if (userRole === 'Caterer') {
     store.dispatch(loadExtra());
+    // store.dispatch(loadMenu());
   }
   if (userRole === 'Customer') {
     store.dispatch(loadOrders());
+    // store.dispatch(loadMenu());
   }
 }
 render(

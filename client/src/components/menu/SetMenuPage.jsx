@@ -21,17 +21,7 @@ export class SetMenuPage extends Component {
     this.onSave = this.onSave.bind(this);
     this.redirectTo = this.redirectTo.bind(this);
     this.handleTabChange = this.handleTabChange.bind(this);
-    // this.myMeal = this.myMeal.bind(this);
-    // this.goesWith = this.goesWith.bind(this);
-    // this.onTop = this.onTop.bind(this);
   }
-
-  // onSelect(e, meal) {
-  //   console.log('dsffs');
-  //   if (e.target.tagName === 'LI') {
-  //     e.target.classList.toggle('checked');
-  //   }
-  // }
 
   componentDidMount() {
     this.props.loadMeal(50, 0);
@@ -39,17 +29,14 @@ export class SetMenuPage extends Component {
 
   onSelect(e, meal) {
     if (e.target.tagName === 'LI') {
-      // e.target.classList.toggle('selmenu__checked__23Wh7');
       e.target.classList.toggle('checked');
       this.state.mealIds.push(meal.id);
-      console.log(this.state.mealIds);
     }
   }
   onSave(event) {
     event.preventDefault();
-    console.log({ mealIds: this.state.mealIds });
     this.props.saveDayMenu({ mealIds: this.state.mealIds });
-    // console.log({ mealI});
+    this.props.loadMeal();
   }
 
   redirectTo(event, index) {
@@ -93,22 +80,8 @@ export class SetMenuPage extends Component {
 
 SetMenuPage.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.shape).isRequired,
-  // menu: PropTypes.shape({
-  //   success: PropTypes.bool.isRequired,
-  //   message: PropTypes.string.isRequired,
-  //   meals: PropTypes.arrayOf(PropTypes.shape).isRequired,
-  // })
-  //   .isRequired,
   loadMeal: PropTypes.func.isRequired,
   saveDayMenu: PropTypes.func.isRequired,
-  // meal: PropTypes.shape({
-  //   id: PropTypes.number.isRequired,
-  //   title: PropTypes.string.isRequired,
-  //   description: PropTypes.string.isRequired,
-  //   price: PropTypes.number.isRequired,
-  //   extras: PropTypes.shape.isRequired,
-  // })
-  //   .isRequired,
 };
 
 /**
@@ -127,5 +100,4 @@ const mapStateToProps = state => ({
   meals: state.mealReducer.meals,
 });
 
-// const SetMenuPageWithCSS = CSSModules(SetMenuPage, styles, { allowMultiple: true });
 export default connect(mapStateToProps, mapDispatchToProps)(SetMenuPage);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import SignUp from '../../../src/components/signin/SignUp';
+import SignUp from '../../../src/components/auth/SignUp';
 
 function setup() {
   const props = {

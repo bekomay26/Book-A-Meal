@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Icon, Drawer } from 'antd';
 import { bindActionCreators } from 'redux';
 import { logout } from '../../actions/authActions';
 import '../../assets/styles/navbar.css';
-import { Icon, Drawer } from 'antd';
-import { Sidebar, Segment, Menu, Header, Image } from 'semantic-ui-react';
 
 export class AdminNavBar extends Component {
   constructor(props, context) {
@@ -14,7 +13,6 @@ export class AdminNavBar extends Component {
     this.state = {
       visibleSideBar: false,
     };
-    // this.onSelect = this.onSelect.bind(this);
     this.openSideNav = this.openSideNav.bind(this);
     this.handleSidebarHide = this.handleSidebarHide.bind(this);
   }
@@ -24,7 +22,6 @@ export class AdminNavBar extends Component {
   handleSidebarHide() { this.setState({ visibleSideBar: false }); }
   render() {
     const { userName } = this.props;
-    // const { logout } = this.props;
     const { isAuthenticated } = this.props;
     const { visibleSideBar } = this.state;
     let navlinkVisibility = 'show';
@@ -38,14 +35,13 @@ export class AdminNavBar extends Component {
         <div className="admin-top topnav row" id="myTopnav">
           <button className="icon" onClick={this.openSideNav}>
             <i className="fa fa-bars" />
-            {/* <Icon type="menu-unfold" /> */}
           </button>
           <div className="col-6">
-            <a href="#home" className="navlogo col-5">BOOK-A-MEAL</a>
+            <NavLink className="navlogo col-5" to="/">BOOK-A-MEAL</NavLink>
           </div>
           <nav className="col-6 navgroup">
-            <NavLink className={`col-3 navlink out admin-nav ${signedinVisibility}`} activeClassName="active" to="/login" onClick={(e) => { e.preventDefault(); this.props.logout(); }}>logout</NavLink>
             <li className={`col-5 navlink admin-nav ${signedinVisibility}`}>{<span><Icon type="user" />{userName}</span>}</li>
+            <NavLink className={`col-3 navlink out admin-nav ${signedinVisibility}`} activeClassName="active" to="/login" onClick={(e) => { e.preventDefault(); this.props.logout(); }}>logout</NavLink>
           </nav>
         </div>
         <Drawer
@@ -60,8 +56,7 @@ export class AdminNavBar extends Component {
           <NavLink className="col-3 show navlink" to="/meals" activeClassName="active">Meals</NavLink>
           <NavLink className="col-3 show navlink" to="/setmenu" activeClassName="active">Menu</NavLink>
           <NavLink className="col-3 show navlink" to="/adorders" activeClassName="active">Orders</NavLink>
-          <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/auth" activeClassName="active">SignIn</NavLink>
-          {/* <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/signup" activeClassName="active">SignUp</NavLink> */}
+          <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/login" activeClassName="active">SignIn</NavLink>
           <NavLink className={`col-3 navlink out ${signedinVisibility}`} activeClassName="active" to="/login" onClick={(e) => { e.preventDefault(); this.props.logout(); }}>logout</NavLink>
         </Drawer>
       </div>
@@ -72,13 +67,11 @@ export class AdminNavBar extends Component {
 AdminNavBar.defaultProps = {
   userName: undefined,
   isAuthenticated: false,
-  isCaterer: false,
 };
 
 AdminNavBar.propTypes = {
   userName: PropTypes.string,
   isAuthenticated: PropTypes.bool,
-  isCaterer: PropTypes.bool,
   logout: PropTypes.func.isRequired,
 };
 

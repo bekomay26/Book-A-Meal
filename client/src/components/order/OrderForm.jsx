@@ -4,7 +4,10 @@ import { Form, Header } from 'semantic-ui-react';
 import OrderExtra from './OrderExtra';
 
 
-const OrderForm = ({ order, meal, orderedMeal, goesWith, extras, onQtyChange, extraStatus, handleChecked, totalMealPrice, onSave, onClose, saving }) => {
+const OrderForm = ({
+  meal, orderedMeal, goesWith, extras, onQtyChange, extraStatus,
+  handleChecked, totalMealPrice, onSave, saving,
+}) => {
   const goes = goesWith(meal.extras);
   const goesLength = goes.length;
   const extr = extras(meal.extras);
@@ -76,16 +79,16 @@ const OrderForm = ({ order, meal, orderedMeal, goesWith, extras, onQtyChange, ex
 
 OrderForm.propTypes = {
   // meal: PropTypes.arrayOf(PropTypes.shape).isRequired,
-  meal: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    extras: PropTypes.shape.isRequired,
-  })
-    .isRequired,
+  meal: PropTypes.object.isRequired,
+  orderedMeal: PropTypes.object.isRequired,
   goesWith: PropTypes.func.isRequired,
   extras: PropTypes.func.isRequired,
+  onQtyChange: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  handleChecked: PropTypes.func.isRequired,
+  totalMealPrice: PropTypes.number.isRequired,
+  saving: PropTypes.bool.isRequired,
+  extraStatus: PropTypes.array.isRequired,
 };
 
 export default OrderForm;

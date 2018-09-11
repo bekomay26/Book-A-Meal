@@ -149,6 +149,10 @@ ul, nav{
     color: #380D02;
 }
 
+.topnav li.navlink.admin-nav {
+    margin-left: 33%;
+}
+
 .topnav .navlink.out.admin-nav:hover {
     border-bottom: 2px solid #380D02;
     color: #380D02;
