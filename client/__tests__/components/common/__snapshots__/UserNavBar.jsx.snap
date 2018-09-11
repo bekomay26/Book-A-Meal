@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The User Nav Bar Component should render the nav bar component correctly 1`] = `
+<div>
+  <div
+    className="topnav row user-top"
+    id="myTopnav"
+  >
+    <button
+      className="icon"
+      onClick={[Function]}
+    >
+      <i
+        className="fa fa-bars"
+      />
+    </button>
+    <div
+      className="col-6"
+    >
+      <a
+        className="navlogo col-5"
+        href="#home"
+      >
+        BOOK-A-MEAL
+      </a>
+    </div>
+    <nav
+      className="col-6 navgroup"
+    >
+      <li
+        className="col-3 navlink hide"
+      />
+      <NavLink
+        activeClassName="active"
+        ariaCurrent="true"
+        className="col-3 show navlink"
+        to="/menu"
+      >
+        Menu
+      </NavLink>
+      <NavLink
+        activeClassName="active"
+        ariaCurrent="true"
+        className="col-3 show navlink"
+        to="/myorders"
+      >
+        Order
+      </NavLink>
+      <NavLink
+        activeClassName="active"
+        ariaCurrent="true"
+        className="col-3 navlink show"
+        to="/auth"
+      >
+        SignIn
+      </NavLink>
+      <NavLink
+        activeClassName="active"
+        ariaCurrent="true"
+        className="col-3 navlink out hide"
+        onClick={[Function]}
+        to="/login"
+      >
+        logout
+      </NavLink>
+    </nav>
+  </div>
+  <Drawer
+    closable={true}
+    level={null}
+    maskClosable={false}
+    onClose={[Function]}
+    placement="left"
+    prefixCls="ant-drawer"
+    title="Basic Drawer"
+    visible={false}
+    width={400}
+  >
+    <p>
+      Some contents...
+    </p>
+    <p>
+      Some contents...
+    </p>
+    <p>
+      Some contents...
+    </p>
+  </Drawer>
+</div>
+`;

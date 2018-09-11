@@ -20,7 +20,7 @@ const CustomerOrdersList = ({ orders, selected, cancelOrder }) => (
       <tfoot />
       <tbody>
         {orders.map(order =>
-          (<CustomerOrdersRow order={order} selected={selected} cancelOrder={cancelOrder} />))
+          (<CustomerOrdersRow key={order.id} order={order} selected={selected} cancelOrder={cancelOrder} />))
         }
       </tbody>
     </table>

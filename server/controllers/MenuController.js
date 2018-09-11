@@ -149,6 +149,14 @@ class MenuController extends Controller {
             attributes: ['title', 'description', 'price'],
           },
           as: 'meals',
+          include: [{
+            model: db.Extra,
+            through: {
+              foreignKey: 'extraId',
+            },
+            as: 'extras',
+            attributes: ['id', 'title', 'category', 'price'],
+          }],
         }],
       });
       return res.status(200).json({

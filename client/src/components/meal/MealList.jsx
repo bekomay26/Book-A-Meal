@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
 import '../../assets/styles/mm.css';
 import MealRow from './MealRow';
 
 
-const MealList = ({ meals, selectMealEditBtn, selectMealDelBtn, mealGoesWith, mealOnTop, addExtra, extraOptId, selected }) => {
-  return(<div style={{ overflowX: 'auto' }}>
+const MealList = ({
+  meals, selectMealEditBtn, selectMealDelBtn, mealGoesWith,
+  mealOnTop, addExtra, extraOptId, selected
+}) => (
+  <div style={{ overflowX: 'auto' }}>
     <table>
       <thead>
         <tr>
@@ -23,6 +25,7 @@ const MealList = ({ meals, selectMealEditBtn, selectMealDelBtn, mealGoesWith, me
         {meals.map(meal =>
           (<MealRow
             meal={meal}
+            key={meal.id}
             selectMealEditBtn={selectMealEditBtn}
             mealGoesWith={mealGoesWith}
             mealOnTop={mealOnTop}
@@ -30,13 +33,12 @@ const MealList = ({ meals, selectMealEditBtn, selectMealDelBtn, mealGoesWith, me
             extraOptId={extraOptId}
             selected={selected}
             selectMealDelBtn={selectMealDelBtn}
-            // clearExtrasFields={clearExtrasFields}
           />))
         }
       </tbody>
     </table>
-  </div>)
-};
+  </div>
+);
 
 MealList.propTypes = {
   // meals: PropTypes.arrayOf(PropTypes.shape).isRequired,

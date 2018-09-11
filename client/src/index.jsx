@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import 'antd/dist/antd.css';
 import { BrowserRouter as Router, browserHistory } from 'react-router-dom';
 import ReduxToastr from 'react-redux-toastr';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
@@ -17,16 +18,17 @@ import './assets/styles/style.css';
 import './assets/styles/ui.css';
 
 const store = configureStore();
-store.dispatch(loadMenu());
 if (localStorage.token) {
   setAuthorizationToken(localStorage.token);
   const { userRole } = checkAuth(localStorage.token);
   store.dispatch(loginSuccess(checkAuth(localStorage.token)));
   if (userRole === 'Caterer') {
     store.dispatch(loadExtra());
+    // store.dispatch(loadMenu());
   }
   if (userRole === 'Customer') {
     store.dispatch(loadOrders());
+    // store.dispatch(loadMenu());
   }
 }
 render(

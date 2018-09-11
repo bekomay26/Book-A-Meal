@@ -1,14 +1,15 @@
 import React from 'react';
-import CSSModules from 'react-css-modules';
 import PropTypes from 'prop-types';
 // import { Form, Icon, Input, Button } from 'antd';
-import { Form, Header, Button, Icon } from 'semantic-ui-react';
+import { Form, Header } from 'semantic-ui-react';
 import MealExtra from './MealExtra';
 // import styles from '../../assets/styles/menu2.css';
 
 
-const MenuForm = ({ meal, goesWith, extras, onQtyChange, extraStatus, handleChecked, totalMealPrice, onSave, onClose, saving }) => {
-
+const MenuForm = ({
+  meal, goesWith, extras, onQtyChange, extraStatus,
+  handleChecked, totalMealPrice, onSave, saving,
+}) => {
   const goes = goesWith(meal.extras);
   const goesLength = goes.length;
   const extr = extras(meal.extras);
@@ -71,25 +72,27 @@ const MenuForm = ({ meal, goesWith, extras, onQtyChange, extraStatus, handleChec
             <h4 className="col-3 foodprice">&#x20A6;{totalMealPrice}</h4>
           </div>
         </div>
-        <Form.Button loading={saving} className="orderButton " content={saving ? 'ordering' : 'order'} disabled={saving} />
+        <Form.Button
+          loading={saving}
+          className="orderButton"
+          content={saving ? 'ordering' : 'order'}
+          disabled={saving}
+        />
 
       </Form>
     </div>);
 };
 
 MenuForm.propTypes = {
-  // meal: PropTypes.arrayOf(PropTypes.shape).isRequired,
-  meal: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    extras: PropTypes.shape.isRequired,
-  })
-    .isRequired,
+  meal: PropTypes.object.isRequired,
   goesWith: PropTypes.func.isRequired,
   extras: PropTypes.func.isRequired,
+  onQtyChange: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  handleChecked: PropTypes.func.isRequired,
+  totalMealPrice: PropTypes.number.isRequired,
+  saving: PropTypes.bool.isRequired,
+  extraStatus: PropTypes.array.isRequired,
 };
 
-// export default CSSModules(MenuForm, styles, { allowMultiple: true });
 export default MenuForm;

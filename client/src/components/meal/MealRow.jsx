@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
 import '../../assets/styles/mm.css';
 
-const MealRow = ({ meal, selectMealEditBtn, selectMealDelBtn, mealGoesWith, mealOnTop, addExtra, extraOptId, selected }) => {
-  console.log("meeeeee");
-  console.log(meal);
+const MealRow = ({
+  meal, selectMealEditBtn, selectMealDelBtn, mealGoesWith,
+  mealOnTop, addExtra, extraOptId, selected
+}) => {
   let goes = [];
   let onTop = [];
   if (meal.extras) {
@@ -50,8 +51,12 @@ MealRow.propTypes = {
   })
     .isRequired,
   selectMealEditBtn: PropTypes.func.isRequired,
+  selectMealDelBtn: PropTypes.func.isRequired,
+  mealGoesWith: PropTypes.func.isRequired,
+  mealOnTop: PropTypes.func.isRequired,
+  addExtra: PropTypes.func.isRequired,
+  extraOptId: PropTypes.number.isRequired,
+  selected: PropTypes.func.isRequired,
 };
 
-// const MealRowWithCSS = CSSModules(MealRow, styles, { allowMultiple: true });
-// export default (MealRowWithCSS);
 export default MealRow;

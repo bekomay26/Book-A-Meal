@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { AuthPage } from '../../../src/components/signin/AuthPage';
+import { AuthPage } from '../../../src/components/auth/AuthPage';
 
 // import jsdom from 'jsdom';
 // const doc = jsdom.jsdom('<!doctype html><html><body></body></html>')
@@ -51,6 +51,7 @@ describe('The Auth Page', () => {
     expect(wrapper.find('Tab').length).toEqual(1);
     expect(wrapper.find('.item').length).toEqual(2);
     expect(wrapper.find('SignIn').length).toEqual(1);
+    wrapper.unmount();
   });
 });
 
@@ -58,12 +59,15 @@ it('should not render if user is authenticated and a caterer but Redirect to Mea
   const wrapper = setup(true, true);
   expect(wrapper.find('SignIn').length).toBe(0);
   expect(wrapper.find('Redirect').props().to).toEqual('/meals');
+  wrapper.unmount();
 });
 
 it('should not render if user is authenticated but Redirect to Menu Page', () => {
   const wrapper = setup(true);
   expect(wrapper.find('SignIn').length).toBe(0);
-  expect(wrapper.find('Redirect').props().to).toEqual({ pathname: '/menu' });
+  expect(wrapper.find('Redirect').props().to).toEqual('/menu');
+  // expect(wrapper.find('Redirect').props().to).toEqual({ pathname: '/menu' });
+  wrapper.unmount();
 });
 
 it('should update state on text input change', () => {
@@ -76,6 +80,7 @@ it('should update state on text input change', () => {
   wrapper.instance().onUnameChange(event);
   expect(wrapper.state().user.uname).toBe('fola');
   expect(handleChangeSpy).toHaveBeenCalled();
+  wrapper.unmount();
 });
 
 it('should update state on password input change', () => {
@@ -88,10 +93,11 @@ it('should update state on password input change', () => {
   wrapper.instance().onUnameChange(event);
   expect(wrapper.state().user.pwd).toBe('fola');
   expect(handleChangeSpy).toHaveBeenCalled();
+  wrapper.unmount();
 });
 
 it('should call the submit function', () => {
-  // const wrapper = setup();
+  const wrapper = setup();
   // const submitButton = wrapper.find('.loginAuth').last();
   // const props = {
   //   isAuthenticated: false,
@@ -101,10 +107,15 @@ it('should call the submit function', () => {
   //   signUp: jest.fn(),
   // };
   // const wrapper = shallow(<AuthPage {...props} />);
-  // const handleSubmitSpy = jest.spyOn(wrapper.instance(), 'onSubmit');
+  const handleSubmitSpy = jest.spyOn(wrapper.instance(), 'onSubmit');
+  const event = {
+    preventDefault: jest.fn(),
+  };
+  wrapper.instance().onSubmit(event);
   // const submitButton = wrapper.find('.authButton');
   // submitButton.simulate('click');
-  // expect(handleSubmitSpy).toHaveBeenCalled();
+  expect(handleSubmitSpy).toHaveBeenCalled();
+  wrapper.unmount();
 });
 
 it('should call the save function', () => {
@@ -117,6 +128,7 @@ it('should call the save function', () => {
   // const submitButton = wrapper.find('button');
   // submitButton.simulate('click');
   expect(handleSaveSpy).toHaveBeenCalled();
+  wrapper.unmount();
 });
 
 it('should change tab', () => {
@@ -125,6 +137,7 @@ it('should change tab', () => {
   tabButton.simulate('click');
   expect(wrapper.find('SignIn').length).toBe(0);
   expect(wrapper.find('SignUp').length).toBe(1);
+  wrapper.unmount();
 });
 // describe('The Auth Page', () => {
 //   it('It renders Tab', () => {

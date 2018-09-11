@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb } from 'antd';
 import { NavLink, Redirect } from 'react-router-dom';
-// import { logout } from '../../actions/authActions';
-import UserNavBar from './UserNavBar';
 import AdminNavBar from './AdminNavBar';
 import '../../assets/styles/adminlayout.css';
 
@@ -30,7 +27,6 @@ export class AdminLayout extends Component {
     this.setState({ isDesktop: window.innerWidth > 960 });
   }
 
-  // const AdminLayout = ({ content }) => {
   render() {
     const { isDesktop } = this.state;
     const { content, isAuthenticated, isCaterer } = this.props;
@@ -48,8 +44,6 @@ export class AdminLayout extends Component {
     }
     const desktopPage = (
       <Layout>
-        {/* <UserNavBar /> */}
-        {/* <AdminNavBar logout={this.props.logout} /> */}
         <AdminNavBar />
         <Layout className="sidelayout">
           <Sider width={200} style={{ background: '#fff' }}>
@@ -74,17 +68,16 @@ export class AdminLayout extends Component {
               </Menu.Item>
               <SubMenu key="sub4" title={<span><img src="https://png.icons8.com/ios/80/ffffff/restaurant-menu.png" alt="menu" />Menu</span>}>
                 <Menu.Item key="9">
-                  <NavLink className="admin-side navlink" to="/setmenu"> <div onClick={() => { this.props.redirectTo(3); }}> Set Menu</div></NavLink>
+                  <NavLink className="admin-side navlink" to="/setmenu"> Set Menu</NavLink>
                 </Menu.Item>
                 <Menu.Item key="10" onClick={<Redirect push to="/setmenu" />} >Edit Menu</Menu.Item>
-                <Menu.Item key="11" onClick={(event) => { this.props.redirectTo(event, 3); }}>Menu History</Menu.Item>
+                <Menu.Item key="11" onClick={<Redirect push to="/setmenu" />} >Menu History</Menu.Item>
               </SubMenu>
             </Menu>
           </Sider>
           <Layout style={{ padding: '0 24px 24px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>Admin</Breadcrumb.Item>
-              {/* <Breadcrumb.Item>List</Breadcrumb.Item> */}
               <Breadcrumb.Item>{this.props.page}</Breadcrumb.Item>
             </Breadcrumb>
             <Content style={{
@@ -109,7 +102,6 @@ export class AdminLayout extends Component {
     );
     return (
       <div>
-        {/* {desktopPage} */}
         { isDesktop ? desktopPage : mobilePage }
       </div>
     );
@@ -119,7 +111,7 @@ AdminLayout.propTypes = {
   isCaterer: PropTypes.bool.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   content: PropTypes.element.isRequired,
-  logout: PropTypes.func.isRequired,
+  page: PropTypes.string.isRequired,
 };
 
 

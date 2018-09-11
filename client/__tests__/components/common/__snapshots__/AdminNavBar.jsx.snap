@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Admin Nav Bar Component should render admin nav bar component correctly 1`] = `
+<div>
+  <div
+    className="admin-top topnav row"
+    id="myTopnav"
+  >
+    <button
+      className="icon"
+      onClick={[Function]}
+    >
+      <i
+        className="fa fa-bars"
+      />
+    </button>
+    <div
+      className="col-6"
+    >
+      <a
+        className="navlogo col-5"
+        href="#home"
+      >
+        BOOK-A-MEAL
+      </a>
+    </div>
+    <nav
+      className="col-6 navgroup"
+    >
+      <NavLink
+        activeClassName="active"
+        ariaCurrent="true"
+        className="col-3 navlink out admin-nav hide"
+        onClick={[Function]}
+        to="/login"
+      >
+        logout
+      </NavLink>
+      <li
+        className="col-5 navlink admin-nav hide"
+      >
+        <span>
+          <Icon
+            type="user"
+          />
+        </span>
+      </li>
+    </nav>
+  </div>
+  <Drawer
+    className="admin-drawer"
+    closable={true}
+    level={null}
+    maskClosable={false}
+    onClose={[Function]}
+    placement="left"
+    prefixCls="ant-drawer"
+    title="Book-A-Meal"
+    visible={false}
+    width={400}
+  >
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      className="col-3 show navlink"
+      to="/meals"
+    >
+      Meals
+    </NavLink>
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      className="col-3 show navlink"
+      to="/setmenu"
+    >
+      Menu
+    </NavLink>
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      className="col-3 show navlink"
+      to="/adorders"
+    >
+      Orders
+    </NavLink>
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      className="col-3 navlink show"
+      to="/auth"
+    >
+      SignIn
+    </NavLink>
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      className="col-3 navlink out hide"
+      onClick={[Function]}
+      to="/login"
+    >
+      logout
+    </NavLink>
+  </Drawer>
+</div>
+`;
