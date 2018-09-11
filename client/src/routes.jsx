@@ -8,26 +8,26 @@ import SignUpPage from './components/signup/SignUpPage';
 import MenuPage from './components/menu/MenuPage';
 import ManageMealPage from './components/meal/ManageMealPage';
 import SetMenuPage from './components/menu/SetMenuPage';
-import DayOrdersPage from './components/order/DayOrders';
-import MyOrdersPage from './components/order/MyOrdersPage';
 import AdminOrdersPage from './components/order/AdminOrdersPage';
 import CustomerOrdersPage from './components/order/CustomerOrdersPage';
+import Unauthorized from './components/common/Unauthorized';
+import PageNotFound from './components/common/PageNotFound';
 
 const routes = (
   <div>
     <Switch>
-      <Route exact path="/h" component={HomePage} />
-      <Route path="/login" component={SignInPage} />
-      <Route path="/signup" component={SignUpPage} />
-      <Route path="/menu" component={MenuPage} />
-      <Route path="/menu:id" component={MenuPage} />
-      <Route path="/setmenu" component={SetMenuPage} />
-      <Route path="/orders" component={DayOrdersPage} />
-      <Route path="/adorders" component={AdminOrdersPage} />
-      {/* <Route path="/myorders" component={MyOrdersPage} /> */}
-      <Route path="/myorders" component={CustomerOrdersPage} />
-      <Route path="/meals" component={ManageMealPage} />
-      <Route path="/auth" component={AuthPage} />
+      <Route exact path="/" component={HomePage} />
+      <Route exact path="/signin" component={SignInPage} />
+      <Route exact path="/signup" component={SignUpPage} />
+      <Route exact path="/menu" component={MenuPage} />
+      <Route exact path="/menu:id" component={MenuPage} />
+      <Route exact path="/setmenu" component={SetMenuPage} />
+      <Route exact path="/adorders" component={AdminOrdersPage} />
+      <Route exact path="/orders" component={CustomerOrdersPage} />
+      <Route exact path="/meals" component={ManageMealPage} />
+      <Route exact path="/login" component={AuthPage} />
+      <Route exact path="/unauthorized" component={Unauthorized} />
+      <Route exact path="/*" component={PageNotFound} />
     </Switch>
   </div>
 );

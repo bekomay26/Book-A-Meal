@@ -86,7 +86,8 @@ BIG PICTURE
 }
 
 .bigpic .back-image{
-    background-image: url('../images/7.jpg');
+    /* background-image: url('../images/7.jpg'); */
+    background-image: url('https://res.cloudinary.com/dffiyhgto/image/upload/v1536473500/back2.jpg');
     background-size: cover;
     background-color: #1A77C1;
     position: absolute;
@@ -114,6 +115,7 @@ BIG PICTURE
     text-shadow: 3px 3px black;
     padding-top: 50px;
     margin-top: 100px;
+    color: wheat;
     /* margin-bottom: 15px; */
     
 }
@@ -150,7 +152,7 @@ BIG PICTURE
         font-size: 8.0vh;
     }
     .bigpic h3{
-        font-size: 4.0vh;
+        font-size: 2.0vh;
     }
     .active {
         border-bottom: 1px solid white;

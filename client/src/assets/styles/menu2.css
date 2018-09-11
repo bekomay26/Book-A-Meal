@@ -252,9 +252,10 @@ div.ant-drawer-body {
 
 @media screen and (min-width: 401px) {
     .ui.form .field.orderButton {
-        left: unset;
-        bottom: unset;
-        position: absolute;
+        left: calc(100% - 400px);
+        width: 400px;
+        bottom: 0;
+        position: fixed;
     }
 }
 

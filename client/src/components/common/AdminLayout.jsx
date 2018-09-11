@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import { NavLink, Redirect } from 'react-router-dom';
+// import { logout } from '../../actions/authActions';
 import UserNavBar from './UserNavBar';
 import AdminNavBar from './AdminNavBar';
 import '../../assets/styles/adminlayout.css';
@@ -31,12 +33,23 @@ export class AdminLayout extends Component {
   // const AdminLayout = ({ content }) => {
   render() {
     const { isDesktop } = this.state;
-    const { content } = this.props;
+    const { content, isAuthenticated, isCaterer } = this.props;
     const { SubMenu } = Menu;
     const { Content, Sider } = Layout;
+
+    if (!isAuthenticated) {
+      return (
+        <Redirect push to="/login" />
+      );
+    } else if (isAuthenticated && !isCaterer) {
+      return (
+        <Redirect push to="/unauthorized" />
+      );
+    }
     const desktopPage = (
       <Layout>
         {/* <UserNavBar /> */}
+        {/* <AdminNavBar logout={this.props.logout} /> */}
         <AdminNavBar />
         <Layout className="sidelayout">
           <Sider width={200} style={{ background: '#fff' }}>
@@ -101,8 +114,19 @@ export class AdminLayout extends Component {
   }
 }
 AdminLayout.propTypes = {
-
+  isCaterer: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  content: PropTypes.element.isRequired,
+  logout: PropTypes.func.isRequired,
 };
+
+
+// /**
+//  * @desc maps dispatch to props;
+//  * @param {*} dispatch dispatch
+//  * @returns {*} action to be dispatched
+//  */
+// const mapDispatchToProps = dispatch => bindActionCreators({ logout }, dispatch);
 
 /**
  * @desc maps state to props;
@@ -110,8 +134,8 @@ AdminLayout.propTypes = {
  * @returns {*} store state
  */
 const mapStateToProps = state => ({
-  // isAuthenticated: state.authReducer.isAuthenticated,
-  // isCaterer: state.authReducer.isCaterer,
+  isAuthenticated: state.authReducer.isAuthenticated,
+  isCaterer: state.authReducer.isCaterer,
   // userName: state.authReducer.userName,
 });
 

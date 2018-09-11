@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Meal Form Component should render meal form component correctly 1`] = `
+<div>
+  <Form
+    as="form"
+    className="add-meal-form"
+    onSubmit={[MockFunction]}
+  >
+    <Dragger
+      accept="image/*"
+      action=""
+      listType="picture-card"
+      name="filename"
+      onChange={[MockFunction]}
+      showUploadList={false}
+    >
+      <div>
+        <Icon
+          type="plus"
+        />
+        <img
+          alt="meal"
+          className="menu-meal-img"
+          src="https://res.cloudinary.com/dffiyhgto/image/upload/v1536160768/gfhgh980.jpg"
+        />
+      </div>
+    </Dragger>
+    <FormGroup>
+      <FormField
+        width={10}
+      >
+        <label>
+          Food Title
+        </label>
+        <Input
+          name="title"
+          onChange={[MockFunction]}
+          placeholder="Meal"
+          type="text"
+          value="gfhgh"
+        >
+          <input />
+        </Input>
+      </FormField>
+      <FormField
+        width={6}
+      >
+        <label>
+          Price
+        </label>
+        <Input
+          className="meal-update-price-input"
+          labelPosition="right"
+          max="9995"
+          min="50"
+          name="price"
+          onChange={[MockFunction]}
+          placeholder="Amount"
+          step="5"
+          type="number"
+          value={980}
+        >
+          <Label
+            basic={true}
+          >
+            $
+          </Label>
+          <input />
+          <Label>
+            .00
+          </Label>
+        </Input>
+      </FormField>
+    </FormGroup>
+    <FormTextArea
+      as={[Function]}
+      control={[Function]}
+      label="Description"
+      name="description"
+      onChange={[MockFunction]}
+      placeholder="Tell us more about the food..."
+      value=""
+    />
+    <Grid
+      className="add-meal-form-grid"
+      columns={2}
+      divided={true}
+    >
+      <GridRow>
+        <GridColumn>
+          <h4>
+            Goes With
+          </h4>
+          meal
+          meal
+          <div
+            style={
+              Object {
+                "fontSize": "20px",
+                "textAlign": "center",
+              }
+            }
+          >
+            <i
+              className="far fa-plus-square"
+              onClick={[Function]}
+              role="button"
+            />
+          </div>
+        </GridColumn>
+        <GridColumn>
+          <h4>
+            Extras
+          </h4>
+          meal
+          meal
+          <div
+            style={
+              Object {
+                "fontSize": "20px",
+                "textAlign": "center",
+              }
+            }
+          >
+            <i
+              className="far fa-plus-square"
+              onClick={[Function]}
+              role="button"
+            />
+          </div>
+        </GridColumn>
+      </GridRow>
+    </Grid>
+    <FormButton
+      as={[Function]}
+      className="manage-meal-button"
+      control={[Function]}
+    >
+      Update
+    </FormButton>
+  </Form>
+</div>
+`;

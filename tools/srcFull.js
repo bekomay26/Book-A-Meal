@@ -3,6 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import webpack from 'webpack';
+import compression from 'compression';
 import open from 'open';
 import config from '../webpack.config.dev';
 import mealRouter from '../server/routes/mealRoutes';
@@ -13,9 +14,11 @@ import extraRouter from '../server/routes/extraRoutes';
 import errorRouter from '../server/routes/errorRoutes';
 
 const app = express();
-const port = 5000;
+const port = 4000;
 // const port = process.env.PORT || 3000;
 
+
+app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

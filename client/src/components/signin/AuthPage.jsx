@@ -56,13 +56,13 @@ export class AuthPage extends Component {
     }
     if (this.props.isAuthenticated) {
       return (
-        // <Redirect to="/menu" />
-        <Redirect
-          push
-          to={{
-            pathname: '/menu',
-          }}
-        />
+        <Redirect to="/menu" />
+        // <Redirect
+        //   push
+        //   to={{
+        //     pathname: '/menu',
+        //   }}
+        // />
       );
     }
     const panes = [

@@ -4,14 +4,15 @@ import '../../assets/styles/mm.css';
 import CustomerOrdersRow from './CustomerOrdersRow';
 
 
-const CustomerOrdersList = ({ orders, selected }) => (
+const CustomerOrdersList = ({ orders, selected, cancelOrder }) => (
   <div style={{ overflowX: 'auto' }}>
     <table>
       <thead>
         <tr>
           <th>Id</th>
           <th>Meal Name</th>
-          <th>price</th>
+          <th>Status</th>
+          <th>Price(&#x20A6;)</th>
           <th />
           <th />
         </tr>
@@ -19,7 +20,7 @@ const CustomerOrdersList = ({ orders, selected }) => (
       <tfoot />
       <tbody>
         {orders.map(order =>
-          (<CustomerOrdersRow order={order} selected={selected} />))
+          (<CustomerOrdersRow order={order} selected={selected} cancelOrder={cancelOrder} />))
         }
       </tbody>
     </table>
@@ -28,6 +29,8 @@ const CustomerOrdersList = ({ orders, selected }) => (
 
 CustomerOrdersList.propTypes = {
   orders: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  selected: PropTypes.func.isRequired,
+  cancelOrder: PropTypes.func.isRequired,
 };
 
 export default CustomerOrdersList;

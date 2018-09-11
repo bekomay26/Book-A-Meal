@@ -26,13 +26,13 @@ export default {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     // new ExtractTextPlugin('style.css'),
-    new HtmlWebpackPlugin({ // Create HTML file that includes references to bundled CSS and JS.
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-      },
-      inject: true,
-    }),
+    // new HtmlWebpackPlugin({ // Create HTML file that includes references to bundled CSS and JS.
+    //   minify: {
+    //     removeComments: true,
+    //     collapseWhitespace: true,
+    //   },
+    //   inject: true,
+    // }),
   ],
   module: {
     rules: [

@@ -2,17 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import CSSModules from 'react-css-modules';
+import { Tab } from 'semantic-ui-react';
 import { loadMeal } from '../../actions/mealActions';
 import { saveDayMenu } from '../../actions/menuActions';
-import NavBar from '../common/NavBar';
 import '../../assets/styles/selmenu.css';
 import AddMenuMeals from './AddMenuMeals';
-import { Tab } from 'semantic-ui-react';
 import AdminLayout from '../common/AdminLayout';
 // import cx from 'classnames'
 
-class SetMenuPage extends Component {
+export class SetMenuPage extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -36,7 +34,7 @@ class SetMenuPage extends Component {
   // }
 
   componentDidMount() {
-    this.props.loadMeal();
+    this.props.loadMeal(50, 0);
   }
 
   onSelect(e, meal) {
@@ -125,12 +123,9 @@ const mapDispatchToProps = dispatch => bindActionCreators({ loadMeal, saveDayMen
  * @param {*} state store state
  * @returns {*} store state
  */
-const mapStateToProps = (state, ownProps) => {
-  // const mealId = ownProps.params.id;
-  return ({
-    meals: state.mealReducer,
-  });
-};
+const mapStateToProps = state => ({
+  meals: state.mealReducer.meals,
+});
 
 // const SetMenuPageWithCSS = CSSModules(SetMenuPage, styles, { allowMultiple: true });
 export default connect(mapStateToProps, mapDispatchToProps)(SetMenuPage);

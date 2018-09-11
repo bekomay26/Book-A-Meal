@@ -1,9 +1,11 @@
 import axios from 'axios';
-import toastr from 'toastr';
 import * as types from './actionTypes';
 
 const loadExtraSuccess = extras => (
-  { type: types.LOAD_EXTRA_SUCCESS, extras }
+  {
+    type: types.LOAD_EXTRA_SUCCESS,
+    extras: extras.extras,
+  }
 );
 
 /**
