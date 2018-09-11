@@ -84,7 +84,7 @@ export class ManageMealPage extends Component {
     this.props.saveMeal(this.state.meal);
   }
 
-  onUpdate(e) {
+  async onUpdate(e) {
     e.preventDefault();
     let { updatedMeal } = this.state;
     updatedMeal.id = this.state.meal.id;
@@ -100,7 +100,9 @@ export class ManageMealPage extends Component {
     // this.setState({ updatedMeal, meal: updatedMeal });
     this.setState({ updatedMeal });
     console.log(this.state.updatedMeal);
-    this.props.updateMeal(this.state.updatedMeal);
+    await this.props.updateMeal(this.state.updatedMeal);
+    this.onCloseDrawer();
+    this.props.loadMeal(); // did to reload page
   }
 
   onSelectAddBtn(extraOpt, type) {

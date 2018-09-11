@@ -59,7 +59,7 @@ export class AdminLayout extends Component {
               defaultOpenKeys={['sub1']}
               style={{ height: '100%', borderRight: 0 }}
             >
-              <SubMenu key="sub1" title={<span><img src="https://png.icons8.com/ios/80/ffffff/combo-chart.png" alt="analytics" />Dashboard</span>} />
+              <Menu.Item key="sub1"><span><img src="https://png.icons8.com/ios/80/ffffff/combo-chart.png" alt="analytics" />Dashboard</span></Menu.Item>
               <SubMenu key="sub2" title={<span><img src="https://png.icons8.com/wired/80/ffffff/hamburger.png" alt="meals" />Meals</span>}>
                 <Menu.Item key="5">
                   <NavLink className="admin-side navlink" to="/meals">View Meals</NavLink>
@@ -67,9 +67,9 @@ export class AdminLayout extends Component {
                 <Menu.Item key="6">Add Meal</Menu.Item>
                 <Menu.Item key="7">Add Extra</Menu.Item>
               </SubMenu>
-              <SubMenu key="sub3"
-                title={<span><img src="https://png.icons8.com/ios/80/ffffff/checked-truck.png" alt="orders" />
-                <NavLink className="admin-side navlink" to="/adorders">Orders</NavLink></span>} />
+              <Menu.Item key="sub3">
+                <span><img src="https://png.icons8.com/ios/80/ffffff/checked-truck.png" alt="orders" />
+                <NavLink className="admin-side navlink" to="/adorders">Orders</NavLink></span></Menu.Item>
               <SubMenu key="sub4" title={<span><img src="https://png.icons8.com/ios/80/ffffff/restaurant-menu.png" alt="menu" />Menu</span>}>
                 <Menu.Item key="9">
                   <NavLink className="admin-side navlink" to="/setmenu"> <div onClick={() => { this.props.redirectTo(3); }}> Set Menu</div></NavLink>
