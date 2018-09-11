@@ -32,16 +32,12 @@ export class ManageMealPage extends Component {
     this.mealGoesWith = this.mealGoesWith.bind(this);
     this.addExtrasOnEdit = this.addExtrasOnEdit.bind(this);
     this.onSelectMealDelBtn = this.onSelectMealDelBtn.bind(this);
-    // this.onHandleExtraChange = this.onHandleExtraChange.bind(this);
-    // this.onSaveExtra = this.onSaveExtra.bind(this);
     this.getBase64 = this.getBase64.bind(this);
     this.showDrawer = this.showDrawer.bind(this);
     this.onCloseDrawer = this.onCloseDrawer.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
-    // this.clearExtrasFields = this.clearExtrasFields.bind(this);
-    // this.getSelectValue = this.getSelectValue.bind(this);
     this.state = {
-      meal: Object.assign({}, props.meal),
+      meal: {},
       updatedMeal: {},
       extrasList: [],
       extrasTopList: [],
@@ -50,43 +46,27 @@ export class ManageMealPage extends Component {
       cardImgList: [],
       visible: false,
       currentPage: 1,
-      totalPages: 0,
-      pageNumber: 0,
-      pageCount: 0,
-      // value: [],
-      // goes: [],
-      // top: [],
     };
   }
   componentDidMount() {
     this.props.loadMeal();
-    // console.log(this.props.extras);
-    // this.setState({ totalPages: this.props.pagination.totalPages });
   }
-  // componentDidMount() {
-  //   if (this.state.addBtnClicked !== false) {
-  //     this.setState({ addBtnClicked: false });
-  //   }
-  // }
 
   onSubmit(e) {
     e.preventDefault();
     // const extras = this.state.extrasList.concat(this.state.extrasTopList);
     const extras = this.state.selectValues;
-    let extraIds = [];
-    extras.map(extra => {
-      extraIds.push(extra.id);
-    });
-    let { meal } = this.state;
+    const extraIds = [];
+    extras.map(extra => extraIds.push(extra.id));
+    const { meal } = this.state;
     meal.extraIds = extraIds;
     this.setState({ meal });
-    console.log(this.state.meal);
     this.props.saveMeal(this.state.meal);
   }
 
   async onUpdate(e) {
     e.preventDefault();
-    let { updatedMeal } = this.state;
+    const { updatedMeal } = this.state;
     updatedMeal.id = this.state.meal.id;
     const extras = this.state.selectValues;
     let extraIds;
@@ -99,7 +79,6 @@ export class ManageMealPage extends Component {
     }
     // this.setState({ updatedMeal, meal: updatedMeal });
     this.setState({ updatedMeal });
-    console.log(this.state.updatedMeal);
     await this.props.updateMeal(this.state.updatedMeal);
     this.onCloseDrawer();
     this.props.loadMeal(); // did to reload page
@@ -109,7 +88,6 @@ export class ManageMealPage extends Component {
     const x = this.state.extrasList;
     const y = this.state.extrasTopList;
     const newExtraOptId = this.state.extraOptId + 1;
-    console.log(this.state.selectValues);
     const newSelectedList = this.state.selectValues;
 
     if (type === 'goes') {
@@ -124,7 +102,6 @@ export class ManageMealPage extends Component {
         extrasList: x,
         extraOptId: newExtraOptId,
       });
-      console.log(newSelectedList);
     } else {
       newSelectedList.push({
         key: this.state.extraOptId.toString(),
@@ -137,27 +114,14 @@ export class ManageMealPage extends Component {
         extrasTopList: y,
         extraOptId: newExtraOptId,
       });
-      console.log(newSelectedList);
     }
-
-    console.log(this.state.selectValues);
-    // this.setState({
-    //   addBtnClicked: true,
-    // });
   }
 
   onSelectDeleteBtn(event, type) {
-    // implement delete
-    // console.log(event.target.parentNode.getAttribute('data-key'));
-    // console.log(this.state.extrasList[0]);
-    // event.target.parentNode.removeNode;
-    console.log(this.state.selectValues);
     const keyValue = event.target.parentNode.getAttribute('data-key');
     const newSelectedList = this.state.selectValues.filter(ext => ext.key !== keyValue);
-    console.log(newSelectedList);
     if (type === 'goes') {
       const newExtrasList = this.state.extrasList.filter(ext => ext.key !== keyValue);
-      console.log(newExtrasList);
       this.setState({
         selectValues: newSelectedList,
         extrasList: newExtrasList,
@@ -169,22 +133,19 @@ export class ManageMealPage extends Component {
         extrasTopList: newExtrasList,
       });
     }
-    console.log(this.state.selectValues);
   }
 
   // in progress, disable option if already selected
   onSelectOption(e) {
-    let selected = [];
-    let selectOptValue = e.target.parentNode.value;
-    if (selectOptValue !== "") {
+    const selected = [];
+    const selectOptValue = e.target.parentNode.value;
+    if (selectOptValue !== '') {
       selected.push(selectOptValue);
     }
   }
 
   onTop() {
     const { extras } = this.props;
-    // console.log(this.props.extras);
-    // console.log(this.props.meals);
     let newExt;
     if (extras !== undefined) {
       newExt = extras.filter(extra => extra.category === 'OnTop');
@@ -193,18 +154,11 @@ export class ManageMealPage extends Component {
   }
 
   onSelectMealEditBtn(currentMeal, goes, top) {
-    // document.getElementById('modal-container').style.display = 'block';
     this.setState({ meal: currentMeal });
     this.clearExtrasFields();
     this.addExtrasOnEdit(goes, 'goes');
     this.addExtrasOnEdit(top, 'onTop');
     this.showDrawer();
-    // this.setState({
-    //   visible: true,
-    // });
-    // this.mealGoesWith(currentMeal.extras);
-    // this.mealOnTop(currentMeal.extras);
-    // return currentMeal;
   }
 
   onCloseDrawer() {
@@ -218,7 +172,6 @@ export class ManageMealPage extends Component {
 
   async onSelectMealDelBtn(meal) {
     try {
-      console.log('kakakaka'); // comments for test
       const willDelete = await Swal({
         title: 'Are you sure?',
         text: 'You will not be able to retrieve the meal',
@@ -227,16 +180,10 @@ export class ManageMealPage extends Component {
         confirmButtonText: 'Yes, delete it!',
         cancelButtonText: 'No, keep it',
       });
-      console.log('lololol');
       if (willDelete.value) {
-        console.log('my name is ');
-        console.log(meal);
         this.setState({ meal });
-        // this.props.deleteMeal(this.state.meal.id);
         this.props.deleteMeal(meal.id);
-        // this.setState({ meal });
       } else if (willDelete.dismiss === Swal.DismissReason.cancel) {
-        console.log('gjlkghgshgkhgshgkngnf');
         Swal(
           'Cancelled',
           'Your meal is safe :)',
@@ -244,14 +191,12 @@ export class ManageMealPage extends Component {
         );
       }
     } catch (error) {
-      console.log('blah blah bla ablah');
       if (error) {
         Swal('Oh noes!', 'The request failed!', 'error');
       } else {
         Swal.close();
       }
     }
-    // this.setState({ meal: {} });
   }
 
   showDrawer() {
@@ -265,21 +210,18 @@ export class ManageMealPage extends Component {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
     reader.readAsDataURL(img);
-  };
+  }
 
   handleCardChange(info) {
-    // console.log("file list id change", info);
     this.getBase64(info.file.originFileObj, imageUrl => this.setState({
       imageUrl,
     }));
     this.setState({ cardImgList: info });
 
     // Updatemealstate
-    let { meal } = this.state;
+    const { meal } = this.state;
     meal.filename = info.file.originFileObj;
     this.setState({ meal });
-    // return this.setState({ meal });
-    // console.log(this.state.meal);
   }
 
   clearExtrasFields() {
@@ -309,45 +251,26 @@ export class ManageMealPage extends Component {
     }
   }
 
-  // getSelectValue(key) {
-  //   const values = this.state.selectValues;
-  //   const x = (values.find(sel => sel.key === key.toString()));
-  //   if (x) {
-  //     console.log(`asas ${x.selectValue}`);
-  //     return (x.selectValue);
-  //   }
-  //   return 'beef';
-  // }
-
   updateMealState(event) {
     const field = event.target.name;
-    // let { meal, updatedMeal } = this.state;
-    // let meal = { ...this.state.meal };
-    // let updatedMeal = { ...this.state.updatedMeal };
-    let meal = Object.assign({}, this.state.meal);
-    let updatedMeal = Object.assign({}, this.state.updatedMeal);
+    const meal = Object.assign({}, this.state.meal);
+    const updatedMeal = Object.assign({}, this.state.updatedMeal);
     if (field === 'filename') {
-      // console.log(event.target.files[0]);
       meal[field] = event.target.files[0];
       updatedMeal[field] = event.target.files[0];
     } else {
       meal[field] = event.target.value;
       updatedMeal[field] = event.target.value;
-      
-      // console.log(meal[field]);
     }
     this.setState({ meal, updatedMeal });
-    // return this.setState({ meal, updatedMeal });
   }
 
   /**
    * loads limited meals into into the state
    */
   handlePageChange(pageNum) {
-    // console.log(this.props.pagination.totalPages);
     const limit = 10;
     const offset = (pageNum - 1) * limit;
-    // console.log(offset);
     this.props.loadMeal(limit, offset);
     this.setState({
       currentPage: pageNum,
@@ -360,50 +283,29 @@ export class ManageMealPage extends Component {
     const selIndex = event.target.selectedIndex;
     const selId = parseInt((event.target.childNodes[selIndex]).getAttribute('ext-id'), 10);
     newSelectedList.push({ key: keyValue, selectValue: event.target.value, id: selId });
-    console.log(newSelectedList);
     await this.setState({ selectValues: newSelectedList });
-    // this.forceUpdate();
-    // check asyncronou setstate then state
-    // console.log(this.state.selectValues);
   }
 
   goesWith() {
     const { extras } = this.props;
-    // if (extras !== undefined) {
     return extras.filter(extra => extra.category === 'GoesWith');
-    // }
-    // return [];
   }
 
   mealGoesWith(mealExtras) {
-    // console.log(mealExtras.length);
     if (mealExtras.length > 0) {
-      // console.log(mealExtras.filter(extra => extra.category === 'GoesWith'));
       return mealExtras.filter(extra => extra.category === 'GoesWith');
     }
     return [];
   }
   mealOnTop(mealExtras) {
-    if (mealExtras.length > 0)
+    if (mealExtras.length > 0) {
       return mealExtras.filter(extra => extra.category === 'OnTop');
-    else
-      return []
+    }
+    return [];
   }
-
-  // onHandleExtraChange() {
-  //   event.preventDefault();
-  //   // To Do
-  // }
-
-  // onSaveExtra() {
-  //   event.preventDefault();
-  //   // To Do
-  // }
-
 
   render() {
     const meals = [...this.props.meals];
-    // const { meals } = this.props;
     const panes = [
       {
         menuItem: 'View Meals',
@@ -421,7 +323,6 @@ export class ManageMealPage extends Component {
               extrasList={this.state.extrasList}
             />
             <Pagination className="paginate-btn" current={this.state.currentPage} onChange={this.handlePageChange} total={this.props.pagination.totalCount} />;
-            {/* <Pagination current={this.state.currentPage} onChange={this.onChangePage} total={this.state.totalPages} /> */}
           </Tab.Pane>
         ),
       },
@@ -505,17 +406,18 @@ export class ManageMealPage extends Component {
 
 ManageMealPage.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // extras: PropTypes.arrayOf(PropTypes.object).isRequired,
+  pagination: PropTypes.shape({
+    limit: PropTypes.number,
+    offset: PropTypes.number,
+    totalCount: PropTypes.number,
+    totalPages: PropTypes.number,
+    pageNum: PropTypes.number,
+  }).isRequired,
   saveMeal: PropTypes.func.isRequired,
   deleteMeal: PropTypes.func.isRequired,
-  // meal: PropTypes.shape({
-  //   id: PropTypes.number.isRequired,
-  //   title: PropTypes.string.isRequired,
-  //   description: PropTypes.string.isRequired,
-  //   price: PropTypes.number.isRequired,
-  //   extras: PropTypes.shape.isRequired,
-  // }),
-  // addBtnClicked: PropTypes.bool.isRequired,
+  extras: PropTypes.array.isRequired,
+  loadMeal: PropTypes.func.isRequired,
+  updateMeal: PropTypes.func.isRequired,
 };
 
 /**
@@ -539,6 +441,4 @@ const mapStateToProps = state => ({
   // addBtnClicked: state.addBtnClicked,
 });
 
-// const ManageMealPageWithCSS = CSSModules(ManageMealPage, styles, { allowMultiple: true });
-// export default connect(mapStateToProps, mapDispatchToProps)(ManageMealPageWithCSS);
 export default connect(mapStateToProps, mapDispatchToProps)(ManageMealPage);

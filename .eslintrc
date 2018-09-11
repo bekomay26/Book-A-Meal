@@ -10,6 +10,14 @@
     },
     "rules": {
         "import/no-named-as-default": "off",
-        "no-param-reassign": 0
+        "no-param-reassign": 0,
+        "class-methods-use-this": "off",
+        "jsx-a11y/label-has-for": "off",
+        "react/forbid-prop-types": "off",
+        "jsx-a11y/no-noninteractive-element-to-interactive-role": "off",
+        "react/no-unescaped-entities": "off",
+        "react/sort-comp": "off",
+        "prefer-destructuring": ["error", {"object": true, "array": false}],
+        "react/require-default-props": "off"
     }
 }

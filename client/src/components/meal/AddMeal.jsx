@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
 import 'antd/dist/antd.css';
-import { Upload, Icon, message } from 'antd';
-import { Form, FormField, FormInput, Image, Input, Label, Grid, Select } from 'semantic-ui-react';
-import GoesWithItem from './GoesWithItem';
+import { Upload, Icon } from 'antd';
+import { Form, Input, Label, Grid } from 'semantic-ui-react';
 
-const AddMeal = ({ onSave, meal, onChange, selectValues, selectChange, getSelectValue, cardImgList, handleCardChange, imageUrl, addExtra, selected, goes, top, extrasList, extrasTopList, extraOptId }) => {
-  // let add;
-  // let extrasList = [];
-  // const extId = getSelectValue(extraOptId - 1);
+const AddMeal = ({
+  onSave, meal, onChange, selectChange, cardImgList,
+  handleCardChange, imageUrl, addExtra, selected, goes,
+  top, extrasList, extrasTopList, extraOptId,
+}) => {
   const { Dragger } = Upload;
   const imgUpload = {
     name: 'filename',
@@ -27,21 +26,36 @@ const AddMeal = ({ onSave, meal, onChange, selectValues, selectChange, getSelect
     </div>
   );
 
-  let x;
   const addGoes = (
     <div key={extraOptId} data-key={extraOptId} className="row">
       <div className="col-10">
         <select onChange={selectChange} >
-            {goes.map(extra =>
-              <option disabled={false} value={extra.title} ext-id={extra.id}>{extra.title}</option>)
-            }
+          {goes.map(extra => (
+            <option
+              key={extra.id}
+              disabled={false}
+              value={extra.title}
+              ext-id={extra.id}
+            >
+              {extra.title}
+            </option>))
+          }
         </select>
       </div>
-      <div className="col-2" onClick={(event) => selected(event, 'goes')} role='button'><i className="fas fa-minus extra-minus" /></div>
+      <div
+        className="col-2"
+        onClick={event => selected(event, 'goes')}
+        role="button"
+        onKeyPress={event => selected(event, 'goes')}
+        tabIndex="0"
+      >
+        <i className="fas fa-minus extra-minus" />
+      </div>
     </div>
   );
 
-  const topOptions = top.map(extra => <option value={extra.title} ext-id={extra.id}>{extra.title}</option>);
+  const topOptions = top.map(extra =>
+    <option key={extra.id} value={extra.title} ext-id={extra.id}>{extra.title}</option>);
   const addTop = (
     <div key={extraOptId} data-key={extraOptId} className="row">
       <div className="col-10">
@@ -49,7 +63,16 @@ const AddMeal = ({ onSave, meal, onChange, selectValues, selectChange, getSelect
           {topOptions}
         </select>
       </div>
-      <div className="col-2" onClick={(event) => selected(event, 'onTop')} role='button'><i className="fas fa-minus extra-minus" /></div>
+      <div
+        className="col-2"
+        style={{ textAlign: 'center', fontSize: '20px' }}
+        onClick={event => selected(event, 'onTop')}
+        role="button"
+        onKeyPress={event => selected(event, 'onTop')}
+        tabIndex="0"
+      >
+        <i className="fas fa-minus extra-minus" />
+      </div>
     </div>
   );
 
@@ -86,7 +109,9 @@ const AddMeal = ({ onSave, meal, onChange, selectValues, selectChange, getSelect
                 extrasList.map(extraOption =>
                   extraOption)
               }
-              <div style={{ textAlign: 'center', fontSize: '20px' }}><i className="far fa-plus-square" tabIndex="0" onKeyPress={() => addExtra(addGoes, 'goes')} onClick={() => addExtra(addGoes, 'goes')} role="button" /></div>
+              <div style={{ textAlign: 'center', fontSize: '20px' }}>
+                <i className="far fa-plus-square" tabIndex="0" onKeyPress={() => addExtra(addGoes, 'goes')} onClick={() => addExtra(addGoes, 'goes')} role="button" />
+              </div>
             </Grid.Column>
             <Grid.Column>
               <h4>Extras</h4>
@@ -94,31 +119,34 @@ const AddMeal = ({ onSave, meal, onChange, selectValues, selectChange, getSelect
                 extrasTopList.map(extraOption =>
                   extraOption)
               }
-              <div style={{ textAlign: 'center', fontSize: '20px' }}><i className="far fa-plus-square" onClick={() => addExtra(addTop, 'top ')} role="button" /></div>
+              <div style={{ textAlign: 'center', fontSize: '20px' }}>
+                <i className="far fa-plus-square" onClick={() => addExtra(addTop, 'top ')} onKeyPress={() => addExtra(addTop, 'top ')} tabIndex="0" role="button" />
+              </div>
             </Grid.Column>
           </Grid.Row>
         </Grid>
         <Form.Button className="manage-meal-button">Add Meal</Form.Button>
-          {/* <div>
-            <input type="submit" className="add" value="Add Meal" onClick={onSave} />
-          </div> */}
       </Form>
     </div>
   );
 };
 
 AddMeal.propTypes = {
-  // mealextras: PropTypes.shape({
-  //   title: PropTypes.string.isRequired,
-  //   price: PropTypes.number.isRequired,
-  // })
-  //   .isRequired,
+  onChange: PropTypes.func.isRequired,
+  meal: PropTypes.object.isRequired,
   addExtra: PropTypes.func.isRequired,
   selected: PropTypes.func.isRequired,
   extraOptId: PropTypes.number.isRequired,
-  // addBtnClicked: PropTypes.bool.isRequired,
+  selectValues: PropTypes.array.isRequired,
+  selectChange: PropTypes.func.isRequired,
+  handleCardChange: PropTypes.func.isRequired,
+  goes: PropTypes.array.isRequired,
+  top: PropTypes.array.isRequired,
+  extrasList: PropTypes.array.isRequired,
+  extrasTopList: PropTypes.array.isRequired,
+  cardImgList: PropTypes.any,
+  onSave: PropTypes.func.isRequired,
+  imageUrl: PropTypes.any,
 };
 
-// const AddMealWithCSS = CSSModules(AddMeal, styles, { allowMultiple: true });
-// export default (AddMealWithCSS);
 export default AddMeal;

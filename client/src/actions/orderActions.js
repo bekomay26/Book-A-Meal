@@ -48,7 +48,6 @@ const loadOrders = (limit = 10, offset = 0) => dispatch => (
  * @param {*} payload data
  */
 const filterOrders = (filterQuery, limit = 10, offset = 0) => dispatch => (
-  // .get(`api/v1/orders/filter?statuses=${comp}&statuses=${pend}&fromDate=${start}&toDate=${end}&mealTitle=${name}`)
   axios
     .get(`api/v1/orders/filter?${filterQuery}&limit=${limit}&offset=${offset}`)
     .then((orders) => {
@@ -59,22 +58,20 @@ const filterOrders = (filterQuery, limit = 10, offset = 0) => dispatch => (
       // toastr.error(err.response.data.message);
       throw (err);
     })
-  );
+);
 
-const saveOrder = order => (dispatch) => {
-  return axios
+const saveOrder = order => dispatch => (
+  axios
     .post('api/v1/orders', order)
     .then((savedOrder) => {
-      // order.id ? dispatch(updateOrderSuccess(savedOrder.data)) : dispatch(createOrderSuccess(savedOrder.data));
       dispatch(createOrderSuccess(savedOrder.data));
     })
     .catch((err) => {
       throw (err);
-    });
-};
+    })
+);
 
 const updateOrder = order => (dispatch) => {
-  console.log(order.status);
   if (order.status) {
     return axios
       .put(`api/v1/orders/status/${order.id}`, { status: order.status })

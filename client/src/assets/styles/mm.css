@@ -305,6 +305,7 @@ input[type=number]{
 
 /* Add Meal */
 .extra-minus {
+    /* font-size: 20px; */
     color: red;
 }
 .ant-upload.ant-upload-select.ant-upload-select-picture-card {
@@ -498,10 +499,12 @@ span.ant-upload {
     }
 }
 
+
 /* Edit meal */
 
-.ui.form.add-meal-form.update-form 
-.ant-upload.ant-upload-drag {
+.ui.form.add-meal-form.update-form .ant-upload.ant-upload-drag,
+.ui.form.add-meal-form.update-form .ant-upload.ant-upload-drag 
+.ant-upload-btn {
     padding: 0;
 }
 

@@ -2,14 +2,6 @@ import axios from 'axios';
 import { toastr } from 'react-redux-toastr';
 import * as types from './actionTypes';
 
-// const loadMealSuccess = data => (
-//   {
-//     type: types.LOAD_MEAL_SUCCESS,
-//     meals: data.meals,
-//     pagination: data.pagination,
-//   }
-// );
-
 const loadMealSuccess = data => ({
   type: types.LOAD_MEAL_SUCCESS,
   meals: data.meals,
@@ -17,7 +9,6 @@ const loadMealSuccess = data => ({
 });
 
 const createMealSuccess = (meal) => {
-  console.log(meal);
   toastr.success('Saved', 'Meal created successfully');
   return { type: types.CREATE_MEAL_SUCCESS, meal: meal.meal };
 };
@@ -31,10 +22,6 @@ const deleteMealSuccess = (mealId) => {
   toastr.success('Meal deleted');
   return { type: types.DELETE_MEAL_SUCCESS, mealId };
 };
-
-// const loadOneMealSuccess = meal => (
-//   { type: types.LOAD_ONE_MEAL_SUCCESS, meal }
-// );
 
 /**
  * @desc async getdocument action creator
@@ -53,7 +40,6 @@ const loadMeal = (limit = 10, offset = 0) => dispatch => (
 );
 
 const saveMeal = meal => (dispatch) => {
-  // console.log(meal.title);
   const formData = new FormData();
   formData.set('title', meal.title);
   formData.set('price', meal.price);
@@ -61,13 +47,10 @@ const saveMeal = meal => (dispatch) => {
   meal.extraIds.forEach((element) => {
     formData.append('extraIds', element);
   });
-  // formData.append('extraIds', meal.extraIds);
   formData.append('image', meal.filename);
-  // const config = { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } };
   return axios
     .post('api/v1/meals', formData)
     .then((savedMeal) => {
-      // meal.id ? dispatch(updateMealSuccess(savedMeal)) : dispatch(createMealSuccess(savedMeal));
       dispatch(createMealSuccess(savedMeal.data));
     })
     .catch((err) => {
@@ -90,18 +73,6 @@ const updateMeal = meal => (dispatch) => {
       }
     }
   }
-  // fields.forEach((field) => {
-  //   if (field !== 'id') {
-  //     if (field === 'extraIds') {
-  //       meal.extraIds.forEach((element) => {
-  //         formData.append('extraIds', element);
-  //       });
-  //     } else {
-  //       console.log(field);
-  //       formData.set(field, meal[field]);
-  //     }
-  //   }
-  // });
   return axios
     .put(`api/v1/meals/${meal.id}`, formData)
     .then((updatedMeal) => {
@@ -162,3 +133,4 @@ export {
   updateMeal,
   // loadOneMeal,
 };
+

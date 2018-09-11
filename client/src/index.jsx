@@ -10,9 +10,10 @@ import routes from './routes';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import checkAuth from './utils/checkAuth';
 import configureStore from './store/configureStore';
+import { loginSuccess } from './actions/authActions';
+import { loadMenu } from './actions/menuActions';
 import { loadOrders } from './actions/orderActions';
 import { loadExtra } from './actions/extraActions';
-import { loginSuccess } from './actions/authActions';
 import './assets/styles/style.css';
 import './assets/styles/ui.css';
 
@@ -23,9 +24,11 @@ if (localStorage.token) {
   store.dispatch(loginSuccess(checkAuth(localStorage.token)));
   if (userRole === 'Caterer') {
     store.dispatch(loadExtra());
+    // store.dispatch(loadMenu());
   }
   if (userRole === 'Customer') {
     store.dispatch(loadOrders());
+    // store.dispatch(loadMenu());
   }
 }
 render(

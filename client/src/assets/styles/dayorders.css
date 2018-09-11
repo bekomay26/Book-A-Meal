@@ -177,6 +177,15 @@ h3, p{
         flex-wrap: wrap;
         justify-content: center;
     }
+    /* .menu{
+        width: 100%;
+    }
+    .menu a{
+        color: inherit;
+        cursor: pointer;
+        opacity: 0.9;
+        font-family: 'Nunito', sans-serif;
+    } */
 
     header nav{
         display: flex;
@@ -249,6 +258,12 @@ h3, p{
         margin-bottom: 15px;
         font-family: 'Nunito', sans-serif;
     }
+
+    /* .menu a:hover{
+        opacity: 1;
+        color: black;
+        border-bottom: 2px solid black; 
+    } */
 
     header nav{
         display: flex;

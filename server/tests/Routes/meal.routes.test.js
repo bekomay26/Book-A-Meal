@@ -2,11 +2,9 @@ import { expect } from 'chai';
 import request from 'supertest';
 import token from '../../helpers/testToken';
 import app from '../../app';
-import meals from '../dummyData/fakeMeal';
 
 /* global it, describe */
 const adminToken = token.adminToken();
-const userToken = token.userToken();
 // let c;
 describe('/POST meal', () => {
   it('it should not create a meal without the price field', (done) => {
@@ -73,7 +71,6 @@ describe('/POST meal', () => {
       price: 999,
       extraIds: [1, 2],
     };
-    const initialLength = meals.length;
     request(app)
       .post('/api/v1/meals')
       .set('x-access-token', adminToken)
@@ -161,7 +158,6 @@ describe('/DELETE meal', () => {
       });
   });
   it('it should DELETE a meal ', (done) => {
-    const initialLength = meals.length;
     request(app)
       .delete('/api/v1/meals/3')
       .set('x-access-token', adminToken)

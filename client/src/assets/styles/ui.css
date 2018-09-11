@@ -208,3 +208,16 @@ ul.paginate-btn li {
         width: 100%;
     }
 }
+
+/* Icon button */
+.icon-btn {
+    padding: 0;
+    border: none;
+    color: transparent;
+    /* margin-left: 5px; */
+}
+
+.icon-btn::selection, .icon-btn i::selection {
+    background: transparent;
+    color: #1A77C1;
+}

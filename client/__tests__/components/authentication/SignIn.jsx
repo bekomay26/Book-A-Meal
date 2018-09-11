@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import SignIn from '../../../src/components/signin/SignIn';
+import SignIn from '../../../src/components/auth/SignIn';
 
 
 function setup() {

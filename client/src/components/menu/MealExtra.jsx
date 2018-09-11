@@ -1,10 +1,10 @@
 import React from 'react';
-import CSSModules from 'react-css-modules';
 import PropTypes from 'prop-types';
-import styles from '../../assets/styles/menu2.css';
-import { Checkbox, Grid, Image } from 'semantic-ui-react';
+import { Checkbox, Grid } from 'semantic-ui-react';
 
-const MealExtra = ({ extra, onQtyChange, extraStatus, handleChecked, indexKey }) => {
+const MealExtra = ({
+  extra, onQtyChange, extraStatus, handleChecked, indexKey,
+}) => {
   const extStatPosition = extraStatus.findIndex(extraStat => extraStat.key === extra.id);
   let extraQty = 1;
   if (extraStatus[extStatPosition] !== undefined) {
@@ -12,12 +12,7 @@ const MealExtra = ({ extra, onQtyChange, extraStatus, handleChecked, indexKey })
   } else {
     extraQty = 1;
   }
-  // let extraQty = 1;
-  // if (extraStatus[indexKey] !== undefined) {
-  //   extraQty = extraStatus[indexKey].qty;
-  // } else {
-  //   extraQty = 1;
-  // }
+
   return (<div>
     <Grid divided="vertically">
       <Grid.Row>
@@ -55,5 +50,4 @@ MealExtra.propTypes = {
     .isRequired,
 };
 
-// export default CSSModules(MealExtra, styles, { allowMultiple: true });
 export default MealExtra;
