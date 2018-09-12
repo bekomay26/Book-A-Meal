@@ -99,6 +99,7 @@ export const MealForm = ({
               }
               <div style={{ textAlign: 'center', fontSize: '20px' }}>
                 <i
+                  id="meal-add-btn1"
                   className="far fa-plus-square"
                   onClick={() => addExtra(addGoes, 'goes')}
                   onKeyPress={() => addExtra(addTop, 'goes')}
@@ -115,6 +116,7 @@ export const MealForm = ({
               }
               <div style={{ textAlign: 'center', fontSize: '20px' }}>
                 <i
+                  id="meal-add-btn2"
                   className="far fa-plus-square"
                   onClick={() => addExtra(addTop, 'top')}
                   onKeyPress={() => addExtra(addTop, 'top')}

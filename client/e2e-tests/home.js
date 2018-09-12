@@ -2,7 +2,7 @@
 //   'User should be able to see home page with correct details': (client) => {
 //     client
 //       .windowMaximize()
-//       .url('http://localhost:4000/')
+//       .url('http://localhost:5000/')
 //       .waitForElementVisible('body', 5000)
 //       .waitForElementVisible('#app', 3000)
 //       .assert.containsText('.home-nav > .logo', 'Book-A-Meal')

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="1">
+
+  <testsuite name="meals"
+    errors="1" failures="0" hostname="" id="" package="meals" skipped="0"
+    tests="1" time="0.01300" timestamp="Wed, 12 Sep 2018 05:07:53 GMT">
+  
+    <testcase name="Caterer should be able to set menu" classname="meals" time="0.01300" assertions="0">
+    </testcase>
+  
+
+  
+    <system-err>
+        Error while running [Meals / Caterer should be able to set menu]:
+
+  TypeError: client.pause(...).waitForElementVisible(...).click(...).waitForElementVisible(...).clearValue(...).setValue(...).clearValue(...).setValue(...).clearValue(...).setValue(...).pause(...).containsText is not a function
+    at Object.CatererShouldBeAbleToSetMenu [as Caterer should be able to set menu] (/Users/andeladeveloper/Documents/Simulations/CP-DEFENCE/Book-A-Meal/client/e2e-tests/meals.js:62:8)
+    at Module.call (/usr/local/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /usr/local/lib/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:796:13)
+    at /usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:556:49
+    at runSingle (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:137:13)
+    at flush (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:125:13)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)
+    </system-err>
+  
+
+  
+  </testsuite>
+</testsuites>

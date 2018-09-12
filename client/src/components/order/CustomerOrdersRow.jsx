@@ -29,7 +29,7 @@ const CustomerOrdersRow = ({ order, selected, cancelOrder }) => {
   return (
     <tr>
       <td>{order.id}</td>
-      <td>{order.Meal.title}</td>
+      <td>{order.Meal.title || null}</td>
       <td>{order.status}</td>
       <td>{order.totalPrice}</td>
       {editButton}

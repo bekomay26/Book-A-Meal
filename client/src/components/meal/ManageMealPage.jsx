@@ -50,6 +50,7 @@ export class ManageMealPage extends Component {
   }
   componentDidMount() {
     this.props.loadMeal();
+    this.props.loadExtra();
   }
 
   onSubmit(e) {
@@ -89,7 +90,7 @@ export class ManageMealPage extends Component {
     const y = this.state.extrasTopList;
     const newExtraOptId = this.state.extraOptId + 1;
     const newSelectedList = this.state.selectValues;
-
+    // console.log(newSelectedList);
     if (type === 'goes') {
       newSelectedList.push({
         key: this.state.extraOptId.toString(),
@@ -159,6 +160,11 @@ export class ManageMealPage extends Component {
     this.addExtrasOnEdit(goes, 'goes');
     this.addExtrasOnEdit(top, 'onTop');
     this.showDrawer();
+    // console.log(currentMeal);
+    // currentMeal.extras.forEach((ext, index) => {
+    //   this.state.selectValues.push({key: index.toString(), selectValue: ext.title, id: ext.id});
+    //   this.setState({extraOptId: this.state.extraOptId+1});
+    // });
   }
 
   onCloseDrawer() {
@@ -417,6 +423,7 @@ ManageMealPage.propTypes = {
   deleteMeal: PropTypes.func.isRequired,
   extras: PropTypes.array.isRequired,
   loadMeal: PropTypes.func.isRequired,
+  loadExtra: PropTypes.func.isRequired,
   updateMeal: PropTypes.func.isRequired,
 };
 

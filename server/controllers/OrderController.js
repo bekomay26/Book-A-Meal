@@ -403,7 +403,7 @@ class OrderController extends Controller {
       startDate = moment('30-01-2018', 'DD-MM-YYYY').format('YYYY-MM-DD');
     }
     if (endDate === null) {
-      endDate = moment(new Date()).format('YYYY-MM-DD');
+      endDate = moment(new Date()).add(1, 'days').format('YYYY-MM-DD');
     }
     // let operand;
     // if (symbol === 'great') {

@@ -2,7 +2,7 @@
 //   beforeEach(client) {
 //     client
 //       .windowMaximize()
-//       .url('http://localhost:4000/login')
+//       .url('http://localhost:5000/login')
 //       .waitForElementVisible('body', 1000)
 //       .waitForElementVisible('.authForm', 1000)
 //       .setValue('input[name=uname]', 'bekomay26')
@@ -12,13 +12,13 @@
 //       .click('.ant-layout-sider-children > ul > li:nth-child(4) > div > span')
 //       .waitForElementVisible('.ant-layout-sider-children > ul > li:nth-child(4) > ul > li > a', 2000)
 //       .click('.ant-layout-sider-children > ul > li:nth-child(4) > ul > li > a')
-//       // .url('http://localhost:4000/setmenu')
+//       // .url('http://localhost:5000/setmenu')
 //       .waitForElementVisible('.ant-layout', 1000);
 //   },
 //   // beforeEach(client) {
 //   //   client
 //   //     .windowMaximize()
-//   //     .url('http://localhost:4000/setmenu')
+//   //     .url('http://localhost:5000/setmenu')
 //   //     .waitForElementVisible('body', 1000);
 //   // },
 
@@ -47,7 +47,7 @@
 //       .assert.cssClassPresent('.menu-items > ul > li:nth-child(1)', 'checked')
 //       .click('button')
 //       .pause(1000)
-//       .url('http://localhost:4000/menu')
+//       .url('http://localhost:5000/menu')
 //       .pause(6000)
 //       // check menu page
 //       .end();

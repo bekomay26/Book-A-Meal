@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`The Meal Form Component should render Drawer component correctly 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
-`;

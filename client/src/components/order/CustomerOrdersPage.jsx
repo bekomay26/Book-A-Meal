@@ -190,7 +190,9 @@ export class CustomerOrdersPage extends Component {
   }
 
   render() {
-    const { orders, userName } = this.props;
+    const orders2 = [...this.props.orders];
+    const orders = orders2.filter(ord => ord.Meal !== undefined);
+    const { userName } = this.props;
     const { isDesktop } = this.state;
     const { isAuthenticated } = this.props;
     if (!isAuthenticated) {

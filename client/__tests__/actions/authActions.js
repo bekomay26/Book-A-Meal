@@ -33,7 +33,7 @@ describe('Menu Actions', () => {
       return store.dispatch(authActions.signUp(userDetails))
         .then(() => {
           const actions = store.getActions();
-          expect(actions[0]).toEqual(expectedResponse);
+          expect(actions[0].type).toEqual(expectedResponse.type);
         });
     });
   });
@@ -48,7 +48,7 @@ describe('Menu Actions', () => {
       return store.dispatch(authActions.login(userDetails))
         .then(() => {
           const actions = store.getActions();
-          expect(actions[0]).toEqual(expectedResponse);
+          expect(actions[0].type).toEqual(expectedResponse.type);
         });
     });
   });

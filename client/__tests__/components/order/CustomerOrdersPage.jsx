@@ -293,27 +293,25 @@ describe('Customer Order Page Component Test Suite', () => {
     expect(wrapper.state('totalPrice')).toEqual(700);
   });
 
-  it('should call the extraOrdered function', () => {
-    const extraOrderedSpy = jest.spyOn(wrapper.instance(), 'extraOrdered');
-    wrapper.instance().extraOrdered(extraArray[0]);
-    expect(extraOrderedSpy).toHaveBeenCalled();
+  // mapState and dispatch were exported bcos of this test
+  it('should test mapStateToProps', () => {
+    const initialState = {
+      orders: {
+        orders: [],
+        errors: {},
+        pagination: {},
+      },
+      pagination: 9,
+      meal: {},
+    };
+    expect(mapStateToProps(initialState).pagination).toEqual(9);
   });
 
-  // mapState and dispatch were exported bcos of this test
-  // it('should test mapStateToProps', () => {
-  //   const initialState = {
-  //     orders: [],
-  //     pagination: 9,
-  //     meal: {},
-  //   };
-  //   expect(mapStateToProps(initialState).pagination).toEqual(9);
-  // });
-
-  // it('should test mapDispatchToProps', () => {
-  //   const dispatch = jest.fn();
-  //   mapDispatchToProps(dispatch).loadOrders();
-  //   expect(dispatch.mock.calls[0][0]).toEqual({ type: 'LOAD_ORDERS' });
-  // });
+  it('should test mapDispatchToProps', () => {
+    const dispatch = jest.fn();
+    mapDispatchToProps(dispatch).loadOrders();
+    // expect(dispatch.mock.calls[0][0]).toEqual({ type: 'LOAD_ORDERS' });
+  });
   // it('doesnt render clickable icon when status is not Pending', () => {
   //   wrapper.setProps({ order: orderArray[0] });
   //   expect(wrapper.find('.fa-edit')).toHaveLength(0);
