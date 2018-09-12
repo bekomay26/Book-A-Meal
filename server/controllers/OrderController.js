@@ -22,7 +22,6 @@ class OrderController extends Controller {
         extraIds,
         qtys, // zero not allowed, default is 1
         address,
-        createdById,
         cateredById,
       } = await req.body;
       // const mealIdInt = await parseInt(mealId, 10);
@@ -113,7 +112,6 @@ class OrderController extends Controller {
   static async updateOrder(req, res) {
     try {
       const id = parseInt(req.params.id, 10);
-      console.log(req.body);
       const {
         extraIds,
         qtys,
@@ -198,7 +196,6 @@ class OrderController extends Controller {
       const {
         status,
       } = await req.body;
-      console.log(status);
       const foundOrder = await db.Order.findOne({ where: { id: parseInt(req.params.id, 10) } });
       if (status !== 'Cancelled' && status !== 'Completed') {
         return res.status(422).json({
@@ -403,7 +400,7 @@ class OrderController extends Controller {
       startDate = moment('30-01-2018', 'DD-MM-YYYY').format('YYYY-MM-DD');
     }
     if (endDate === null) {
-      endDate = moment(new Date()).format('YYYY-MM-DD');
+      endDate = moment(new Date()).add(1, 'days').format('YYYY-MM-DD');
     }
     // let operand;
     // if (symbol === 'great') {

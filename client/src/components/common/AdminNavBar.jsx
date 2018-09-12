@@ -57,7 +57,7 @@ export class AdminNavBar extends Component {
           <NavLink className="col-3 show navlink" to="/setmenu" activeClassName="active">Menu</NavLink>
           <NavLink className="col-3 show navlink" to="/adorders" activeClassName="active">Orders</NavLink>
           <NavLink className={`col-3 navlink ${navlinkVisibility}`} to="/login" activeClassName="active">SignIn</NavLink>
-          <NavLink className={`col-3 navlink out ${signedinVisibility}`} activeClassName="active" to="/login" onClick={(e) => { e.preventDefault(); this.props.logout(); }}>logout</NavLink>
+          {/* <NavLink className={`col-3 navlink out ${signedinVisibility}`} activeClassName="active" to="/login" onClick={(e) => { e.preventDefault(); this.props.logout(); }}>logout</NavLink> */}
         </Drawer>
       </div>
     );

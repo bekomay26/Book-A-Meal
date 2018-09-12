@@ -17,25 +17,18 @@ exports[`The Admin Nav Bar Component should render admin nav bar component corre
     <div
       className="col-6"
     >
-      <a
+      <NavLink
+        activeClassName="active"
+        aria-current="page"
         className="navlogo col-5"
-        href="#home"
+        to="/"
       >
         BOOK-A-MEAL
-      </a>
+      </NavLink>
     </div>
     <nav
       className="col-6 navgroup"
     >
-      <NavLink
-        activeClassName="active"
-        ariaCurrent="true"
-        className="col-3 navlink out admin-nav hide"
-        onClick={[Function]}
-        to="/login"
-      >
-        logout
-      </NavLink>
       <li
         className="col-5 navlink admin-nav hide"
       >
@@ -43,13 +36,24 @@ exports[`The Admin Nav Bar Component should render admin nav bar component corre
           <Icon
             type="user"
           />
+          fola
         </span>
       </li>
+      <NavLink
+        activeClassName="active"
+        aria-current="page"
+        className="col-3 navlink out admin-nav hide"
+        onClick={[Function]}
+        to="/login"
+      >
+        logout
+      </NavLink>
     </nav>
   </div>
   <Drawer
     className="admin-drawer"
     closable={true}
+    height={256}
     level={null}
     maskClosable={false}
     onClose={[Function]}
@@ -61,7 +65,7 @@ exports[`The Admin Nav Bar Component should render admin nav bar component corre
   >
     <NavLink
       activeClassName="active"
-      ariaCurrent="true"
+      aria-current="page"
       className="col-3 show navlink"
       to="/meals"
     >
@@ -69,7 +73,7 @@ exports[`The Admin Nav Bar Component should render admin nav bar component corre
     </NavLink>
     <NavLink
       activeClassName="active"
-      ariaCurrent="true"
+      aria-current="page"
       className="col-3 show navlink"
       to="/setmenu"
     >
@@ -77,7 +81,7 @@ exports[`The Admin Nav Bar Component should render admin nav bar component corre
     </NavLink>
     <NavLink
       activeClassName="active"
-      ariaCurrent="true"
+      aria-current="page"
       className="col-3 show navlink"
       to="/adorders"
     >
@@ -85,20 +89,11 @@ exports[`The Admin Nav Bar Component should render admin nav bar component corre
     </NavLink>
     <NavLink
       activeClassName="active"
-      ariaCurrent="true"
+      aria-current="page"
       className="col-3 navlink show"
-      to="/auth"
-    >
-      SignIn
-    </NavLink>
-    <NavLink
-      activeClassName="active"
-      ariaCurrent="true"
-      className="col-3 navlink out hide"
-      onClick={[Function]}
       to="/login"
     >
-      logout
+      SignIn
     </NavLink>
   </Drawer>
 </div>

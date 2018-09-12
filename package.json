@@ -40,6 +40,7 @@
   "homepage": "https://github.com/bekomay26/Book-A-Meal#readme",
   "devDependencies": {
     "aglio": "^2.3.0",
+    "axios-mock-adapter": "^1.15.0",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -98,6 +99,7 @@
     "jsonwebtoken": "^8.2.1",
     "lodash": "^4.17.10",
     "moment": "^2.22.1",
+    "moment-timezone": "^0.5.21",
     "multer": "^1.3.0",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",

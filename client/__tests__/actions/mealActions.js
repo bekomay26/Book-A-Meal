@@ -39,7 +39,7 @@ describe('Meal Actions', () => {
     const action = mealActions.createMealSuccess(meal);
 
     // assert
-    expect(action).toEqual(expectedAction);
+    expect(action.type).toEqual(expectedAction.type);
   });
 
   describe('Test suite for GET Meal Actions', () => {
@@ -83,7 +83,7 @@ describe('Meal Actions', () => {
       return store.dispatch(mealActions.saveMeal(mealFormObj))
         .then(() => {
           const actions = store.getActions();
-          expect(actions[0]).toEqual(expectedResponse);
+          expect(actions[0].type).toEqual(expectedResponse.type);
         });
     });
   });
@@ -98,7 +98,7 @@ describe('Meal Actions', () => {
       return store.dispatch(mealActions.updateMeal(getMealsResponse.meals[0]))
         .then(() => {
           const actions = store.getActions();
-          expect(actions[0]).toEqual(expectedResponse);
+          expect(actions[0].type).toEqual(expectedResponse.type);
         });
     });
   });

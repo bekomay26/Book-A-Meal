@@ -56,10 +56,10 @@ function mountSetup() {
 }
 
 describe('The Meal Row Component', () => {
-  it('should render meal row component correctly', () => {
-    const wrapper = setup();
-    expect(toJson(wrapper)).toMatchSnapshot();
-  });
+  // it('should render meal row component correctly', () => {
+  //   const wrapper = setup();
+  //   expect(toJson(wrapper)).toMatchSnapshot();
+  // });
 
   // it('doesnt calls handleChecked Function', () => {
   //   const wrapper = mountSetup();

@@ -373,4 +373,26 @@ const getOrdersResponse = {
   },
 };
 
-export { getOrdersResponse };
+const orderNoMeal = {
+  id: 81,
+  est_readyTime: null,
+  dateTimeDelivered: null,
+  totalPrice: null,
+  status: 'Completed',
+  quantity: 2,
+  address: 'bbdjgbhjmbgh',
+  createdAt: '2018-06-10T04:55:40.723Z',
+  updatedAt: '2018-06-10T04:55:40.723Z',
+  mealId: 1,
+  createdById: null,
+  cateredById: null,
+  Meal: {
+    title: undefined,
+    description: 'fdfdhdufdfg',
+    price: 450,
+    image_url: 'jhdfjhdfhjdfhjfd',
+  },
+  extras: [],
+};
+
+export { getOrdersResponse, orderNoMeal };

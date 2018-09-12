@@ -1,31 +1,43 @@
 import React from 'react';
-import { shallow, mount, render } from 'enzyme';
+import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import { AdminNavBar } from '../../../src/components/common/AdminNavBar';
 
-// import jsdom from 'jsdom';
-// const doc = jsdom.jsdom('<!doctype html><html><body></body></html>')
-// global.document = doc
-// global.window = doc.defaultView
-const middlewares = [thunk];
-const mockStore = configureStore(middlewares);
-const store = mockStore({
-  authReducer: {
-    isAuthenticated: false,
-    isCaterer: false,
-    errors: {},
-  },
-});
-
 function setup() {
-  return shallow(<AdminNavBar />, reactrouter.get());
+  const props = {
+    isAuthenticated: false,
+    logout: jest.fn(),
+    userName: 'fola',
+    isCaterer: false,
+  };
+  return shallow(<AdminNavBar {...props} />, reactrouter.get());
 }
 
 describe('The Admin Nav Bar Component', () => {
   it('should render admin nav bar component correctly', () => {
     const wrapper = setup();
     expect(toJson(wrapper)).toMatchSnapshot();
+  });
+
+  it('should render admin nav bar component correctly', () => {
+    const wrapper = setup();
+    wrapper.setState({
+      visibleSideBar: false,
+    });
+    const openSideNavSpy = jest.spyOn(wrapper.instance(), 'openSideNav');
+    wrapper.instance().openSideNav();
+    expect(openSideNavSpy).toHaveBeenCalled();
+    expect(wrapper.state('visibleSideBar')).toEqual(true);
+  });
+
+  it('should render admin nav bar component correctly', () => {
+    const wrapper = setup();
+    wrapper.setState({
+      visibleSideBar: true,
+    });
+    const handleSidebarHideSpy = jest.spyOn(wrapper.instance(), 'handleSidebarHide');
+    wrapper.instance().handleSidebarHide();
+    expect(handleSidebarHideSpy).toHaveBeenCalled();
+    expect(wrapper.state('visibleSideBar')).toEqual(false);
   });
 });

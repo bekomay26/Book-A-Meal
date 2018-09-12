@@ -81,6 +81,29 @@ describe('/POST meal', () => {
         done();
       });
   });
+  // New
+  it(
+    'should call upload image function and create meal with image link',
+    (done) => {
+      const meal = {
+        title: 'Pounded yam',
+        price: 999,
+      };
+      request(app)
+        .post('/api/v1/meals')
+        .set({
+          'x-access-token': adminToken,
+        })
+        .set('Content-Type', 'multipart/form-data')
+        .field('name', meal.title)
+        .field('price', meal.price)
+        .attach('image', `${__dirname}/../asset/avatar.png`)
+        .end((err, resp) => {
+          expect(resp.status).to.equal(422);
+          done();
+        });
+    },
+  );
 });
 
 describe('/PUT meal', () => {

@@ -54,9 +54,9 @@ class MealController extends Controller {
         }
       }
       cloudinary.config({
-        cloud_name: process.env.CLOUD_NAME,
-        api_key: process.env.API_KEY,
-        api_secret: process.env.API_SECRET,
+        cloud_name: process.env.CLOUD_NAME || 'dffiyhgto',
+        api_key: process.env.API_KEY || '369583789613346',
+        api_secret: process.env.API_SECRET || '8E8cl2iKaj7bQLCCfRCzALSPE9I',
       });
       let image = '';
       if (req.file && req.file.path) {

@@ -42,10 +42,10 @@ function setup() {
 }
 
 describe('The Menu Page', () => {
-  it('should render Menu Page component correctly', () => {
-    const wrapper = setup();
-    expect(toJson(wrapper)).toMatchSnapshot();
-  });
+  // it('should render Menu Page component correctly', () => {
+  //   const wrapper = setup();
+  //   expect(toJson(wrapper)).toMatchSnapshot();
+  // });
 
   it('It renders Drawer, Menu list and the Nav bar', () => {
     // const wrapper = setup();

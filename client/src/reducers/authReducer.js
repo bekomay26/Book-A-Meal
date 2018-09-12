@@ -17,7 +17,12 @@ const authReducer = (state = checkAuth(token), action) => {
     case types.SIGN_UP_FALUIRE:
       return { ...state, ...action.payload };
     case types.SIGN_UP_SUCCESS:
-      return { ...state, ...action.payload };
+      return {
+        ...state,
+        isAuthenticated: true,
+        isCaterer: false,
+        ...action.payload,
+      };
     case types.LOG_OUT:
       return {
         ...state,

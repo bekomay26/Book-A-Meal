@@ -46,22 +46,33 @@ export class ManageMealPage extends Component {
       cardImgList: [],
       visible: false,
       currentPage: 1,
+      saving: false,
     };
   }
   componentDidMount() {
     this.props.loadMeal();
+    this.props.loadExtra();
   }
 
-  onSubmit(e) {
+  async onSubmit(e) {
     e.preventDefault();
-    // const extras = this.state.extrasList.concat(this.state.extrasTopList);
     const extras = this.state.selectValues;
     const extraIds = [];
     extras.map(extra => extraIds.push(extra.id));
     const { meal } = this.state;
     meal.extraIds = extraIds;
     this.setState({ meal });
-    this.props.saveMeal(this.state.meal);
+    this.setState({ saving: true });
+    await this.props.saveMeal(this.state.meal);
+    this.setState({ meal: {} });
+    this.setState({
+      saving: false,
+      imageUrl: null,
+      extrasList: [],
+      extrasTopList: [],
+      extraOptId: 0,
+    });
+    this.props.loadMeal();
   }
 
   async onUpdate(e) {
@@ -89,7 +100,6 @@ export class ManageMealPage extends Component {
     const y = this.state.extrasTopList;
     const newExtraOptId = this.state.extraOptId + 1;
     const newSelectedList = this.state.selectValues;
-
     if (type === 'goes') {
       newSelectedList.push({
         key: this.state.extraOptId.toString(),
@@ -118,7 +128,7 @@ export class ManageMealPage extends Component {
   }
 
   onSelectDeleteBtn(event, type) {
-    const keyValue = event.target.parentNode.getAttribute('data-key');
+    const keyValue = event.target.parentNode.parentNode.getAttribute('data-key');
     const newSelectedList = this.state.selectValues.filter(ext => ext.key !== keyValue);
     if (type === 'goes') {
       const newExtrasList = this.state.extrasList.filter(ext => ext.key !== keyValue);
@@ -159,6 +169,10 @@ export class ManageMealPage extends Component {
     this.addExtrasOnEdit(goes, 'goes');
     this.addExtrasOnEdit(top, 'onTop');
     this.showDrawer();
+    currentMeal.extras.forEach((ext, index) => {
+      this.state.selectValues.push({ key: index.toString(), selectValue: ext.title, id: ext.id });
+      this.setState({ extraOptId: index + 1 });
+    });
   }
 
   onCloseDrawer() {
@@ -243,7 +257,6 @@ export class ManageMealPage extends Component {
       });
     } else {
       extraOpts.forEach(ext => y.push(ext));
-      // console.log(y);
       this.setState({
         extrasTopList: y,
         extraOptId: newExtraOptId,
@@ -346,6 +359,7 @@ export class ManageMealPage extends Component {
               handleCardChange={this.handleCardChange}
               cardImgList={this.state.cardImgList}
               imageUrl={this.state.imageUrl}
+              saving={this.state.saving}
             />
           </Tab.Pane>
         ),
@@ -417,6 +431,7 @@ ManageMealPage.propTypes = {
   deleteMeal: PropTypes.func.isRequired,
   extras: PropTypes.array.isRequired,
   loadMeal: PropTypes.func.isRequired,
+  loadExtra: PropTypes.func.isRequired,
   updateMeal: PropTypes.func.isRequired,
 };
 

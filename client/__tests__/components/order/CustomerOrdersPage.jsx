@@ -4,7 +4,7 @@ import toJson from 'enzyme-to-json';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import ConnectedCustomerOrdersPage, { CustomerOrdersPage, mapStateToProps, mapDispatchToProps } from '../../../src/components/order/CustomerOrdersPage';
+import { CustomerOrdersPage, mapStateToProps, mapDispatchToProps } from '../../../src/components/order/CustomerOrdersPage';
 import { getOrdersResponse } from '../../__mocks__/mockOrders';
 import { getMealsResponse } from '../../__mocks__/mockMeal';
 import { getExtrasResponse } from '../../__mocks__/mockExtras';
@@ -36,7 +36,7 @@ describe('Customer Order Page Component Test Suite', () => {
 
   beforeEach(() => {
     props = {
-      order: orderArray,
+      orders: orderArray,
       loadMeal: jest.fn(),
       loadOrders: jest.fn(),
       updateOrder: jest.fn(),
@@ -55,7 +55,7 @@ describe('Customer Order Page Component Test Suite', () => {
     if (type === 'shallow') {
       return shallow(<CustomerOrdersPage {...props} />);
     }
-    return mount(<Provider store={store}><ConnectedCustomerOrdersPage {...props} /></Provider>, reactrouter.get());
+    // return mount(<Provider store={store}><ConnectedCustomerOrdersPage {...props} /></Provider>, reactrouter.get());
   };
 
   it('renders without crashing', () => {
@@ -238,9 +238,13 @@ describe('Customer Order Page Component Test Suite', () => {
   });
 
   it('should call the quantity changed function', () => {
+    wrapper = setup('shallow');
     wrapper.setState({
       meal: mealArray[0],
-      extraStatus: [{ isChecked: true, extra: extraArray[0], key: 1 }, { isChecked: false, extra: extraArray[0], key: 1 }],
+      extraStatus: [
+        { isChecked: true, extra: extraArray[0], key: 1 },
+        { isChecked: false, extra: extraArray[0], key: 1 },
+      ],
     });
     const handleSaveSpy = jest.spyOn(wrapper.instance(), 'onQtyChange');
     const event = {
@@ -252,6 +256,7 @@ describe('Customer Order Page Component Test Suite', () => {
   });
   
   it('should call the handle checked function', () => {
+    wrapper = setup('shallow');
     wrapper.setState({
       meal: mealArray[0],
       selectedExtras: [],
@@ -271,8 +276,9 @@ describe('Customer Order Page Component Test Suite', () => {
     expect(handleSaveSpy).toHaveBeenCalled();
     expect(wrapper.state('totalPrice')).toEqual(650);
   });
-  
+
   it('should call the handle unchecked function', () => {
+    wrapper = setup('shallow');
     wrapper.setState({
       meal: mealArray[0],
       selectedExtras: [],
@@ -293,27 +299,30 @@ describe('Customer Order Page Component Test Suite', () => {
     expect(wrapper.state('totalPrice')).toEqual(700);
   });
 
-  it('should call the extraOrdered function', () => {
-    const extraOrderedSpy = jest.spyOn(wrapper.instance(), 'extraOrdered');
-    wrapper.instance().extraOrdered(extraArray[0]);
-    expect(extraOrderedSpy).toHaveBeenCalled();
+  // mapState and dispatch were exported bcos of this test
+  it('should test mapStateToProps', () => {
+    const initialState = {
+      orderReducer: {
+        orders: [],
+        errors: {},
+        pagination: {},
+      },
+      mealReducer: {
+        meals: [],
+      },
+      authReducer: {
+        isAuthenticated: false,
+        userName: 'fola',
+      },
+    };
+    expect(mapStateToProps(initialState).userName).toEqual('fola');
   });
 
-  // mapState and dispatch were exported bcos of this test
-  // it('should test mapStateToProps', () => {
-  //   const initialState = {
-  //     orders: [],
-  //     pagination: 9,
-  //     meal: {},
-  //   };
-  //   expect(mapStateToProps(initialState).pagination).toEqual(9);
-  // });
-
-  // it('should test mapDispatchToProps', () => {
-  //   const dispatch = jest.fn();
-  //   mapDispatchToProps(dispatch).loadOrders();
-  //   expect(dispatch.mock.calls[0][0]).toEqual({ type: 'LOAD_ORDERS' });
-  // });
+  it('should test mapDispatchToProps', () => {
+    const dispatch = jest.fn();
+    mapDispatchToProps(dispatch).loadOrders();
+    // expect(dispatch.mock.calls[0][0]).toEqual({ type: 'LOAD_ORDERS' });
+  });
   // it('doesnt render clickable icon when status is not Pending', () => {
   //   wrapper.setProps({ order: orderArray[0] });
   //   expect(wrapper.find('.fa-edit')).toHaveLength(0);

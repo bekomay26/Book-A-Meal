@@ -26,6 +26,7 @@ export class CustomerOrdersPage extends Component {
       totalPrice: 0,
       visible: false,
       isDesktop: false,
+      editable: true,
     };
     this.onSave = this.onSave.bind(this);
     this.myOrder = this.myOrder.bind(this);
@@ -110,8 +111,19 @@ export class CustomerOrdersPage extends Component {
   }
 
   myOrder(currentOrder) {
+    // Determine editability
+    const moment = require('moment-timezone');
+    const currentTime = moment.tz(new Date(), 'America/Danmarkshavn');
+    const creaTime = moment.tz(currentOrder.createdAt, 'America/Danmarkshavn');
+    const timeElapsed = (moment.duration(currentTime.diff(creaTime))).asMinutes();
+    if (timeElapsed > 15) {
+      this.setState({
+        editable: false,
+      });
+    }
+
     const currMeal = this.props.meal.find(meal => meal.id === currentOrder.mealId);
-    this.setState({ meal: currMeal });
+    this.setState({ meal: currMeal, saving: false });
     this.showDrawer();
     this.setState({
       orderMeal: currentOrder.Meal,
@@ -130,9 +142,9 @@ export class CustomerOrdersPage extends Component {
       const ordered = currentOrder.extras.find(extr => extr.OrderExtra.extraId === ext.id);
       if (ordered) {
         const x = document.getElementsByClassName(`extra-${ordered.OrderExtra.extraId}`);
-        setTimeout(() => {
+        setTimeout(async () => {
           const cb = (x[0].getElementsByClassName('checkbox')[0].querySelector("input[type='checkbox']"));
-          cb.parentElement.click();
+          await cb.parentElement.click();
           x[0].getElementsByClassName('menu-modalextra-qty-grid')[0].firstChild.value = ordered.OrderExtra.quantity;
           const event = new Event('input', { bubbles: true });
           x[0].getElementsByClassName('menu-modalextra-qty-grid')[0].firstChild.dispatchEvent(event);
@@ -190,7 +202,9 @@ export class CustomerOrdersPage extends Component {
   }
 
   render() {
-    const { orders, userName } = this.props;
+    const orders2 = [...this.props.orders];
+    const orders = orders2.filter(ord => ord.Meal !== undefined);
+    const { userName } = this.props;
     const { isDesktop } = this.state;
     const { isAuthenticated } = this.props;
     if (!isAuthenticated) {
@@ -245,6 +259,7 @@ export class CustomerOrdersPage extends Component {
             onSave={this.onSave}
             onClose={this.onClose}
             saving={this.state.saving}
+            editable={this.state.editable}
             // extraOrdered={this.extraOrdered}
           />
         </Drawer>

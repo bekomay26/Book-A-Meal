@@ -60,6 +60,11 @@ const filterOrders = (filterQuery, limit = 10, offset = 0) => dispatch => (
     })
 );
 
+const saveOrderFailed = (errorMsg) => {
+  toastr.error('Unexpected', errorMsg);
+  return { type: types.CREATE_ORDER_FAILED, errorMsg };
+};
+
 const saveOrder = order => dispatch => (
   axios
     .post('api/v1/orders', order)
@@ -67,6 +72,7 @@ const saveOrder = order => dispatch => (
       dispatch(createOrderSuccess(savedOrder.data));
     })
     .catch((err) => {
+      dispatch(saveOrderFailed(err.response.data));
       throw (err);
     })
 );

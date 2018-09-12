@@ -20,6 +20,7 @@ menuRouter.route('/future')
   );
 // menuRouter.put('/:id', MenuController.update);
 // menuRouter.delete('/:id', MenuController.destroy);
+menuRouter.delete('/:id', validateHelper.validate, MenuController.deleteMenu);
 // menuRouter.route('/')
 //   .get(MenuController.retrieveAll);
 

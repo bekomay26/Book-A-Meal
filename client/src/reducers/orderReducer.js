@@ -5,7 +5,6 @@ import initialState from './initialState';
 const orderReducer = (state = initialState.orders, action) => {
   switch (action.type) {
     case types.LOAD_ORDERS_SUCCESS:
-    console.log(action.orders);
       return {
         ...state,
         orders: action.orders,
@@ -16,11 +15,7 @@ const orderReducer = (state = initialState.orders, action) => {
         ...state,
         orders: [action.order, ...state.orders.filter(order => order.id !== action.order.id)],
       };
-      // return [...state, Object.assign({}, action.order.newOrder)];
     case types.UPDATE_ORDER_SUCCESS:
-    console.log(action);
-      // return [...state.filter(order => order.id !== action.order.order.id),
-      //   Object.assign({}, action.order.order)];
       return {
         ...state,
         orders: [Object.assign({}, action.order), ...state.orders.filter(order => order.id !== action.order.id)],
@@ -31,6 +26,12 @@ const orderReducer = (state = initialState.orders, action) => {
       return {
         ...state,
         orders: [...state.orders.filter(order => order.id !== action.orderId)],
+      };
+    case types.SAVE_ORDER_FAILED:
+      return {
+        ...state,
+        orders: action.orders,
+        errors: action.errors,
       };
     default:
       return state;

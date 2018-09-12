@@ -25,7 +25,7 @@ export const MealForm = ({
     </div>
   );
   const addGoes = (
-    <div className="row" key={extraOptId + 1} data-key={extraOptId + 1}>
+    <div className="row" key={extraOptId} data-key={extraOptId}>
       <div className="col-10">
         <select onChange={selectChange} >
           {goes.map(extra => (
@@ -43,7 +43,7 @@ export const MealForm = ({
     </div>
   );
   const addTop = (
-    <div className="row" key={extraOptId + 1} data-key={extraOptId + 1}>
+    <div className="row" key={extraOptId} data-key={extraOptId}>
       <div className="col-10">
         <select onChange={selectChange}>
           {top.map(extra =>
@@ -99,6 +99,7 @@ export const MealForm = ({
               }
               <div style={{ textAlign: 'center', fontSize: '20px' }}>
                 <i
+                  id="meal-add-btn1"
                   className="far fa-plus-square"
                   onClick={() => addExtra(addGoes, 'goes')}
                   onKeyPress={() => addExtra(addTop, 'goes')}
@@ -115,6 +116,7 @@ export const MealForm = ({
               }
               <div style={{ textAlign: 'center', fontSize: '20px' }}>
                 <i
+                  id="meal-add-btn2"
                   className="far fa-plus-square"
                   onClick={() => addExtra(addTop, 'top')}
                   onKeyPress={() => addExtra(addTop, 'top')}

@@ -44,10 +44,10 @@ function mountSetup() {
 }
 
 describe('The Set Menu Meal Page', () => {
-  it('should render Set Menu Page component correctly', () => {
-    const wrapper = setup();
-    expect(toJson(wrapper)).toMatchSnapshot();
-  });
+  // it('should render Set Menu Page component correctly', () => {
+  //   const wrapper = setup();
+  //   expect(toJson(wrapper)).toMatchSnapshot();
+  // });
 
   it('should render Set Menu Page component correctly', () => {
     const wrapper = mountSetup();

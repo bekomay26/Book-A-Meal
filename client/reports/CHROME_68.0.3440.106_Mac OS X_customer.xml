@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="1">
+
+  <testsuite name="customer"
+    errors="0" failures="0" hostname="" id="" package="customer" skipped="0"
+    tests="1" time="37.04" timestamp="Thu, 13 Sep 2018 14:52:53 GMT">
+  
+    <testcase name="User should be able to see menu" classname="customer" time="37.04" assertions="14">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

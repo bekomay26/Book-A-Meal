@@ -32,10 +32,10 @@ function setup() {
 }
 
 describe('The Menu Extra Component', () => {
-  it('should render meal Extra component correctly', () => {
-    const wrapper = setup();
-    expect(toJson(wrapper)).toMatchSnapshot();
-  });
+  // it('should render meal Extra component correctly', () => {
+  //   const wrapper = setup();
+  //   expect(toJson(wrapper)).toMatchSnapshot();
+  // });
   it('should render meal Extra component correctly', () => {
     const props = {
       extra: extraArray[0],

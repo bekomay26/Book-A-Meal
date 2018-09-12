@@ -14,4 +14,5 @@ export default{
   extras: {
     extras: [],
   },
+  user: {},
 };

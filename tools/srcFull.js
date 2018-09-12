@@ -37,6 +37,9 @@ app.use('/api/v1/orders', orderRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/extras', extraRouter);
 
+// api documentation
+app.use('/api/v1/docs', express.static(path.join(__dirname, '../server/documentation')));
+
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/src/index.html'));
 });

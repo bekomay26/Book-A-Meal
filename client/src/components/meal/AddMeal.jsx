@@ -7,7 +7,7 @@ import { Form, Input, Label, Grid } from 'semantic-ui-react';
 const AddMeal = ({
   onSave, meal, onChange, selectChange, cardImgList,
   handleCardChange, imageUrl, addExtra, selected, goes,
-  top, extrasList, extrasTopList, extraOptId,
+  top, extrasList, extrasTopList, extraOptId, saving,
 }) => {
   const { Dragger } = Upload;
   const imgUpload = {
@@ -125,7 +125,7 @@ const AddMeal = ({
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Form.Button className="manage-meal-button">Add Meal</Form.Button>
+        <Form.Button loading={saving} className="manage-meal-button">Add Meal</Form.Button>
       </Form>
     </div>
   );
@@ -147,6 +147,7 @@ AddMeal.propTypes = {
   cardImgList: PropTypes.any,
   onSave: PropTypes.func.isRequired,
   imageUrl: PropTypes.any,
+  saving: PropTypes.bool.isRequired,
 };
 
 export default AddMeal;

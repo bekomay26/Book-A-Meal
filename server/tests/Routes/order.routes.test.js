@@ -3,7 +3,8 @@ import request from 'supertest';
 import app from '../../app';
 import token from '../../helpers/testToken';
 
-const adminToken = token.adminToken();
+// const adminToken = token.adminToken();
+const adminToken = token.adminGenToken();
 
 /* global it, describe */
 describe('/POST order', () => {
@@ -38,25 +39,44 @@ describe('/POST order', () => {
       });
   });
 
-  // Failing bcos of the request decoded id
-  // it('it should POST an order', (done) => {
-  //   const id =
-  //   {
-  //     mealId: 1,
-  //     extraIds: [3, 2],
-  //     qtys: [2],
-  //     address: 'fdbhxjvhxvmxhvhxvhxvhxv',
-  //   };
-  //   request(app)
-  //     .post('/api/v1/orders')
-  //     .set('x-access-token', adminToken)
-  //     .send(id)
-  //     .end((err, res) => {
-  //       expect(res.statusCode).to.equal(201);
-  //       expect(res.body.message).to.equal('Order created');
-  //       done();
-  //     });
-  // });
+  it('it should POST an order', (done) => {
+    const id =
+    {
+      mealId: 1,
+      extraIds: [3, 2],
+      qtys: [2],
+      address: 'fdbhxjvhxvmxhvhxvhxvhxv',
+    };
+    request(app)
+      .post('/api/v1/orders')
+      .set('x-access-token', adminToken)
+      .send(id)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.message).to.equal('Order created');
+        done();
+      });
+  });
+
+  it('it should POST an order if there are no extras', (done) => {
+    const id =
+    {
+      mealId: 1,
+      extraIds: [],
+      qtys: [],
+      address: 'fdbhxjvhxvmxhvhxvhxvhxv',
+    };
+    request(app)
+      .post('/api/v1/orders')
+      .set('x-access-token', adminToken)
+      .send(id)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.message).to.equal('Order created');
+        done();
+      });
+  });
+
   it('it should return a 404 error', (done) => {
     const id = {
       mealId: 9,
@@ -140,6 +160,50 @@ describe('/PUT order', () => {
         done();
       });
   });
+  it('it should update order status', (done) => {
+    const order = {
+      status: 'Completed',
+    };
+    request(app)
+      .put('/api/v1/orders/status/1')
+      .set('x-access-token', adminToken)
+      .send(order)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('Order Status Updated');
+        done();
+      });
+  });
+
+  it('it should not update order status due to invalid status', (done) => {
+    const order = {
+      status: 'Finished',
+    };
+    request(app)
+      .put('/api/v1/orders/status/1')
+      .set('x-access-token', adminToken)
+      .send(order)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(422);
+        expect(res.body.message).to.equal('Invalid status');
+        done();
+      });
+  });
+
+  it('it should not update a non existing order', (done) => {
+    const order = {
+      status: 'Completed',
+    };
+    request(app)
+      .put('/api/v1/orders/status/99')
+      .set('x-access-token', adminToken)
+      .send(order)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body.message).to.equal('Cannot find order with id 99');
+        done();
+      });
+  });
   // To cover the branch on line 56 of controller
   it('it should edit the order if extras is not given', (done) => {
     const meal = {
@@ -180,6 +244,39 @@ describe('/GET orders', () => {
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
         expect(res.body.message).to.equal('Orders retrieved');
+        done();
+      });
+  });
+  it('it should return a 200 status', (done) => {
+    request(app)
+      .get('/api/v1/orders')
+      .set('x-access-token', token.userToken())
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.message).to.equal('My Orders retrieved');
+        done();
+      });
+  });
+});
+
+describe('/GET filter orders', () => {
+  it('it should return a 422 status', (done) => {
+    request(app)
+      .get('/api/v1/orders/filter?statuses=Pending&fromDate=2019-30-01&toDate=9808')
+      .set('x-access-token', token.adminToken())
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(422);
+        expect(res.body.message).to.equal('Input a valid date');
+        done();
+      });
+  });
+  it('it should return a 422 status', (done) => {
+    request(app)
+      .get('/api/v1/orders/filter?fromDate=11-11-2017&toDate=2019-30-01')
+      .set('x-access-token', token.adminToken())
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(422);
+        expect(res.body.message).to.equal('Input a valid date');
         done();
       });
   });

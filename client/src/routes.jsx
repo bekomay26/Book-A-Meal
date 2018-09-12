@@ -23,6 +23,7 @@ const routes = (
       <Route exact path="/meals" component={ManageMealPage} />
       <Route exact path="/login" component={AuthPage} />
       <Route exact path="/unauthorized" component={Unauthorized} />
+      <Route path="/api/v1" />
       <Route exact path="/*" component={PageNotFound} />
     </Switch>
   </div>

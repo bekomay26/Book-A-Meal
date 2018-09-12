@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
 import '../../assets/styles/mm.css';
 
 const MealRow = ({
@@ -14,12 +13,22 @@ const MealRow = ({
     onTop = mealOnTop(meal.extras);
   }
   let extraOptIdn = 0;
+  
+  // already added Extras for the meal
   const xtraItem = (extraTitle, type) => {
     extraOptIdn += 1;
     return (
       <div key={extraOptIdn - 1} data-key={extraOptIdn - 1}>
         <div className="col-10">{extraTitle}</div>
-        <div className="col-2"><i onClick={(event) => selected(event, type)} className="fas fa-minus extra-minus" role='button' /></div>
+        <div className="col-2">
+          <i
+            onClick={(event) => selected(event, type)}
+            onKeyPress={(event) => selected(event, type)}
+            tabIndex="0"
+            className="fas fa-minus extra-minus"
+            role="button"
+          />
+        </div>
       </div>
     );
   };
@@ -44,10 +53,10 @@ const MealRow = ({
 
 MealRow.propTypes = {
   meal: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    id: PropTypes.number,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    price: PropTypes.number,
   })
     .isRequired,
   selectMealEditBtn: PropTypes.func.isRequired,

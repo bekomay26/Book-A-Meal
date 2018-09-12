@@ -84,13 +84,16 @@ export class AdminOrdersPage extends Component {
     const { order } = titleProps;
     const { activeIndex } = this.state;
     const newIndex = activeIndex === index ? -1 : index;
+    // console.log(order);
     this.setState({ activeIndex: newIndex, order });
+    // console.log(this.state.order);
   }
 
   updateOrderStatus() {
     const { order } = this.state;
     order.status = 'Completed';
     this.setState({ order });
+    // console.log(order);
     this.props.updateOrder(this.state.order);
   }
 
@@ -121,6 +124,7 @@ export class AdminOrdersPage extends Component {
   }
 
   renderCompleteButton(order) {
+    // console.log(order);
     const completeButton = (<div className="admin-order-compl-btn"><Button content="Complete Order" color="green" onClick={this.updateOrderStatus} /></div>);
     if (order.status === 'Pending') {
       return completeButton;

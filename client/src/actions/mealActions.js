@@ -39,6 +39,11 @@ const loadMeal = (limit = 10, offset = 0) => dispatch => (
     })
 );
 
+const saveMealFailed = (errorMsg) => {
+  toastr.error('Unexpected', errorMsg.message);
+  return { type: types.CREATE_ORDER_FAILED, errorMsg };
+};
+
 const saveMeal = meal => (dispatch) => {
   const formData = new FormData();
   formData.set('title', meal.title);
@@ -54,7 +59,8 @@ const saveMeal = meal => (dispatch) => {
       dispatch(createMealSuccess(savedMeal.data));
     })
     .catch((err) => {
-      throw (err);
+      dispatch(saveMealFailed(err.response.data));
+      // throw (err);
     });
 };
 

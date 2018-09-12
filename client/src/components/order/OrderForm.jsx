@@ -6,17 +6,28 @@ import OrderExtra from './OrderExtra';
 
 const OrderForm = ({
   meal, orderedMeal, goesWith, extras, onQtyChange, extraStatus,
-  handleChecked, totalMealPrice, onSave, saving,
+  handleChecked, totalMealPrice, onSave, saving, editable,
 }) => {
   const goes = goesWith(meal.extras);
   const goesLength = goes.length;
   const extr = extras(meal.extras);
   const extrLength = extr.length;
+  let mealPrice = totalMealPrice;
+  let orderBtnVisibility = 'show-menu-extra';
   let extrVisibility = 'show-menu-extra';
   if (extrLength === 0) {
     extrVisibility = 'hide-menu-extra';
   }
-
+  if (editable) {
+    mealPrice = totalMealPrice;
+  } else {
+    orderBtnVisibility = 'hide-menu-extra';
+    extraStatus.forEach((ext) => {
+      if (ext.price) {
+        mealPrice += ext.price;
+      }
+    });
+  }
   return (
     <div id="modal-container">
       <Form loading={false} className="menu-page-form" onSubmit={onSave}>
@@ -44,6 +55,7 @@ const OrderForm = ({
                 data-key={extra.id}
                 handleChecked={handleChecked}
                 indexKey={index}
+                editable={editable}
                 // extraOrdered={extraOrdered}
               />))
             }
@@ -63,15 +75,17 @@ const OrderForm = ({
                 data-key={extra.id}
                 handleChecked={handleChecked}
                 indexKey={index + goesLength}
+                editable={editable}
               />))
             }
           </div>
           <div className="pricetotal row">
             <h4 className="col-9">Total Price</h4>
-            <h4 className="col-3 foodprice">&#x20A6;{totalMealPrice}</h4>
+            {/* <h4 className="col-3 foodprice">&#x20A6;{totalMealPrice}</h4> */}
+            <h4 className="col-3 foodprice">&#x20A6;{mealPrice}</h4>
           </div>
         </div>
-        <Form.Button loading={saving} className="orderButton " content={saving ? 'ordering' : 'order'} disabled={saving} />
+        <Form.Button className={`${orderBtnVisibility} orderButton`} loading={saving} content={saving ? 'ordering' : 'order'} disabled={saving} />
 
       </Form>
     </div>);
@@ -88,6 +102,7 @@ OrderForm.propTypes = {
   handleChecked: PropTypes.func.isRequired,
   totalMealPrice: PropTypes.number.isRequired,
   saving: PropTypes.bool.isRequired,
+  editable: PropTypes.bool.isRequired,
   extraStatus: PropTypes.array.isRequired,
 };
 

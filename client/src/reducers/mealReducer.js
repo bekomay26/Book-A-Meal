@@ -26,6 +26,12 @@ const mealReducer = (state = initialState.meals, action) => {
         ...state,
         meals: [...state.meals.filter(meal => meal.id !== action.mealId)],
       };
+    case types.CREATE_MEAL_FAILED:
+      return {
+        ...state,
+        meals: action.meals,
+        errors: action.errors,
+      };
     default:
       return state;
   }
